@@ -381,25 +381,26 @@
             </div>
             <div class="contato-campo contato-campo-convidados">
               <label for="contato-convidados">Convidados</label>
-              <input id="contato-convidados" name="convidados" type="number" inputmode="numeric" min="10" step="1" required data-mensagem="{convidados}" aria-describedby="contato-convidados-ajuda">
-              <p class="contato-ajuda" id="contato-convidados-ajuda" data-erro="Informe pelo menos 10 convidados."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite">Número aproximado.</span></p>
+              <input id="contato-convidados" name="convidados" type="number" inputmode="numeric" min="10" step="1" placeholder="Número aproximado" required data-mensagem="{convidados}" aria-describedby="contato-convidados-ajuda">
+              <p class="contato-ajuda" id="contato-convidados-ajuda" data-erro="Informe pelo menos 10 convidados."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
             </div>
             <div class="contato-campo contato-campo-cidade">
               <label for="contato-cidade">Cidade</label>
-              <input id="contato-cidade" name="cidade" type="text" autocomplete="address-level2" required data-mensagem="{cidade}" aria-describedby="contato-cidade-ajuda">
+              <input id="contato-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Ex.: Encantado" required data-mensagem="{cidade}" aria-describedby="contato-cidade-ajuda">
               <p class="contato-ajuda" id="contato-cidade-ajuda" data-erro="Informe a cidade do evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
             </div>
-            <!-- OPCIONAIS: NUNCA TÊM ERRO, POR ISSO SEM DICA (O LEGEND DIZ QUE SÃO OPCIONAIS) -->
+            <!-- OPCIONAIS: O LEGEND DIZ QUE SÃO OPCIONAIS; A DICA FICA VAZIA SÓ PARA RESERVAR A LINHA (RITMO IGUAL AOS OUTROS) -->
             <fieldset class="contato-opcionais">
               <legend class="metadado">Opcional · se já estiver definido</legend>
               <div class="contato-campo contato-campo-local">
                 <label for="contato-local">Local</label>
-                <input id="contato-local" name="local" type="text" autocomplete="off" placeholder="Ex.: Clube Comercial Encantado" data-mensagem="{local}" data-frase="Local: {valor}." data-frase-vazia="O local ainda não está definido.">
+                <input id="contato-local" name="local" type="text" autocomplete="off" placeholder="Ex.: Clube Comercial Encantado" data-mensagem="{local}" data-frase="Local: {valor}." data-frase-vazia="O local ainda não está definido." aria-describedby="contato-local-ajuda">
+                <p class="contato-ajuda" id="contato-local-ajuda"><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
               </div>
               <div class="contato-campo contato-campo-gastronomia">
                 <label for="contato-gastronomia">Formato da gastronomia</label>
                 <div class="contato-select">
-                  <select id="contato-gastronomia" name="gastronomia" data-mensagem="{gastronomia}" data-frase="Gastronomia: {valor}.">
+                  <select id="contato-gastronomia" name="gastronomia" data-mensagem="{gastronomia}" data-frase="Gastronomia: {valor}." aria-describedby="contato-gastronomia-ajuda">
                     <option value="" selected>Ainda não definido</option>
                     <option value="Buffet" data-frase="buffet">Buffet</option>
                     <option value="Volantes" data-frase="volantes">Volantes</option>
@@ -408,6 +409,7 @@
                   </select>
                   <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
                 </div>
+                <p class="contato-ajuda" id="contato-gastronomia-ajuda"><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
               </div>
             </fieldset>
           </div>

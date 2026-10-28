@@ -30,24 +30,21 @@
   gap: 32px;
 }
 
-/* === OPCIONAIS (LOCAL + GASTRONOMIA): LINHA INTEIRA, HAIRLINE E LEGEND EM CIMA, GRADE PRÓPRIA === */
-/* MIN-WIDTH 0: O FIELDSET TEM MIN-CONTENT POR PADRÃO E ESTICARIA A GRADE */
+/* === OPCIONAIS (LOCAL + GASTRONOMIA): LINHA INTEIRA, LEGEND EM CIMA, MESMO RITMO DOS OUTROS CAMPOS === */
+/* SEM MARGEM PRÓPRIA: O LEGEND FICA A UM GAP DA CIDADE, COMO OS CAMPOS ENTRE SI. MIN-WIDTH 0: O FIELDSET TEM MIN-CONTENT POR PADRÃO */
 .contato-opcionais {
   grid-column: 1 / -1;
   display: grid;
   gap: 32px;
   min-width: 0;
-  margin: 40px 0 0;
+  margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* A HAIRLINE FICA NO LEGEND (NO FIELDSET, O LEGEND CAIRIA EM CIMA DA BORDA) */
 .contato-opcionais legend {
-  width: 100%;
-  margin-bottom: 24px;
-  padding: 24px 0 0;
-  border-top: 1px solid var(--color-linha);
+  margin-bottom: 16px;
+  padding: 0;
   color: var(--color-texto-2);
 }
 
@@ -219,6 +216,8 @@
     gap: 24px 32px;
   }
 
+  .contato-opcionais { gap: 24px; }
+
   .contato-campo-nome,
   .contato-campo-cidade { grid-column: 1 / -1; }
 
@@ -233,8 +232,6 @@
   }
 
   .contato-intro { margin-top: 24px; }
-
-  .contato-opcionais { margin-top: 56px; }
 }
 
 /* === HOVER (SÓ MOUSE) === */
