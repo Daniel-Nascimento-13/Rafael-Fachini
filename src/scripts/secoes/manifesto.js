@@ -3,10 +3,11 @@
    ======================= */
 
 import { reduzirMovimento } from '../utils/movimento.js';
-import { revelar } from '../utils/revelar.js';
+import { revelarEmSequencia } from '../utils/revelar.js';
 
-/* SÓ O BLOCO INTEIRO REVELA (SEM DIVISÃO POR LINHA) */
+/* RÓTULO, TEXTO E APOIO EM SEQUÊNCIA (SEM DIVISÃO POR LINHA) */
 export function iniciarManifesto(secao) {
   if (reduzirMovimento) return;
-  revelar(secao.querySelector('.manifesto-conteudo'));
+  const conteudo = secao.querySelector('.manifesto-conteudo');
+  revelarEmSequencia(conteudo.querySelectorAll('.rotulo, .manifesto-texto, .manifesto-apoio'), conteudo);
 }

@@ -15,15 +15,32 @@
 
 .manifesto-texto em { font-style: italic; }
 
+.manifesto-apoio {
+  margin-top: 24px;
+  max-width: 52ch;
+  color: var(--color-texto-2);
+  text-wrap: pretty;
+}
+
 /* === RESPONSIVIDADE === */
-/* 900PX+: RÓTULO NA COLUNA 1, TEXTO NOS 2/3 (O H2 OCULTO É ABSOLUTO E FICA FORA DO GRID) */
+/* 600PX+: CADA FRASE NA SUA LINHA (NO LUGAR DE UM <BR>, QUE QUEBRARIA TAMBÉM NO MOBILE) */
+@media (min-width: 600px) {
+  .manifesto-frase { display: block; }
+}
+
+/* 900PX+: RÓTULO NA COLUNA 1, TEXTO E APOIO NOS 2/3 (O H2 OCULTO É ABSOLUTO E FICA FORA DO GRID) */
 @media (min-width: 900px) {
   .manifesto-conteudo {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 48px;
+    column-gap: 48px;
     align-items: start;
   }
 
   .manifesto-texto { margin-top: 0; }
+
+  .manifesto-apoio {
+    grid-column: 2;
+    margin-top: 32px;
+  }
 }
