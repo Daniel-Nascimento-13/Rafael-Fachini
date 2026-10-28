@@ -8,6 +8,6 @@ import { revelar, revelarEmSequencia } from '../utils/revelar.js';
 export function iniciarPortfolio(secao) {
   if (reduzirMovimento) return;
 
-  revelar(secao.querySelectorAll('.secao-topo .rotulo, .secao-topo h2'));
+  revelar(secao.querySelectorAll('.secao-topo .rotulo, .secao-topo h2, .secao-topo-texto'));
   revelarEmSequencia(secao.querySelectorAll('.portfolio-item, .portfolio-mais'), secao.querySelector('.portfolio-grade'));
 }
