@@ -84,6 +84,12 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - [ ] Hero: `/videos/hero.mp4` e `/imagens/hero/hero-poster.jpg`.
 - [ ] Serviços 01 (`/imagens/servicos/producao-*`): alt genérico "Produção de um evento realizado por Rafael Fachini".
 - [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
+- [ ] Portfólio (home), 6 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `aniversario-1`, `infantil-1`, `corporativo-1`, `casamento-2`): alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini") e `[CIDADE]` nas legendas. O destaque (`casamento-1`) é 4:5 (1600×2000); os outros 3:4 (1600×2133). Se a proporção real mudar, recalcule o `sizes`.
+
+### Portfólio (home)
+- Mobile (até 599px): trilho horizontal com scroll-snap, só CSS (`flex: 0 0 82%`, sangra até a borda com margem negativa do respiro, `tabindex="0"` + `aria-label` no `<ul>`), todos os itens 4:5. A partir de 600px: grade de 2 → 3 colunas. Em 600–899 todos 3:4 (linha alinhada) e a partir de 900 ocupa **2 colunas × 2 linhas** (os 6 itens fecham a grade 3×3 sem buraco). Nessa faixa a moldura não tem `aspect-ratio`: a altura vem dos vizinhos e a foto é absoluta (`cover`).
+- `sizes` do destaque (moldura medida no Chrome; a foto 4:5 é desenhada mais larga que a moldura de ~0,73): `(min-width: 1440px) 974px, (min-width: 900px) calc(71.1vw - 50px), (min-width: 600px) calc(53.34vw - 46px), calc(82vw - 32px)`. Demais: `(min-width: 1440px) 427px, (min-width: 900px) calc(33.34vw - 53px), (min-width: 600px) calc(50vw - 44px), calc(82vw - 32px)`.
+- Hover só mouse: `scale(1.03)` na foto, 1.2s `cubic-bezier(0.22, 1, 0.36, 1)`.
 
 ## Tokens (`@layer theme` em main.css)
 Só preto, branco e cinzas: nenhuma cor de matiz.

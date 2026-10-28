@@ -1,0 +1,100 @@
+/* =======================
+   PORTFÓLIO
+   ======================= */
+
+/* === TRILHO NO MOBILE (SCROLL-SNAP NATIVO, SEM JS) === */
+/* SANGRA ATÉ A BORDA: MARGEM NEGATIVA DO RESPIRO + PADDING DE VOLTA (O SCROLL FICA DENTRO DO TRILHO) */
+.portfolio-grade {
+  display: flex;
+  gap: 16px;
+  margin-inline: calc(var(--respiro) * -1);
+  padding-inline: var(--respiro);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--respiro);
+  scrollbar-width: none;
+}
+
+.portfolio-grade::-webkit-scrollbar { display: none; }
+
+/* FOCO DO TRILHO PARA DENTRO: POR FORA, O CONTORNO SAIRIA DA TELA */
+.portfolio-grade:focus-visible { outline-offset: -2px; }
+
+.portfolio-item {
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+}
+
+.portfolio-figura {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+/* MOLDURA FIXA (4:5 NO MOBILE, 3:4 A PARTIR DE 600); PLACEHOLDER NO TOM DO FUNDO (A SEÇÃO É SUPERFÍCIE) */
+.portfolio-foto {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-fundo);
+}
+
+.portfolio-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--foco, 50% 50%);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* === RESPONSIVIDADE === */
+/* 600PX+: VOLTA A SER GRADE (2 COLUNAS), SEM TRILHO */
+@media (min-width: 600px) {
+  .portfolio-grade {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 24px;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .portfolio-foto { aspect-ratio: 3 / 4; }
+}
+
+/* 900PX+: DESTAQUE EM 2 COLUNAS × 2 LINHAS (6 ITENS FECHAM A GRADE 3×3 SEM BURACO) */
+/* A ALTURA VEM DOS ITENS VIZINHOS: A FOTO PREENCHE O ESPAÇO (ABSOLUTA, SEM EMPURRAR AS LINHAS) */
+@media (min-width: 900px) {
+  .portfolio-grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px 32px;
+  }
+
+  .portfolio-item-destaque {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .portfolio-item-destaque .portfolio-foto {
+    position: relative;
+    flex: 1;
+    aspect-ratio: auto;
+  }
+
+  .portfolio-item-destaque .portfolio-foto img {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-figura:hover .portfolio-foto img { transform: scale(1.03); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-foto img { transition: none; }
+}
