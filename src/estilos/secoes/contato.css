@@ -1,0 +1,215 @@
+/* =======================
+   CONTATO
+   ======================= */
+
+/* === LAYOUT (EMPILHADO → TEXTO | FORMULÁRIO A PARTIR DE 900PX) === */
+.contato-grade {
+  display: grid;
+  gap: 56px;
+}
+
+.contato-intro {
+  max-width: 40ch;
+  margin-top: 20px;
+}
+
+.contato-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin-top: 24px;
+}
+
+/* =======================
+   FORMULÁRIO
+   ======================= */
+
+/* === GRADE DOS CAMPOS (NOME | SERVIÇO + TIPO | DATA + CONVIDADOS | CIDADE) === */
+.contato-campos {
+  display: grid;
+  gap: 24px;
+}
+
+.contato-campo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contato-campo label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-texto-2);
+}
+
+/* === CAMPO SEM CAIXA, SÓ BORDA INFERIOR === */
+/* 16PX: O IOS NÃO DÁ ZOOM NO FOCO; BOX-SHADOW NO ERRO (SEM MUDAR A ALTURA) */
+.contato-campo input,
+.contato-campo select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-linha-forte);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-texto);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-texto);
+  appearance: none;
+  transition: border-color 0.4s ease;
+}
+
+/* DATE: SEM O ESTILO NATIVO, CONTEÚDO À ESQUERDA (SAFARI CENTRALIZA) */
+.contato-campo input[type="date"] {
+  display: block;
+  text-align: left;
+}
+
+/* === PLACEHOLDER DA DATA ("ESCOLHA A DATA", COMO O "ESCOLHA" DOS SELECTS) === */
+/* VAZIA E SEM FOCO: O SPAN APARECE E O EDITOR NATIVO FICA TRANSPARENTE */
+/* :INVALID:IN-RANGE = SÓ A VAZIA (DATA NO PASSADO É :OUT-OF-RANGE E CONTINUA VISÍVEL COM O ERRO) */
+/* O SAFARI NÃO MOSTRA PLACEHOLDER EM DATE; POINTER-EVENTS NONE: O TOQUE CHEGA AO INPUT */
+.contato-data { position: relative; }
+
+.contato-data-vazia {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 16px;
+  color: var(--color-texto-3);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.contato-campo input[type="date"]:invalid:in-range:not(:focus) + .contato-data-vazia { display: block; }
+
+.contato-campo input[type="date"]:invalid:in-range:not(:focus)::-webkit-datetime-edit { color: transparent; }
+
+.contato-campo input[type="date"]::-webkit-date-and-time-value {
+  margin: 0;
+  text-align: left;
+}
+
+/* NUMBER SEM AS SETINHAS */
+.contato-campo input[type="number"] { -moz-appearance: textfield; }
+
+.contato-campo input[type="number"]::-webkit-inner-spin-button,
+.contato-campo input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+/* === SELECT COM SETA PRÓPRIA === */
+.contato-select { position: relative; }
+
+.contato-select select {
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+/* OPÇÃO VAZIA (DISABLED) = PLACEHOLDER: SELECT INVÁLIDO ENQUANTO NADA FOI ESCOLHIDO */
+.contato-select select:invalid { color: var(--color-texto-3); }
+
+.contato-select option {
+  color: var(--color-texto);
+  background: var(--color-fundo);
+}
+
+.contato-seta {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  color: var(--color-texto-2);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* === FOCO === */
+/* MOUSE/TOQUE: SÓ A BORDA INFERIOR. CONTORNO SÓ NO TECLADO (NO CHROME, INPUT CASA :FOCUS-VISIBLE ATÉ NO CLIQUE) */
+.contato-campo input:focus,
+.contato-campo select:focus {
+  outline: none;
+  border-bottom-color: var(--color-texto);
+}
+
+.usando-teclado .contato-campo input:focus-visible,
+.usando-teclado .contato-campo select:focus-visible {
+  outline: 2px solid var(--color-acento-claro);
+  outline-offset: 4px;
+}
+
+/* === DICA E ERRO (SEM COR: ESPESSURA + ÍCONE + TEXTO) === */
+/* MIN-HEIGHT: A DICA VAZIA JÁ RESERVA A LINHA, O ERRO NÃO EMPURRA O LAYOUT */
+.contato-ajuda {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 1.5em;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-texto-3);
+}
+
+.contato-alerta {
+  display: none;
+  flex-shrink: 0;
+}
+
+.contato-campo [aria-invalid="true"] {
+  border-bottom-color: var(--color-acento-claro);
+  box-shadow: 0 1px 0 var(--color-acento-claro);
+}
+
+.contato-ajuda-erro { color: var(--color-texto); }
+
+.contato-ajuda-erro .contato-alerta { display: block; }
+
+/* === ENVIO === */
+.contato-enviar {
+  width: 100%;
+  margin-top: 32px;
+}
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .contato-campos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 32px;
+  }
+
+  .contato-campo-nome,
+  .contato-campo-cidade { grid-column: 1 / -1; }
+
+  .contato-enviar { width: auto; }
+}
+
+@media (min-width: 900px) {
+  .contato-grade {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contato-intro { margin-top: 24px; }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .contato-campo input:hover:not(:focus),
+  .contato-campo select:hover:not(:focus) { border-bottom-color: var(--color-texto-2); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .contato-campo input,
+  .contato-campo select { transition: none; }
+}

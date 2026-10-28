@@ -1,0 +1,89 @@
+/* =======================
+   RODAPÉ
+   ======================= */
+
+.rodape { padding-block: 72px 32px; }
+
+/* === MARCA E LINKS (EMPILHADOS → LADO A LADO A PARTIR DE 900PX) === */
+.rodape-grade {
+  display: grid;
+  gap: 48px;
+}
+
+.rodape-wordmark {
+  font-family: var(--font-titulo);
+  font-size: 32px;
+  line-height: 1;
+  color: var(--color-texto);
+}
+
+.rodape-descricao {
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.rodape-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.rodape-lista a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  color: var(--color-texto-2);
+  transition: color 0.4s ease;
+}
+
+/* === LINHA FINAL (© E CRÉDITO) === */
+.rodape-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.rodape-base a {
+  color: var(--color-texto-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-linha-forte);
+  text-underline-offset: 4px;
+  transition: color 0.4s ease;
+}
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 900px) {
+  .rodape { padding-block: 96px 40px; }
+
+  .rodape-grade {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 64px;
+  }
+
+  .rodape-wordmark { font-size: 40px; }
+
+  .rodape-nav {
+    grid-template-columns: repeat(2, auto);
+    column-gap: 96px;
+  }
+
+  .rodape-base { margin-top: 80px; }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .rodape-lista a:hover,
+  .rodape-base a:hover { color: var(--color-texto); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .rodape-lista a,
+  .rodape-base a { transition: none; }
+}

@@ -244,7 +244,113 @@
       </div>
     </section>
 
+    <!-- === CONTATO === -->
+    <section class="contato secao fundo-base" id="contato" aria-labelledby="contato-titulo">
+      <div class="envoltorio contato-grade">
+        <div class="contato-texto">
+          <p class="rotulo">Contato</p>
+          <h2 id="contato-titulo">Vamos conversar sobre <em>o seu evento?</em></h2>
+          <p class="texto-intro contato-intro">Preencha e a mensagem abre pronta no WhatsApp.</p>
+          <ul class="contato-links">
+            <li><a class="link-secao" href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp direto →</a></li>
+            <li><a class="link-secao" href="[URL_INSTAGRAM]" target="_blank" rel="noopener">Instagram →</a></li>
+          </ul>
+        </div>
+
+        <form class="contato-form" novalidate data-whatsapp="[WHATSAPP_DDI_DDD_NUMERO]" data-mensagem="Olá, Rafael! Sou {nome} e estou planejando {tipo} para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?">
+          <div class="contato-campos">
+            <div class="contato-campo contato-campo-nome">
+              <label for="contato-nome">Nome</label>
+              <input id="contato-nome" name="nome" type="text" autocomplete="name" required data-mensagem="{nome}" aria-describedby="contato-nome-ajuda">
+              <p class="contato-ajuda" id="contato-nome-ajuda" data-erro="Informe seu nome."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            </div>
+            <div class="contato-campo contato-campo-servico">
+              <label for="contato-servico">Serviço</label>
+              <div class="contato-select">
+                <select id="contato-servico" name="servico" required data-mensagem="{servico}" aria-describedby="contato-servico-ajuda">
+                  <option value="" disabled selected>Escolha</option>
+                  <option value="Produção do evento" data-frase="na produção do evento">Produção do evento</option>
+                  <option value="Decoração" data-frase="na decoração">Decoração</option>
+                  <option value="Produção e decoração" data-frase="na produção e na decoração">Produção e decoração</option>
+                </select>
+                <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
+              </div>
+              <p class="contato-ajuda" id="contato-servico-ajuda" data-erro="Escolha o serviço."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            </div>
+            <div class="contato-campo contato-campo-tipo">
+              <label for="contato-tipo">Tipo de evento</label>
+              <div class="contato-select">
+                <select id="contato-tipo" name="tipo" required data-mensagem="{tipo}" aria-describedby="contato-tipo-ajuda">
+                  <option value="" disabled selected>Escolha</option>
+                  <option value="Casamento" data-frase="um casamento">Casamento</option>
+                  <option value="Aniversário" data-frase="um aniversário">Aniversário</option>
+                  <option value="Formatura" data-frase="uma formatura">Formatura</option>
+                  <option value="Infantil" data-frase="uma festa infantil">Infantil</option>
+                  <option value="Corporativo" data-frase="um evento corporativo">Corporativo</option>
+                </select>
+                <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
+              </div>
+              <p class="contato-ajuda" id="contato-tipo-ajuda" data-erro="Escolha o tipo de evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            </div>
+            <div class="contato-campo contato-campo-data">
+              <label for="contato-data">Data</label>
+              <div class="contato-data">
+                <input id="contato-data" name="data" type="date" required data-mensagem="{data}" aria-describedby="contato-data-ajuda">
+                <span class="contato-data-vazia" aria-hidden="true">Escolha a data</span>
+              </div>
+              <p class="contato-ajuda" id="contato-data-ajuda" data-erro="Escolha uma data a partir de hoje."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            </div>
+            <div class="contato-campo contato-campo-convidados">
+              <label for="contato-convidados">Convidados</label>
+              <input id="contato-convidados" name="convidados" type="number" inputmode="numeric" min="10" step="1" required data-mensagem="{convidados}" aria-describedby="contato-convidados-ajuda">
+              <p class="contato-ajuda" id="contato-convidados-ajuda" data-erro="Informe pelo menos 10 convidados."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite">Número aproximado.</span></p>
+            </div>
+            <div class="contato-campo contato-campo-cidade">
+              <label for="contato-cidade">Cidade</label>
+              <input id="contato-cidade" name="cidade" type="text" autocomplete="address-level2" required data-mensagem="{cidade}" aria-describedby="contato-cidade-ajuda">
+              <p class="contato-ajuda" id="contato-cidade-ajuda" data-erro="Informe a cidade do evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            </div>
+          </div>
+
+          <button class="botao botao-primario contato-enviar" type="submit">Enviar pelo WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
   </main>
+
+  <!-- =======================
+       RODAPÉ
+       ======================= -->
+
+  <footer class="rodape fundo-superficie">
+    <div class="envoltorio">
+      <div class="rodape-grade">
+        <div class="rodape-marca">
+          <p class="rodape-wordmark">Rafael Fachini</p>
+          <p class="rodape-descricao">Decoração e produção de eventos · todo o RS</p>
+        </div>
+
+        <nav class="rodape-nav" aria-label="Rodapé">
+          <ul class="rodape-lista">
+            <li><a href="/#servicos">Serviços</a></li>
+            <li><a href="/#portfolio">Portfólio</a></li>
+            <li><a href="/#processo">Como funciona</a></li>
+          </ul>
+          <ul class="rodape-lista">
+            <li><a href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="[URL_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="#" data-topo>Voltar ao topo ↑</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="rodape-base metadado">
+        <p>© <span data-ano-atual>2026</span> Rafael Fachini Decorações</p>
+        <p>Site por <a href="[URL_PIXELCODE]" target="_blank" rel="noopener">PixelCode</a></p>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/main.js"></script>
 </body>

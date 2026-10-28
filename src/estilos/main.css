@@ -17,6 +17,8 @@
 @import "./secoes/servicos.css" layer(components);
 @import "./secoes/portfolio.css" layer(components);
 @import "./secoes/processo.css" layer(components);
+@import "./secoes/contato.css" layer(components);
+@import "./secoes/rodape.css" layer(components);
 
 /* === TOKENS === */
 /* SÓ PRETO, BRANCO E CINZAS: NENHUMA COR DE MATIZ */

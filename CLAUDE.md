@@ -49,9 +49,9 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 
 | servico | data-frase |
 |---|---|
-| Produção do evento | a produção do evento |
-| Decoração | a decoração |
-| Produção e decoração | a produção e a decoração |
+| Produção do evento | na produção do evento |
+| Decoração | na decoração |
+| Produção e decoração | na produção e na decoração |
 
 | tipo | data-frase |
 |---|---|
@@ -61,7 +61,7 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 | Infantil | uma festa infantil |
 | Corporativo | um evento corporativo |
 
-`data-mensagem`: "Olá, Rafael! Sou {nome} e estou planejando {tipo} para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse em {servico}. Podemos conversar?"
+`data-mensagem`: "Olá, Rafael! Sou {nome} e estou planejando {tipo} para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?" (o "na" vem da `data-frase`: "Tenho interesse na decoração.")
 
 ### Depoimentos
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.
