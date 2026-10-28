@@ -29,6 +29,20 @@ ul, ol { list-style: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { background: none; border: 0; cursor: pointer; }
 
+/* === FOTO AUSENTE OU QUEBRADA === */
+/* SÓ IMAGEM QUEBRADA RENDERIZA ::AFTER: COBRE ÍCONE E ALT COM A COR DO PLACEHOLDER (FUNDO DO <PICTURE>) */
+picture img {
+  position: relative;
+  background: inherit;
+}
+
+picture img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+}
+
 /* === SELEÇÃO === */
 ::selection {
   background: var(--color-texto);

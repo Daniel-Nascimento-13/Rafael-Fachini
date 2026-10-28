@@ -72,6 +72,19 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 - Title da home: "Rafael Fachini Decorações · Decoração e produção de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
 - JSON-LD `LocalBusiness`, `areaServed` = `{ "@type": "State", "name": "Rio Grande do Sul" }`, endereço com a cidade-base (pendente), `sameAs` com o Instagram (pendente).
 
+## Imagens (substitui o -500/-1000 da spec)
+- Cada foto em 4 arquivos: `<nome>-800.webp`, `<nome>-1600.webp`, `<nome>-800.jpg`, `<nome>-1600.jpg`, em `/imagens/<secao>/`.
+- `<picture>` com `<source type="image/webp" srcset="...-800.webp 800w, ...-1600.webp 1600w">` + `<img>` JPG com o mesmo srcset; `width`/`height` reais do arquivo -1600.
+- `sizes` = largura real desenhada da foto em cada faixa do layout (até 599 / 600 / 900 / 1440+), considerando o respiro do `.envoltorio` (20 / 32 / 48px) e o gap do grid. Ex. (Serviços, 2 colunas a partir de 600): `(min-width: 1440px) 648px, (min-width: 900px) calc(50vw - 72px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)`.
+- Abaixo da dobra: `loading="lazy" decoding="async"`. Moldura fixa (`aspect-ratio`) + `object-fit: cover` + `object-position: var(--foco, 50% 50%)`.
+- Placeholder: fundo do `<picture>`. Foto ausente ou quebrada: o `::after` do `img` (base.css) cobre o ícone e o alt com esse fundo.
+
+### Revisar quando as mídias chegarem
+Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda inexistente).
+- [ ] Hero: `/videos/hero.mp4` e `/imagens/hero/hero-poster.jpg`.
+- [ ] Serviços 01 (`/imagens/servicos/producao-*`): alt genérico "Produção de um evento realizado por Rafael Fachini".
+- [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
+
 ## Tokens (`@layer theme` em main.css)
 Só preto, branco e cinzas: nenhuma cor de matiz.
 
