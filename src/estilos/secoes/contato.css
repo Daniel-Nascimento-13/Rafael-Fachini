@@ -48,6 +48,7 @@
   margin-bottom: 24px;
   padding: 24px 0 0;
   border-top: 1px solid var(--color-linha);
+  color: var(--color-texto-2);
 }
 
 .contato-campo {
@@ -62,7 +63,7 @@
   line-height: 1.5;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-texto-2);
+  color: var(--color-texto);
 }
 
 /* === CAMPO SEM CAIXA, SÓ BORDA INFERIOR (O TEXTAREA É DO FORMULÁRIO DE DEPOIMENTOS) === */
