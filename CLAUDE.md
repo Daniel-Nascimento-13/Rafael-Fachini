@@ -27,7 +27,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 | Domínio | [DOMINIO] (pendente) |
 | Cidade-base / região | [CIDADE] (pendente) / Rio Grande do Sul (atende todo o estado) |
 | WhatsApp | [WHATSAPP_DDI_DDD_NUMERO] (pendente) |
-| Instagram | [URL_INSTAGRAM] (pendente) |
+| Instagram | https://www.instagram.com/rafaelfachinidecoracoes/ (entra no `sameAs` do JSON-LD na ETAPA 8) |
 | E-mail de aviso | [EMAIL_AVISO] (pendente) |
 | Remetente | Rafael Fachini Decorações <avisos@[DOMINIO]> |
 | Hospedagem | Vercel Hobby, deploy pelo GitHub (repositório ainda não existe) |
@@ -93,7 +93,7 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 ### SEO
 - Title da home: "Rafael Fachini Decorações · Decoração e organização de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
 - **SEO da demo** (nas 4 páginas, até a ETAPA 8): `description` (140–160 caracteres) + `robots` `noindex, nofollow` (comentário `DEMO: REMOVER NA ETAPA 8`; na 404 volta a só `noindex`). OG + Twitter nas 3 indexáveis (a 404 não tem), com URL absoluta `https://[URL_DEMO]/...`: trocar pela `.vercel.app` depois do 1º deploy e por `[DOMINIO]` na ETAPA 8. Canonical, JSON-LD, robots.txt e sitemap.xml só na ETAPA 8.
-- JSON-LD `LocalBusiness`, `areaServed` = `{ "@type": "State", "name": "Rio Grande do Sul" }`, endereço com a cidade-base (pendente), `sameAs` com o Instagram (pendente).
+- JSON-LD `LocalBusiness`, `areaServed` = `{ "@type": "State", "name": "Rio Grande do Sul" }`, endereço com a cidade-base (pendente), `sameAs` com o Instagram (`https://www.instagram.com/rafaelfachinidecoracoes/`).
 
 ## Imagens (substitui o -500/-1000 da spec)
 - Cada foto em 4 arquivos: `<nome>-800.webp`, `<nome>-1600.webp`, `<nome>-800.jpg`, `<nome>-1600.jpg`, em `/imagens/<secao>/`.
