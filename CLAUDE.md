@@ -23,7 +23,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 | Campo | Valor |
 |---|---|
 | Nome | Rafael Fachini Decorações |
-| Descrição curta | Decoração e produção de eventos em todo o RS |
+| Descrição curta | Decoração e organização de eventos em todo o RS |
 | Domínio | [DOMINIO] (pendente) |
 | Cidade-base / região | [CIDADE] (pendente) / Rio Grande do Sul (atende todo o estado) |
 | WhatsApp | [WHATSAPP_DDI_DDD_NUMERO] (pendente) |
@@ -33,7 +33,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 | Hospedagem | Vercel Hobby, deploy pelo GitHub (repositório ainda não existe) |
 
 ### Posicionamento
-- Duas frentes complementares: **Produção de Eventos** e **Decoração** (o cliente contrata uma ou as duas).
+- Duas frentes complementares: **Organização de Eventos** e **Decoração** (o cliente contrata uma ou as duas).
 - Público: PF (casamento, aniversário, formatura, infantil) e PJ (corporativo).
 - A palavra "orçamento" está pendente (liberada ou vetada). Até a decisão, use "conversar sobre o seu evento".
 
@@ -62,9 +62,9 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 
 | servico | data-frase |
 |---|---|
-| Produção do evento | na produção do evento |
+| Organização do evento | na organização do evento |
 | Decoração | na decoração |
-| Produção e decoração | na produção e na decoração |
+| Organização e decoração | na organização e na decoração |
 
 **Nome e mensagem por tipo** (tudo nos atributos da `<option>`; o JS só lê): `data-rotulo-nome`, `data-exemplo-nome` (placeholder), `data-erro-nome` e `data-mensagem`. A opção "Escolha" traz o padrão (rótulo "Nome", sem placeholder, erro "Informe o nome."). No `change` do tipo (e na carga), o JS troca o `<label>`, o placeholder e o `data-erro` da dica; se o nome já está em erro, troca o texto na hora.
 
@@ -89,7 +89,7 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
   - [ ] ETAPA 11: o atributo `data-demo` do `.depoimentos-form` (comentário `DEMO: REMOVER data-demo NA ETAPA 11`). Com ele, o envio mostra o `.depoimentos-recebido` sem chamar `/api/depoimentos/`.
 
 ### SEO
-- Title da home: "Rafael Fachini Decorações · Decoração e produção de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
+- Title da home: "Rafael Fachini Decorações · Decoração e organização de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
 - **SEO da demo** (nas 4 páginas, até a ETAPA 8): `description` (140–160 caracteres) + `robots` `noindex, nofollow` (comentário `DEMO: REMOVER NA ETAPA 8`; na 404 volta a só `noindex`). OG + Twitter nas 3 indexáveis (a 404 não tem), com URL absoluta `https://[URL_DEMO]/...`: trocar pela `.vercel.app` depois do 1º deploy e por `[DOMINIO]` na ETAPA 8. Canonical, JSON-LD, robots.txt e sitemap.xml só na ETAPA 8.
 - JSON-LD `LocalBusiness`, `areaServed` = `{ "@type": "State", "name": "Rio Grande do Sul" }`, endereço com a cidade-base (pendente), `sameAs` com o Instagram (pendente).
 
@@ -110,7 +110,7 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 ### Revisar quando as mídias chegarem
 Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda inexistente).
 - [ ] Hero: `/videos/hero.mp4` e `/imagens/hero/hero-poster.jpg`.
-- [ ] Serviços 01 (`/imagens/servicos/producao-*`): alt genérico "Produção de um evento realizado por Rafael Fachini".
+- [ ] Serviços 01 (`/imagens/servicos/producao-*`): alt genérico "Organização de um evento realizado por Rafael Fachini".
 - [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
 - [ ] Portfólio (home), 3 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `infantil-1`), cada uma em 2 recortes: retrato até 599 (destaque 4:5, dupla 3:4) e `-43` (4:3) a partir de 600. Alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini"). Se as proporções mudarem, recalcule o `sizes`.
 - [ ] og-image (`/imagens/compartilhamento/og-image.jpg`, 1200×630): recorte de `casamento1` (750×507, ampliado 1,24× para 630 de altura) + véu + wordmark + "Onde os sonhos ganham forma". Refazer com a foto final (nome novo de arquivo, regra 11).
