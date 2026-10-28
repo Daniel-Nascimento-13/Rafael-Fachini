@@ -26,7 +26,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 | Descrição curta | Decoração e organização de eventos em todo o RS |
 | Domínio | [DOMINIO] (pendente) |
 | Cidade-base / região | [CIDADE] (pendente) / Rio Grande do Sul (atende todo o estado) |
-| WhatsApp | [WHATSAPP_DDI_DDD_NUMERO] (pendente) |
+| WhatsApp | 5551997504346 (`https://wa.me/5551997504346`) |
 | Instagram | https://www.instagram.com/rafaelfachinidecoracoes/ (entra no `sameAs` do JSON-LD na ETAPA 8) |
 | E-mail de aviso | [EMAIL_AVISO] (pendente) |
 | Remetente | Rafael Fachini Decorações <avisos@[DOMINIO]> |
