@@ -262,19 +262,29 @@
         <div class="contato-texto">
           <p class="rotulo">Contato</p>
           <h2 id="contato-titulo">Vamos conversar sobre <em>o seu evento?</em></h2>
-          <p class="texto-intro contato-intro">Preencha e a mensagem abre pronta no WhatsApp.</p>
+          <p class="texto-intro contato-intro">Conte o que você imagina. Sua mensagem chega pronta direto ao Rafael, no WhatsApp.</p>
           <ul class="contato-links">
             <li><a class="link-secao" href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp direto →</a></li>
             <li><a class="link-secao" href="[URL_INSTAGRAM]" target="_blank" rel="noopener">Instagram →</a></li>
           </ul>
         </div>
 
-        <form class="contato-form" novalidate data-whatsapp="[WHATSAPP_DDI_DDD_NUMERO]" data-mensagem="Olá, Rafael! Sou {nome} e estou planejando {tipo} para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?">
+        <form class="contato-form" novalidate data-whatsapp="[WHATSAPP_DDI_DDD_NUMERO]" data-mensagem="Olá, Rafael! Sou {nome} e estou planejando um evento para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?">
           <div class="contato-campos">
-            <div class="contato-campo contato-campo-nome">
-              <label for="contato-nome">Nome</label>
-              <input id="contato-nome" name="nome" type="text" autocomplete="name" required data-mensagem="{nome}" aria-describedby="contato-nome-ajuda">
-              <p class="contato-ajuda" id="contato-nome-ajuda" data-erro="Informe seu nome."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            <div class="contato-campo contato-campo-tipo">
+              <label for="contato-tipo">Tipo de evento</label>
+              <div class="contato-select">
+                <select id="contato-tipo" name="tipo" required data-mensagem="{tipo}" aria-describedby="contato-tipo-ajuda">
+                  <option value="" disabled selected data-rotulo-nome="Nome" data-exemplo-nome="" data-erro-nome="Informe o nome.">Escolha</option>
+                  <option value="Casamento" data-rotulo-nome="Nome dos noivos" data-exemplo-nome="Ex.: Ana e Pedro" data-erro-nome="Informe o nome dos noivos." data-mensagem="Olá, Rafael! Somos {nome} e vamos nos casar em {data}, com cerca de {convidados} convidados em {cidade}. Temos interesse {servico}. Podemos conversar?">Casamento</option>
+                  <option value="Aniversário" data-rotulo-nome="Nome do aniversariante" data-exemplo-nome="Ex.: Marcos" data-erro-nome="Informe o nome do aniversariante." data-mensagem="Olá, Rafael! Estou planejando o aniversário de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar?">Aniversário</option>
+                  <option value="Formatura" data-rotulo-nome="Formando ou turma" data-exemplo-nome="Ex.: Medicina 2026" data-erro-nome="Informe o formando ou a turma." data-mensagem="Olá, Rafael! Estou planejando a formatura de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar?">Formatura</option>
+                  <option value="Infantil" data-rotulo-nome="Nome da criança" data-exemplo-nome="Ex.: Cecília" data-erro-nome="Informe o nome da criança." data-mensagem="Olá, Rafael! Estou planejando a festa infantil de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar?">Infantil</option>
+                  <option value="Corporativo" data-rotulo-nome="Nome da empresa" data-exemplo-nome="Ex.: Acme" data-erro-nome="Informe o nome da empresa." data-mensagem="Olá, Rafael! Sou da {nome} e estamos planejando um evento corporativo para {data}, com cerca de {convidados} pessoas em {cidade}. Temos interesse {servico}. Podemos conversar?">Corporativo</option>
+                </select>
+                <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
+              </div>
+              <p class="contato-ajuda" id="contato-tipo-ajuda" data-erro="Escolha o tipo de evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
             </div>
             <div class="contato-campo contato-campo-servico">
               <label for="contato-servico">Serviço</label>
@@ -289,20 +299,10 @@
               </div>
               <p class="contato-ajuda" id="contato-servico-ajuda" data-erro="Escolha o serviço."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
             </div>
-            <div class="contato-campo contato-campo-tipo">
-              <label for="contato-tipo">Tipo de evento</label>
-              <div class="contato-select">
-                <select id="contato-tipo" name="tipo" required data-mensagem="{tipo}" aria-describedby="contato-tipo-ajuda">
-                  <option value="" disabled selected>Escolha</option>
-                  <option value="Casamento" data-frase="um casamento">Casamento</option>
-                  <option value="Aniversário" data-frase="um aniversário">Aniversário</option>
-                  <option value="Formatura" data-frase="uma formatura">Formatura</option>
-                  <option value="Infantil" data-frase="uma festa infantil">Infantil</option>
-                  <option value="Corporativo" data-frase="um evento corporativo">Corporativo</option>
-                </select>
-                <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
-              </div>
-              <p class="contato-ajuda" id="contato-tipo-ajuda" data-erro="Escolha o tipo de evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+            <div class="contato-campo contato-campo-nome">
+              <label for="contato-nome">Nome</label>
+              <input id="contato-nome" name="nome" type="text" autocomplete="off" required data-mensagem="{nome}" aria-describedby="contato-nome-ajuda">
+              <p class="contato-ajuda" id="contato-nome-ajuda" data-erro="Informe o nome."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
             </div>
             <div class="contato-campo contato-campo-data">
               <label for="contato-data">Data</label>
@@ -324,7 +324,7 @@
             </div>
           </div>
 
-          <button class="botao botao-primario contato-enviar" type="submit">Enviar pelo WhatsApp</button>
+          <button class="botao botao-primario contato-enviar" type="submit">Enviar para o WhatsApp</button>
         </form>
       </div>
     </section>

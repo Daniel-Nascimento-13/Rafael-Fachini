@@ -24,7 +24,7 @@
    FORMULÁRIO
    ======================= */
 
-/* === GRADE DOS CAMPOS (NOME | SERVIÇO + TIPO | DATA + CONVIDADOS | CIDADE) === */
+/* === GRADE DOS CAMPOS (TIPO + SERVIÇO | NOME | DATA + CONVIDADOS | CIDADE) === */
 .contato-campos {
   display: grid;
   gap: 24px;
@@ -64,6 +64,12 @@
   color: var(--color-texto);
   appearance: none;
   transition: border-color 0.4s ease;
+}
+
+/* EXEMPLO DO NOME (MUDA COM O TIPO DE EVENTO); OPACITY: O FIREFOX CLAREIA O PLACEHOLDER */
+.contato-campo input::placeholder {
+  color: var(--color-texto-3);
+  opacity: 1;
 }
 
 /* DATE: SEM O ESTILO NATIVO, CONTEÚDO À ESQUERDA (SAFARI CENTRALIZA) */

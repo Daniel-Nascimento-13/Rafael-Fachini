@@ -17,19 +17,28 @@ export function iniciarContato(secao) {
 
 /* === FORMULÁRIO === */
 function iniciarFormulario(formulario) {
-  const campos = [...formulario.querySelectorAll('[data-mensagem]')];
+  /* AS OPÇÕES DO TIPO TAMBÉM TÊM DATA-MENSAGEM (A FRASE DE CADA TIPO); CAMPO É SÓ INPUT/SELECT */
+  const campos = [...formulario.querySelectorAll('[data-mensagem]:not(option)')];
+  const tipo = formulario.querySelector('select[name="tipo"]');
+  const nome = formulario.querySelector('input[name="nome"]');
 
   const data = formulario.querySelector('input[type="date"]');
   if (data) data.min = hojeIso();
 
   prepararCampos(campos);
 
+  /* SEM TIPO, A OPÇÃO "ESCOLHA" TRAZ O RÓTULO PADRÃO; NA CARGA, VALE O TIPO QUE O NAVEGADOR RESTAUROU */
+  if (tipo && nome) {
+    tipo.addEventListener('change', () => ajustarNome(tipo, nome));
+    ajustarNome(tipo, nome);
+  }
+
   formulario.addEventListener('submit', (evento) => {
     evento.preventDefault();
 
     if (!validarCampos(campos)) return;
 
-    const mensagem = montarMensagem(formulario, campos);
+    const mensagem = montarMensagem(tipo?.selectedOptions[0]?.dataset.mensagem ?? formulario.dataset.mensagem, campos);
     window.open(`https://wa.me/${formulario.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   });
 }
@@ -40,10 +49,23 @@ function hojeIso() {
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()].map((n) => String(n).padStart(2, '0')).join('-');
 }
 
+/* === NOME POR TIPO DE EVENTO (RÓTULO, EXEMPLO E ERRO VÊM DA OPÇÃO ESCOLHIDA) === */
+function ajustarNome(tipo, nome) {
+  const opcao = tipo.selectedOptions[0];
+  const ajuda = document.getElementById(nome.getAttribute('aria-describedby'));
+
+  nome.labels[0].textContent = opcao.dataset.rotuloNome;
+  nome.placeholder = opcao.dataset.exemploNome;
+  ajuda.dataset.erro = opcao.dataset.erroNome;
+
+  /* JÁ EM ERRO: O TEXTO TROCA NA HORA (O ARIA-LIVE ANUNCIA) */
+  if (nome.getAttribute('aria-invalid') === 'true') ajuda.querySelector('.contato-ajuda-texto').textContent = ajuda.dataset.erro;
+}
+
 /* === MENSAGEM === */
-/* CADA CAMPO TROCA O SEU {MARCADOR} NA FRASE DO DATA-MENSAGEM */
-function montarMensagem(formulario, campos) {
-  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), formulario.dataset.mensagem);
+/* FRASE DO TIPO ESCOLHIDO (O DATA-MENSAGEM DO FORM É A RESERVA); CADA CAMPO TROCA O SEU {MARCADOR} */
+function montarMensagem(modelo, campos) {
+  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), modelo);
 }
 
 /* DATA → "SÁBADO, 05/12/2026" EM MINÚSCULAS (FUSO LOCAL); SELECT → DATA-FRASE DA OPÇÃO */

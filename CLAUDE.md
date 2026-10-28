@@ -54,7 +54,11 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 - **Hero:** vídeo de eventos (`/videos/hero.mp4`) + poster (`/imagens/hero/hero-poster.jpg`, preload como LCP). Enquanto os arquivos não existem, placeholders com `aspect-ratio` fixo.
 
 ### Formulário → WhatsApp (seção contato)
-Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo (select), data (date, mínimo = hoje no fuso local), convidados (number, inteiro, mínimo 10), cidade (texto).
+Descritivo: "Conte o que você imagina. Sua mensagem chega pronta direto ao Rafael, no WhatsApp." Botão: "Enviar para o WhatsApp".
+
+Todos os campos obrigatórios, nesta ordem: tipo (select) | servico (select) → nome (texto, linha inteira, rótulo dinâmico, `autocomplete="off"`: não é o nome de quem preenche) → data (date, mínimo = hoje no fuso local) | convidados (number, inteiro, mínimo 10) → cidade (texto, linha inteira). Os pares ficam lado a lado a partir de 600 (auto-placement; só nome e cidade têm `grid-column: 1 / -1`).
+
+Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm `data-mensagem` (a frase do tipo), por isso o JS pega os campos com `[data-mensagem]:not(option)`.
 
 | servico | data-frase |
 |---|---|
@@ -62,15 +66,17 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 | Decoração | na decoração |
 | Produção e decoração | na produção e na decoração |
 
-| tipo | data-frase |
-|---|---|
-| Casamento | um casamento |
-| Aniversário | um aniversário |
-| Formatura | uma formatura |
-| Infantil | uma festa infantil |
-| Corporativo | um evento corporativo |
+**Nome e mensagem por tipo** (tudo nos atributos da `<option>`; o JS só lê): `data-rotulo-nome`, `data-exemplo-nome` (placeholder), `data-erro-nome` e `data-mensagem`. A opção "Escolha" traz o padrão (rótulo "Nome", sem placeholder, erro "Informe o nome."). No `change` do tipo (e na carga), o JS troca o `<label>`, o placeholder e o `data-erro` da dica; se o nome já está em erro, troca o texto na hora.
 
-`data-mensagem`: "Olá, Rafael! Sou {nome} e estou planejando {tipo} para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?" (o "na" vem da `data-frase`: "Tenho interesse na decoração.")
+| tipo | rótulo · exemplo · erro | data-mensagem |
+|---|---|---|
+| Casamento | Nome dos noivos · Ex.: Ana e Pedro · Informe o nome dos noivos. | Olá, Rafael! Somos {nome} e vamos nos casar em {data}, com cerca de {convidados} convidados em {cidade}. Temos interesse {servico}. Podemos conversar? |
+| Aniversário | Nome do aniversariante · Ex.: Marcos · Informe o nome do aniversariante. | Olá, Rafael! Estou planejando o aniversário de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar? |
+| Formatura | Formando ou turma · Ex.: Medicina 2026 · Informe o formando ou a turma. | Olá, Rafael! Estou planejando a formatura de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar? |
+| Infantil | Nome da criança · Ex.: Cecília · Informe o nome da criança. | Olá, Rafael! Estou planejando a festa infantil de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. Tenho interesse {servico}. Podemos conversar? |
+| Corporativo | Nome da empresa · Ex.: Acme · Informe o nome da empresa. | Olá, Rafael! Sou da {nome} e estamos planejando um evento corporativo para {data}, com cerca de {convidados} pessoas em {cidade}. Temos interesse {servico}. Podemos conversar? |
+
+`data-mensagem` do `<form>` (reserva, se a opção não tiver frase): "Olá, Rafael! Sou {nome} e estou planejando um evento para {data}, com cerca de {convidados} pessoas em {cidade}. Tenho interesse {servico}. Podemos conversar?" O "na" vem da `data-frase` do serviço ("Tenho interesse na decoração."); {data} vira "sábado, 05/12/2026".
 
 ### Depoimentos
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.
