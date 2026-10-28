@@ -79,6 +79,13 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 - Abaixo da dobra: `loading="lazy" decoding="async"`. Moldura fixa (`aspect-ratio`) + `object-fit: cover` + `object-position: var(--foco, 50% 50%)`.
 - Placeholder: fundo do `<picture>`. Foto ausente ou quebrada: o `::after` do `img` (base.css) cobre o ícone e o alt com esse fundo.
 
+### Mídias da demo (capturas de tela)
+- Brutos em `_brutos/` (no `.gitignore`, fora do deploy). `artur.png`, `camila.png` e `rafa.png` ainda sem uso.
+- Hero: `/videos/hero.mp4` (450×754, H.264, CRF 26, sem áudio, faststart, ~3 MB) + poster `/imagens/hero/hero-poster.jpg` (frame de 1s).
+- Fotos menores que 800px: só o arquivo `-800`, na largura real (srcset com o descritor real, ex. `380w`; `width`/`height` reais). Nunca ampliar.
+- Recorte cover por moldura: Serviços 4:3 (676×507); portfólio 3:4 (380×507) e destaque 4:5 (406×507). Um arquivo por recorte único: em `/portfolio/` cada tipo repete as fotos disponíveis apontando para os mesmos arquivos de `/imagens/portfolio/` (`casamento-1-34` = recorte 3:4 de `casamento1`).
+- Ao trocar pelas mídias finais: gere -800/-1600 reais, volte o srcset de 2 entradas e use nome novo de arquivo (regra 11).
+
 ### Revisar quando as mídias chegarem
 Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda inexistente).
 - [ ] Hero: `/videos/hero.mp4` e `/imagens/hero/hero-poster.jpg`.

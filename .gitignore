@@ -18,3 +18,6 @@ node_modules/
 
 # Configuração local da Vercel CLI
 .vercel/
+
+# Mídias brutas (capturas da demo): fora do Git e do deploy
+_brutos/
