@@ -75,7 +75,104 @@
       </div>
     </section>
 
-    <!-- ETAPA 9: AQUI ENTRAM O CARROSSEL (ENTRE OS MARCADORES DEPOIMENTOS:INICIO E DEPOIMENTOS:FIM DA SPEC, CARDS NO MARCADOR DEPOIMENTOS) E, DEPOIS, O FORMULÁRIO DE ENVIO -->
+    <!-- DEPOIMENTOS:INICIO -->
+    <!-- === CARROSSEL (SEM APROVADOS, O BUILD REMOVE A SEÇÃO E INVERTE OS FUNDOS) === -->
+    <section class="depoimentos-pagina secao fundo-superficie" aria-label="Depoimentos de clientes">
+      <div class="envoltorio">
+        <div class="depoimentos-carrossel">
+          <ul class="depoimentos-trilho" tabindex="0" aria-label="Depoimentos">
+            <!-- DEPOIMENTOS -->
+            <!-- DEMO: REMOVER NA ETAPA 9 (O BUILD INJETA OS APROVADOS) -->
+            <li class="depoimentos-item"><figure class="depoimento"><blockquote>Cada detalhe estava do jeito que sonhamos. Os convidados até hoje comentam.</blockquote><figcaption class="metadado">Mariana · Casamento · Lajeado</figcaption></figure></li>
+            <li class="depoimentos-item"><figure class="depoimento"><blockquote>A festa da nossa filha ficou mágica. Não precisamos nos preocupar com nada.</blockquote><figcaption class="metadado">Camila · Infantil · Estrela</figcaption></figure></li>
+            <li class="depoimentos-item"><figure class="depoimento"><blockquote>Organização impecável do início ao fim. Já fechamos o próximo evento.</blockquote><figcaption class="metadado">Artur · Corporativo · Porto Alegre</figcaption></figure></li>
+          </ul>
+          <div class="depoimentos-controles">
+            <p class="depoimentos-indicador metadado" aria-hidden="true"><span data-atual>1</span> / <span data-total></span></p>
+            <div class="depoimentos-setas">
+              <button class="depoimentos-seta" type="button" aria-label="Anterior" data-direcao="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg></button>
+              <button class="depoimentos-seta" type="button" aria-label="Próximo" data-direcao="1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- DEPOIMENTOS:FIM -->
+
+    <!-- === ENVIO (CAMPOS COM O VISUAL DO CONTATO.CSS) === -->
+    <section class="depoimentos-envio secao fundo-base" aria-labelledby="depoimentos-envio-titulo">
+      <div class="envoltorio depoimentos-envio-grade">
+        <div class="depoimentos-envio-texto">
+          <p class="rotulo">Seu depoimento</p>
+          <h2 id="depoimentos-envio-titulo">Viveu um evento <em>com a gente?</em></h2>
+          <p class="texto-intro depoimentos-envio-intro">Conte como foi. O seu depoimento aparece aqui depois de aprovado.</p>
+        </div>
+
+        <div class="depoimentos-envio-caixa">
+          <!-- DEMO: REMOVER data-demo NA ETAPA 11 -->
+          <form class="depoimentos-form" action="/api/depoimentos/" method="post" novalidate data-demo>
+            <div class="contato-campos">
+              <div class="contato-campo">
+                <label for="depoimentos-nome">Nome</label>
+                <input id="depoimentos-nome" name="nome" type="text" autocomplete="name" required minlength="2" maxlength="60" aria-describedby="depoimentos-nome-ajuda">
+                <p class="contato-ajuda" id="depoimentos-nome-ajuda" data-erro="Informe seu nome (2 a 60 caracteres)."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+              </div>
+              <div class="contato-campo">
+                <label for="depoimentos-cidade">Cidade</label>
+                <input id="depoimentos-cidade" name="cidade" type="text" autocomplete="address-level2" required minlength="2" maxlength="60" aria-describedby="depoimentos-cidade-ajuda">
+                <p class="contato-ajuda" id="depoimentos-cidade-ajuda" data-erro="Informe a cidade (2 a 60 caracteres)."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+              </div>
+              <div class="contato-campo depoimentos-campo-largo">
+                <label for="depoimentos-categoria">Tipo de evento</label>
+                <div class="contato-select">
+                  <select id="depoimentos-categoria" name="categoria" required aria-describedby="depoimentos-categoria-ajuda">
+                    <option value="" disabled selected>Escolha</option>
+                    <option value="Casamento">Casamento</option>
+                    <option value="Aniversário">Aniversário</option>
+                    <option value="Formatura">Formatura</option>
+                    <option value="Infantil">Infantil</option>
+                    <option value="Corporativo">Corporativo</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                  <svg class="contato-seta" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>
+                </div>
+                <p class="contato-ajuda" id="depoimentos-categoria-ajuda" data-erro="Escolha o tipo de evento."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+              </div>
+              <div class="contato-campo depoimentos-campo-largo">
+                <div class="depoimentos-rotulo-linha">
+                  <label for="depoimentos-texto">Depoimento</label>
+                  <span class="depoimentos-contador" aria-hidden="true"><span data-contagem>0</span> / 400</span>
+                </div>
+                <textarea id="depoimentos-texto" name="texto" rows="5" required minlength="10" maxlength="400" aria-describedby="depoimentos-texto-ajuda"></textarea>
+                <p class="contato-ajuda" id="depoimentos-texto-ajuda" data-erro="Escreva entre 10 e 400 caracteres."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite">Até 400 caracteres.</span></p>
+              </div>
+              <div class="depoimentos-autorizacao depoimentos-campo-largo">
+                <div class="depoimentos-autorizacao-linha">
+                  <input id="depoimentos-autorizado" name="autorizado" type="checkbox" required aria-describedby="depoimentos-autorizado-ajuda">
+                  <label for="depoimentos-autorizado">Autorizo a publicação do meu nome, cidade e depoimento neste site.</label>
+                </div>
+                <p class="contato-ajuda" id="depoimentos-autorizado-ajuda" data-erro="Marque para podermos publicar."><svg class="contato-alerta" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.25M8 11v.5"/></svg><span class="contato-ajuda-texto" aria-live="polite"></span></p>
+              </div>
+            </div>
+
+            <!-- ISCA PARA ROBÔS: PESSOAS NÃO VEEM NEM ALCANÇAM PELO TAB -->
+            <div class="depoimentos-isca" aria-hidden="true">
+              <label for="depoimentos-site">Site</label>
+              <input id="depoimentos-site" name="site" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p class="depoimentos-erro" role="alert" hidden data-limite="Você já enviou alguns depoimentos na última hora. Tente de novo mais tarde.">Não foi possível enviar agora. Tente de novo em instantes.</p>
+
+            <button class="botao botao-primario depoimentos-enviar" type="submit" data-enviando="Enviando…" data-tentar="Tentar de novo">Enviar depoimento</button>
+          </form>
+
+          <div class="depoimentos-recebido" tabindex="-1" hidden>
+            <h3>Recebemos o seu <em>depoimento.</em></h3>
+            <p>Obrigado por contar como foi. Ele aparece aqui assim que for aprovado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <!-- =======================
        RODAPÉ
@@ -94,6 +191,7 @@
             <li><a href="/#servicos">Nossa atuação</a></li>
             <li><a href="/portfolio/">Portfólio</a></li>
             <li><a href="/#processo">Como funciona</a></li>
+            <li><a href="/depoimentos/">Depoimentos</a></li>
           </ul>
           <ul class="rodape-lista">
             <li><a href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp</a></li>

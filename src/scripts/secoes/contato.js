@@ -4,6 +4,7 @@
 
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
+import { prepararCampos, validarCampos } from '../utils/campos.js';
 
 /* DETALHES DO EVENTO → MENSAGEM PRONTA NO WHATSAPP */
 export function iniciarContato(secao) {
@@ -21,69 +22,16 @@ function iniciarFormulario(formulario) {
   const data = formulario.querySelector('input[type="date"]');
   if (data) data.min = hojeIso();
 
-  campos.forEach((campo) => {
-    const texto = textoDaAjuda(campo);
-    if (texto) texto.dataset.normal = texto.textContent;
-  });
-
-  campos.forEach((campo) => {
-    /* SÓ VALIDA NO BLUR SE ALGO FOI PREENCHIDO */
-    campo.addEventListener('blur', () => {
-      if (campo.value || campo.validity.badInput) validar(campo);
-    });
-
-    /* SAI DO ERRO ASSIM QUE FICA VÁLIDO (SELECT DISPARA CHANGE) */
-    ['input', 'change'].forEach((evento) => campo.addEventListener(evento, () => {
-      if (campo.getAttribute('aria-invalid') === 'true' && valido(campo)) marcar(campo, true);
-    }));
-  });
+  prepararCampos(campos);
 
   formulario.addEventListener('submit', (evento) => {
     evento.preventDefault();
 
-    const invalidos = campos.filter((campo) => !validar(campo));
-    if (invalidos.length) {
-      invalidos[0].focus();
-      return;
-    }
+    if (!validarCampos(campos)) return;
 
     const mensagem = montarMensagem(formulario, campos);
     window.open(`https://wa.me/${formulario.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   });
-}
-
-/* === REGRAS === */
-/* CONVIDADOS: INTEIRO ≥ MIN; DATA ≥ HOJE; DEMAIS: PREENCHIDOS */
-function valido(campo) {
-  const valor = campo.value.trim();
-  if (campo.type === 'number') return !campo.validity.badInput && /^\d+$/.test(valor) && Number(valor) >= Number(campo.min);
-  if (campo.type === 'date') return valor !== '' && valor >= campo.min;
-  return valor !== '';
-}
-
-function validar(campo) {
-  const ok = valido(campo);
-  marcar(campo, ok);
-  return ok;
-}
-
-/* === ESTADO DE ERRO === */
-/* ARIA-INVALID COM SETATTRIBUTE (TOGGLEATTRIBUTE GRAVA "" = VÁLIDO) + DICA TROCADA PELO DATA-ERRO */
-function marcar(campo, ok) {
-  if (ok) campo.removeAttribute('aria-invalid');
-  else campo.setAttribute('aria-invalid', 'true');
-
-  const ajuda = document.getElementById(campo.getAttribute('aria-describedby'));
-  const texto = textoDaAjuda(campo);
-  if (!ajuda || !texto) return;
-  texto.textContent = ok ? texto.dataset.normal : ajuda.dataset.erro;
-  ajuda.classList.toggle('contato-ajuda-erro', !ok);
-}
-
-/* O TEXTO FICA NUM SPAN: O <P> DA DICA TAMBÉM GUARDA O ÍCONE DE ALERTA */
-function textoDaAjuda(campo) {
-  const ajuda = document.getElementById(campo.getAttribute('aria-describedby'));
-  return ajuda?.querySelector('.contato-ajuda-texto') ?? null;
 }
 
 /* FUSO LOCAL: O TOISOSTRING USA UTC */

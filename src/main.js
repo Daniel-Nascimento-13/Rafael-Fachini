@@ -40,6 +40,8 @@ const secoesSobDemanda = [
   /* ETAPA 9: { seletor: '.depoimentos', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) }, */
   { seletor: '.contato', carregar: () => import('./scripts/secoes/contato.js').then((m) => m.iniciarContato) },
   { seletor: '.portfolio-pagina', carregar: () => import('./scripts/secoes/portfolio-pagina.js').then((m) => m.iniciarPortfolioPagina) },
+  { seletor: '.depoimentos-pagina', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) },
+  { seletor: '.depoimentos-envio', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) },
   { seletor: '.rodape', carregar: () => import('./scripts/secoes/rodape.js').then((m) => m.iniciarRodape) },
 ];
 

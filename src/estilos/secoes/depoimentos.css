@@ -1,0 +1,230 @@
+/* =======================
+   DEPOIMENTOS
+   ======================= */
+
+/* === CARROSSEL (SCROLL-SNAP NATIVO; SETAS E INDICADOR PELO JS) === */
+/* SANGRA ATÉ A BORDA: MARGEM NEGATIVA DO RESPIRO + PADDING DE VOLTA (MESMO PADRÃO DO PORTFÓLIO) */
+.depoimentos-trilho {
+  display: flex;
+  gap: 16px;
+  margin-inline: calc(var(--respiro) * -1);
+  padding-inline: var(--respiro);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--respiro);
+  scrollbar-width: none;
+}
+
+.depoimentos-trilho::-webkit-scrollbar { display: none; }
+
+/* FOCO DO TRILHO PARA DENTRO: POR FORA, O CONTORNO SAIRIA DA TELA */
+.depoimentos-trilho:focus-visible { outline-offset: -2px; }
+
+.depoimentos-item {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+
+/* === CARD === */
+.depoimento {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.depoimento blockquote {
+  font-family: var(--font-titulo);
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--color-texto);
+  text-wrap: pretty;
+}
+
+/* === CONTROLES === */
+.depoimentos-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.depoimentos-setas {
+  display: flex;
+  gap: 8px;
+}
+
+.depoimentos-seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-linha-forte);
+  border-radius: 50%;
+  color: var(--color-texto);
+  transition: border-color 0.4s ease, opacity 0.4s ease;
+}
+
+.depoimentos-seta:active { border-color: var(--color-texto); transition-duration: 0s; }
+
+.depoimentos-seta:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* CONTROLES SOMEM PELO CSS (NÃO PELO JS), PARA A ALTURA SAIR CERTA NO PRIMEIRO PAINT */
+.depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(2))) .depoimentos-controles { display: none; }
+
+/* =======================
+   ENVIO
+   ======================= */
+
+/* === LAYOUT (EMPILHADO → TEXTO | FORMULÁRIO A PARTIR DE 900PX) === */
+/* CAMPOS, DICAS E ERROS VÊM DO CONTATO.CSS (.CONTATO-CAMPO, .CONTATO-AJUDA, .CONTATO-SELECT) */
+.depoimentos-envio-grade {
+  display: grid;
+  gap: 56px;
+}
+
+.depoimentos-envio-intro {
+  max-width: 40ch;
+  margin-top: 20px;
+}
+
+/* === TEXTO (RÓTULO E CONTADOR NA MESMA LINHA) === */
+.depoimentos-rotulo-linha {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.depoimentos-contador {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-texto-3);
+}
+
+.depoimentos-form textarea {
+  display: block;
+  min-height: 144px;
+  resize: vertical;
+}
+
+/* === AUTORIZAÇÃO (CHECKBOX PRÓPRIO: MARCADO = QUADRADO CHEIO) === */
+.depoimentos-autorizacao-linha {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.depoimentos-autorizacao input {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border: 1px solid var(--color-linha-forte);
+  border-radius: 4px;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.depoimentos-autorizacao input:checked {
+  border-color: var(--color-texto);
+  background: var(--color-texto);
+  box-shadow: inset 0 0 0 4px var(--color-fundo);
+}
+
+/* ERRO SEM COR: BORDA MAIS GROSSA, COMO NOS CAMPOS (BOX-SHADOW: O OUTLINE É DO FOCO) */
+.depoimentos-autorizacao input[aria-invalid="true"] {
+  border-color: var(--color-acento-claro);
+  box-shadow: 0 0 0 1px var(--color-acento-claro);
+}
+
+.depoimentos-autorizacao label {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-texto-2);
+  cursor: pointer;
+}
+
+/* DICA ALINHADA AO TEXTO DO RÓTULO (22PX DO QUADRADO + 12PX DE GAP) */
+.depoimentos-autorizacao .contato-ajuda { margin-left: 34px; }
+
+/* === ISCA (FORA DA TELA; DISPLAY NONE ALGUNS ROBÔS IGNORAM) === */
+.depoimentos-isca {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* === ENVIO E ESTADOS === */
+.depoimentos-erro {
+  margin-top: 24px;
+  font-size: 15px;
+  color: var(--color-texto);
+}
+
+.depoimentos-enviar {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.depoimentos-enviar:disabled { cursor: progress; }
+
+.depoimentos-recebido {
+  padding-top: 32px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.depoimentos-recebido p { margin-top: 12px; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .depoimentos-item { flex-basis: calc((100% - 16px) / 2); }
+
+  .depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(3))) .depoimentos-controles { display: none; }
+
+  .depoimentos-campo-largo { grid-column: 1 / -1; }
+
+  .depoimentos-enviar { width: auto; }
+}
+
+@media (min-width: 900px) {
+  .depoimentos-trilho { gap: 24px; }
+
+  .depoimentos-item { flex-basis: calc((100% - 48px) / 3); }
+
+  .depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(4))) .depoimentos-controles { display: none; }
+
+  .depoimento blockquote { font-size: 24px; }
+
+  .depoimentos-envio-grade {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .depoimentos-envio-intro { margin-top: 24px; }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .depoimentos-seta:not(:disabled):hover { border-color: var(--color-texto); }
+
+  .depoimentos-autorizacao input:hover:not(:checked) { border-color: var(--color-texto-2); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .depoimentos-seta,
+  .depoimentos-autorizacao input { transition: none; }
+}

@@ -39,8 +39,8 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 ### Estrutura
 - **Home (ordem):** cabecalho, hero, manifesto, servicos, portfolio, processo, depoimentos, contato, rodape.
 - **Páginas internas:** `/portfolio/`, `/depoimentos/`, `404.html` (input `erro` no `vite.config.js`, `noindex`).
-- **Menu:** Nossa atuação (âncora `#servicos`) · Portfólio (página `/portfolio/`) · Como funciona · Depoimentos · Contato (+ botão WhatsApp).
-- **Links do menu e do rodapé** (iguais nas 4 páginas): "Portfólio" sempre vai para `/portfolio/` (navegação normal, sem Lenis; o menu mobile fecha no clique). Os demais são âncoras absolutas da home (`/#servicos`, `/#processo`, `/#depoimentos`, `/#contato`). A seção `#portfolio` da home continua (alvo do "Ver portfólio" do hero).
+- **Menu:** Nossa atuação (âncora `#servicos`) · Portfólio (página `/portfolio/`) · Como funciona · Depoimentos (página `/depoimentos/`) · Contato (+ botão WhatsApp).
+- **Links do menu e do rodapé** (iguais nas 4 páginas): "Portfólio" sempre vai para `/portfolio/` e "Depoimentos" para `/depoimentos/` (navegação normal, sem Lenis; o menu mobile fecha no clique). Os demais são âncoras absolutas da home (`/#servicos`, `/#processo`, `/#contato`). O rodapé tem Nossa atuação · Portfólio · Como funciona · Depoimentos. A seção `#portfolio` da home continua (alvo do "Ver portfólio" do hero).
 - **Barra do cabeçalho** (fixa, 64px / 80px a partir de 900): sobre o hero, `color-mix` 60% de `--color-fundo` + `backdrop-filter: blur(14px)` (com `-webkit-`) + hairline `--color-linha`. Depois de 80px (`.cabecalho-rolado`, JS): fundo sólido, sem blur. Sem suporte a `backdrop-filter`: 85% desde o início (o `@supports` fica antes do `.cabecalho-rolado` para não sobrescrevê-lo). Menu aberto: sólida, sem hairline. Transição 0.6s; nenhuma com movimento reduzido. Medido sobre o vídeo (pior instante): marca #F5F5F5 6.55:1 (375) e 16.7:1 (1440); links #A3A3A3 do desktop só 2.46:1 (1440), pendente de decisão.
 - **Hambúrguer:** 3 `<span>` (nas 4 páginas), riscos 22×1.5px a 7px de centro a centro, o do meio no centro do botão de 44×44. Aberto (X): meio `opacity: 0` + `scaleX(0)`; de cima `translateY(7px) rotate(45deg)`; de baixo `translateY(-7px) rotate(-45deg)`; 0.5s `cubic-bezier(0.65, 0, 0.35, 1)`; sem transição com movimento reduzido.
 - **Wordmark:** `data-topo` SÓ na home (sobe a página sem recarregar). Nas páginas internas o wordmark é um link normal para `/`.
@@ -75,6 +75,11 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.
 - Limites: nome 2–60 · cidade 2–60 · texto 10–400.
 - Supabase Free (com cron de keep-alive). Contas Supabase/Resend pendentes (perguntar na ETAPA 10).
+- **Carrossel** (spec 5.6): trilho com scroll-snap, sangra até a borda (margem negativa do respiro); itens 85% → 2 por vez (600) → 3 por vez (900, gap 24px). Controles somem pelo CSS (`:has`) quando os cards cabem: 1 card / ≤2 em 600 / ≤3 em 900. Card: `li.depoimentos-item > figure.depoimento > blockquote + figcaption.metadado` ("nome · categoria · cidade"); hairline em cima; texto em `--font-titulo` 20 → 24px. **No plugin da ETAPA 10, gerar o `figcaption` com `class="metadado"`.**
+- **Formulário de envio** (front da 6.2): campos, dicas e erros usam as classes do `contato.css` (`.contato-campos`, `.contato-campo`, `.contato-ajuda`, `.contato-select`), como o `/portfolio/` usa o `portfolio.css`; o `depoimentos.css` só tem o textarea, o contador, o checkbox, a isca e os estados. A validação é a mesma do contato, em `utils/campos.js` (minlength/maxlength contados em code points, igual ao servidor; checkbox = marcado).
+- **Demo — remover:**
+  - [ ] ETAPA 9/10: os 3 cards de demo (comentário `DEMO: REMOVER NA ETAPA 9`) em `depoimentos/index.html`; o build injeta os aprovados no marcador `<!-- DEPOIMENTOS -->`.
+  - [ ] ETAPA 11: o atributo `data-demo` do `.depoimentos-form` (comentário `DEMO: REMOVER data-demo NA ETAPA 11`). Com ele, o envio mostra o `.depoimentos-recebido` sem chamar `/api/depoimentos/`.
 
 ### SEO
 - Title da home: "Rafael Fachini Decorações · Decoração e produção de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
@@ -106,11 +111,11 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 ### Páginas internas (/portfolio/, /depoimentos/, 404.html)
 - Cabeçalho, menu mobile e rodapé são **cópias** dos da home: ao mudar um, mude nas 4 páginas.
 - Diferenças nas internas: wordmark sem `data-topo` (link normal para `/`); sem o preload do poster.
-- Página atual no menu: o item recebe `aria-current="page"` (em `/portfolio/`, o "Portfólio"; em `/depoimentos/`, o "Depoimentos" passa a apontar para `/depoimentos/` em vez de `/#depoimentos`). Só no menu (desktop e mobile), não no rodapé. Estilo: sublinhado no desktop, itálico no menu mobile.
+- Página atual no menu: o item recebe `aria-current="page"` (em `/portfolio/`, o "Portfólio"; em `/depoimentos/`, o "Depoimentos"). Só no menu (desktop e mobile), não no rodapé. Estilo: sublinhado no desktop, itálico no menu mobile.
 - O "Voltar ao topo ↑" do rodapé tem `href="#"` + `data-topo` em todas as páginas (com `#conteudo`, o handler de âncoras rolaria junto).
 - Fundos: `.pagina-topo` em `fundo-base`, alternando até o rodapé (`fundo-superficie`).
 - `/portfolio/`: sem filtro em JS; pílulas com âncoras (`#casamento`, `#aniversario`, `#formatura`, `#infantil`, `#corporativo`, trilho horizontal até 599px) e uma seção por tipo com grade 3:4 (1 → 2 → 3). Figura, moldura, foto e hover vêm do `portfolio.css`; o `portfolio-pagina.css` só muda proporção, placeholder e grade.
-- `/depoimentos/`: esqueleto até a ETAPA 9. **Fora do sitemap até a ETAPA 9.**
+- `/depoimentos/`: abertura (`fundo-base`) → `.depoimentos-pagina` (carrossel, `fundo-superficie`, entre `DEPOIMENTOS:INICIO`/`FIM`) → `.depoimentos-envio` (formulário, `fundo-base`) → rodapé. **Fora do sitemap até a ETAPA 9.** Ver "Depoimentos" acima.
 - 404: no `vite preview`, caminho inexistente devolve a home (fallback do Vite); teste a 404 em `/404.html`. Na Vercel, a `404.html` é servida com status 404.
 
 ### Portfólio (home)

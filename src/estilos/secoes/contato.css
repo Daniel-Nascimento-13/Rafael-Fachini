@@ -45,10 +45,11 @@
   color: var(--color-texto-2);
 }
 
-/* === CAMPO SEM CAIXA, SÓ BORDA INFERIOR === */
+/* === CAMPO SEM CAIXA, SÓ BORDA INFERIOR (O TEXTAREA É DO FORMULÁRIO DE DEPOIMENTOS) === */
 /* 16PX: O IOS NÃO DÁ ZOOM NO FOCO; BOX-SHADOW NO ERRO (SEM MUDAR A ALTURA) */
 .contato-campo input,
-.contato-campo select {
+.contato-campo select,
+.contato-campo textarea {
   width: 100%;
   min-width: 0;
   min-height: 48px;
@@ -134,13 +135,15 @@
 /* === FOCO === */
 /* MOUSE/TOQUE: SÓ A BORDA INFERIOR. CONTORNO SÓ NO TECLADO (NO CHROME, INPUT CASA :FOCUS-VISIBLE ATÉ NO CLIQUE) */
 .contato-campo input:focus,
-.contato-campo select:focus {
+.contato-campo select:focus,
+.contato-campo textarea:focus {
   outline: none;
   border-bottom-color: var(--color-texto);
 }
 
 .usando-teclado .contato-campo input:focus-visible,
-.usando-teclado .contato-campo select:focus-visible {
+.usando-teclado .contato-campo select:focus-visible,
+.usando-teclado .contato-campo textarea:focus-visible {
   outline: 2px solid var(--color-acento-claro);
   outline-offset: 4px;
 }
@@ -205,11 +208,13 @@
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .contato-campo input:hover:not(:focus),
-  .contato-campo select:hover:not(:focus) { border-bottom-color: var(--color-texto-2); }
+  .contato-campo select:hover:not(:focus),
+  .contato-campo textarea:hover:not(:focus) { border-bottom-color: var(--color-texto-2); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
   .contato-campo input,
-  .contato-campo select { transition: none; }
+  .contato-campo select,
+  .contato-campo textarea { transition: none; }
 }

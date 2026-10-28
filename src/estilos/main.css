@@ -19,6 +19,7 @@
 @import "./secoes/processo.css" layer(components);
 @import "./secoes/contato.css" layer(components);
 @import "./secoes/portfolio-pagina.css" layer(components);
+@import "./secoes/depoimentos.css" layer(components);
 @import "./secoes/erro.css" layer(components);
 @import "./secoes/rodape.css" layer(components);
 
