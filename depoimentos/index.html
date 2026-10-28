@@ -13,12 +13,101 @@
   <meta name="theme-color" content="#0A0A0A">
 </head>
 <body>
+  <a class="visualmente-oculto pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- =======================
+       NAVEGAÇÃO
+       ======================= -->
+
+  <!-- === CABEÇALHO === -->
+  <header class="cabecalho">
+    <div class="envoltorio cabecalho-grade">
+      <a class="cabecalho-marca" href="/" aria-label="Rafael Fachini Decorações">Rafael Fachini</a>
+
+      <nav class="cabecalho-nav" aria-label="Principal">
+        <ul class="cabecalho-lista">
+          <li><a href="/#servicos">Serviços</a></li>
+          <li><a href="/#portfolio">Portfólio</a></li>
+          <li><a href="/#processo">Como funciona</a></li>
+          <li><a href="/depoimentos/" aria-current="page">Depoimentos</a></li>
+        </ul>
+      </nav>
+
+      <a class="botao botao-secundario cabecalho-whatsapp" href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp</a>
+
+      <button class="cabecalho-menu" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu" data-rotulo-abrir="Abrir menu" data-rotulo-fechar="Fechar menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- === MENU MOBILE === -->
+  <div class="menu-mobile" id="menu-mobile" hidden>
+    <div class="envoltorio menu-conteudo">
+      <nav aria-label="Menu">
+        <ul class="menu-lista">
+          <li><a href="/#servicos">Serviços</a></li>
+          <li><a href="/#portfolio">Portfólio</a></li>
+          <li><a href="/#processo">Como funciona</a></li>
+          <li><a href="/depoimentos/" aria-current="page">Depoimentos</a></li>
+          <li><a href="/#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <a class="botao botao-primario menu-whatsapp" href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </div>
+  </div>
 
   <!-- =======================
        CONTEÚDO
        ======================= -->
 
-  <main id="conteudo"></main>
+  <main id="conteudo">
+
+    <!-- === ABERTURA === -->
+    <section class="pagina-topo fundo-base" aria-labelledby="pagina-titulo">
+      <div class="envoltorio">
+        <p class="rotulo">Depoimentos</p>
+        <h1 class="pagina-titulo" id="pagina-titulo">Quem viveu <em>conta.</em></h1>
+        <p class="pagina-intro texto-intro">O que dizem os clientes sobre os eventos que produzimos e decoramos.</p>
+      </div>
+    </section>
+
+    <!-- ETAPA 9: AQUI ENTRAM O CARROSSEL (ENTRE OS MARCADORES DEPOIMENTOS:INICIO E DEPOIMENTOS:FIM DA SPEC, CARDS NO MARCADOR DEPOIMENTOS) E, DEPOIS, O FORMULÁRIO DE ENVIO -->
+  </main>
+  <!-- =======================
+       RODAPÉ
+       ======================= -->
+
+  <footer class="rodape fundo-superficie">
+    <div class="envoltorio">
+      <div class="rodape-grade">
+        <div class="rodape-marca">
+          <p class="rodape-wordmark">Rafael Fachini</p>
+          <p class="rodape-descricao">Decoração e produção de eventos · todo o RS</p>
+        </div>
+
+        <nav class="rodape-nav" aria-label="Rodapé">
+          <ul class="rodape-lista">
+            <li><a href="/#servicos">Serviços</a></li>
+            <li><a href="/#portfolio">Portfólio</a></li>
+            <li><a href="/#processo">Como funciona</a></li>
+          </ul>
+          <ul class="rodape-lista">
+            <li><a href="https://wa.me/[WHATSAPP_DDI_DDD_NUMERO]" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="[URL_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="#" data-topo>Voltar ao topo ↑</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="rodape-base metadado">
+        <p>© <span data-ano-atual>2026</span> Rafael Fachini Decorações</p>
+        <p>Site por <a href="[URL_PIXELCODE]" target="_blank" rel="noopener">PixelCode</a></p>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/main.js"></script>
 </body>

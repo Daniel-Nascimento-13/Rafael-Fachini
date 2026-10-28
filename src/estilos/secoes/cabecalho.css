@@ -66,6 +66,14 @@
   transition: color 0.4s ease;
 }
 
+/* PÁGINA ATUAL: COR CHEIA + SUBLINHADO (NÃO SÓ COR) */
+.cabecalho-lista a[aria-current="page"] {
+  color: var(--color-texto);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
 .cabecalho-whatsapp {
   min-height: 40px;
   padding: 8px 20px;
@@ -133,6 +141,9 @@
 }
 
 .menu-lista a:active { transform: translateX(6px); transition-duration: 0s; }
+
+/* PÁGINA ATUAL NO MENU: ITÁLICO DA INSTRUMENT SERIF */
+.menu-lista a[aria-current="page"] { font-style: italic; }
 
 .menu-whatsapp { width: 100%; }
 

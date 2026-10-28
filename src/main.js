@@ -31,7 +31,7 @@ const hero = document.querySelector('.hero');
 if (hero) iniciarHero(hero);
 
 /* === ABAIXO DA DOBRA (CARREGADAS SOB DEMANDA) === */
-/* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR, NA ORDEM DA HOME */
+/* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR (HOME NA ORDEM, DEPOIS AS PÁGINAS INTERNAS) */
 const secoesSobDemanda = [
   { seletor: '.manifesto', carregar: () => import('./scripts/secoes/manifesto.js').then((m) => m.iniciarManifesto) },
   { seletor: '.servicos', carregar: () => import('./scripts/secoes/servicos.js').then((m) => m.iniciarServicos) },
@@ -39,6 +39,7 @@ const secoesSobDemanda = [
   { seletor: '.processo', carregar: () => import('./scripts/secoes/processo.js').then((m) => m.iniciarProcesso) },
   /* ETAPA 9: { seletor: '.depoimentos', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) }, */
   { seletor: '.contato', carregar: () => import('./scripts/secoes/contato.js').then((m) => m.iniciarContato) },
+  { seletor: '.portfolio-pagina', carregar: () => import('./scripts/secoes/portfolio-pagina.js').then((m) => m.iniciarPortfolioPagina) },
   { seletor: '.rodape', carregar: () => import('./scripts/secoes/rodape.js').then((m) => m.iniciarRodape) },
 ];
 

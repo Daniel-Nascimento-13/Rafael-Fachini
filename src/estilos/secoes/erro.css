@@ -1,0 +1,29 @@
+/* =======================
+   PÁGINA 404
+   ======================= */
+
+/* CENTRALIZADA NA ALTURA (70SVH; 70VH ANTES DO SVH), COM O CABEÇALHO FIXO DESCONTADO NO PADDING */
+.erro-topo {
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  min-height: 70svh;
+  padding-block: calc(var(--altura-cabecalho) + 48px) 64px;
+}
+
+.erro-topo .metadado + h1 { margin-top: 20px; }
+
+.erro-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+/* MOBILE: CADA BOTÃO OCUPA A LINHA QUE SOBRA (COMO NO HERO) */
+.erro-botoes .botao { flex: 1 1 auto; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .erro-botoes .botao { flex: 0 0 auto; }
+}

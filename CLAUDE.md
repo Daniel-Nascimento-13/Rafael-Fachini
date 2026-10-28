@@ -86,6 +86,18 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
 - [ ] Portfólio (home), 6 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `aniversario-1`, `infantil-1`, `corporativo-1`, `casamento-2`): alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini") e `[CIDADE]` nas legendas. O destaque (`casamento-1`) é 4:5 (1600×2000); os outros 3:4 (1600×2133). Se a proporção real mudar, recalcule o `sizes`.
 
+- [ ] Página `/portfolio/`, 30 fotos em `/imagens/portfolio/<tipo>/<NN>-*` (tipos: `casamento`, `aniversario`, `formatura`, `infantil`, `corporativo`; NN de 01 a 06): alts genéricos ("Decoração de <tipo> realizada por Rafael Fachini") e legendas `[LOCAL] · [CIDADE]`. Todas 3:4 (1600×2133).
+
+### Páginas internas (/portfolio/, /depoimentos/, 404.html)
+- Cabeçalho, menu mobile e rodapé são **cópias** dos da home: ao mudar um, mude nas 4 páginas.
+- Diferenças nas internas: wordmark sem `data-topo` (link normal para `/`); sem o preload do poster.
+- Página atual no menu: o item aponta para a própria página com `aria-current="page"` (`/portfolio/` e `/depoimentos/`, em vez de `/#portfolio` e `/#depoimentos`); os demais seguem absolutos (`/#servicos` etc.). Estilo: sublinhado no desktop, itálico no menu mobile.
+- O "Voltar ao topo ↑" do rodapé tem `href="#"` + `data-topo` em todas as páginas (com `#conteudo`, o handler de âncoras rolaria junto).
+- Fundos: `.pagina-topo` em `fundo-base`, alternando até o rodapé (`fundo-superficie`).
+- `/portfolio/`: sem filtro em JS; pílulas com âncoras (`#casamento`, `#aniversario`, `#formatura`, `#infantil`, `#corporativo`, trilho horizontal até 599px) e uma seção por tipo com grade 3:4 (1 → 2 → 3). Figura, moldura, foto e hover vêm do `portfolio.css`; o `portfolio-pagina.css` só muda proporção, placeholder e grade.
+- `/depoimentos/`: esqueleto até a ETAPA 9. **Fora do sitemap até a ETAPA 9.**
+- 404: no `vite preview`, caminho inexistente devolve a home (fallback do Vite); teste a 404 em `/404.html`. Na Vercel, a `404.html` é servida com status 404.
+
 ### Portfólio (home)
 - Mobile (até 599px): trilho horizontal com scroll-snap, só CSS (`flex: 0 0 82%`, sangra até a borda com margem negativa do respiro, `tabindex="0"` + `aria-label` no `<ul>`), todos os itens 4:5. A partir de 600px: grade de 2 → 3 colunas. Em 600–899 todos 3:4 (linha alinhada) e a partir de 900 ocupa **2 colunas × 2 linhas** (os 6 itens fecham a grade 3×3 sem buraco). Nessa faixa a moldura não tem `aspect-ratio`: a altura vem dos vizinhos e a foto é absoluta (`cover`).
 - `sizes` do destaque (moldura medida no Chrome; a foto 4:5 é desenhada mais larga que a moldura de ~0,73): `(min-width: 1440px) 974px, (min-width: 900px) calc(71.1vw - 50px), (min-width: 600px) calc(53.34vw - 46px), calc(82vw - 32px)`. Demais: `(min-width: 1440px) 427px, (min-width: 900px) calc(33.34vw - 53px), (min-width: 600px) calc(50vw - 44px), calc(82vw - 32px)`.

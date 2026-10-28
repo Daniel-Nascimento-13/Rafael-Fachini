@@ -62,12 +62,13 @@ function iniciarMenu(cabecalho, botao, menu, lenis) {
 }
 
 /* === ENTRADA DOS ITENS === */
+/* OPACITY, NÃO AUTOALPHA: O VISIBILITY HIDDEN TIRARIA O FOCO DO 1º LINK (FOCADO ANTES DA ANIMAÇÃO) */
 function animarItens(menu) {
   if (reduzirMovimento) return;
 
   gsap.fromTo(
     menu.querySelectorAll('.menu-lista li, .menu-whatsapp'),
-    { y: 20, autoAlpha: 0 },
-    { y: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08, overwrite: true },
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08, overwrite: true },
   );
 }

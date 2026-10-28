@@ -92,6 +92,7 @@
 .pagina-intro {
   max-width: 560px;
   margin-top: 24px;
+  text-wrap: pretty;
 }
 
 /* === RESPONSIVIDADE === */
