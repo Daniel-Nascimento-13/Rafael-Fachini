@@ -57,9 +57,10 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 ### Formulário → WhatsApp (seção contato)
 Descritivo: "Conte o que você imagina. Sua mensagem chega pronta direto ao Rafael, no WhatsApp." Botão: "Enviar para o WhatsApp".
 
-Ordem: tipo (select) | servico (select) → nome (texto, linha inteira, rótulo dinâmico, `autocomplete="off"`: não é o nome de quem preenche) → data (date, mínimo = hoje no fuso local) | convidados (number, inteiro, mínimo 10) → cidade (texto, linha inteira) → local (texto, linha inteira, **opcional**). Os pares ficam lado a lado a partir de 600 (auto-placement; nome, cidade e local têm `grid-column: 1 / -1`).
+Ordem: tipo (select) | servico (select) → nome (texto, linha inteira, rótulo dinâmico, `autocomplete="off"`: não é o nome de quem preenche) → data (date, mínimo = hoje no fuso local) | convidados (number, inteiro, mínimo 10) → cidade (texto, linha inteira) → local (texto, linha inteira, **opcional**) → gastronomia (select, linha inteira, **opcional**). Os opcionais ficam agrupados no fim, antes do botão. Os pares ficam lado a lado a partir de 600 (auto-placement; nome, cidade, local e gastronomia têm `grid-column: 1 / -1`).
 
 Todos obrigatórios, menos o local (sem `required`, dica "Opcional, se já estiver definido.", placeholder "Ex.: Clube Comercial Encantado"). No `utils/campos.js`, campo sem `required` e vazio é válido; preenchido segue as regras normais. O {local} vem dos atributos do input: preenchido, `data-frase` ("Local: {valor}."); vazio, `data-frase-vazia` ("O local ainda não está definido.").
+- **Formato da gastronomia** (`select name="gastronomia"`, sem `required`, dica "Opcional, se já estiver definido."): 1ª opção `value=""` "Ainda não definido", `selected` e **não** `disabled` (dá para voltar a ela); Buffet · Volantes · Ilhas gastronômicas · Outro, com `data-frase` "buffet" / "volantes" / "ilhas gastronômicas" / "outro formato". O select tem `data-frase="Gastronomia: {valor}."` (o {valor} vem da `data-frase` da opção) e não tem `data-frase-vazia`: "Ainda não definido" vira "" e a frase some. O `montarMensagem` colapsa os espaços duplos que sobram. Vazio, fica em `--color-texto-3` como placeholder (`select:not([required]):has(option[value=""]:checked)`; os obrigatórios continuam com `:invalid`).
 
 Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm `data-mensagem` (a frase do tipo), por isso o JS pega os campos com `[data-mensagem]:not(option)`.
 
@@ -73,13 +74,13 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 
 | tipo | rótulo · exemplo · erro | data-mensagem |
 |---|---|---|
-| Casamento | Nome dos noivos · Ex.: Ana e Pedro · Informe o nome dos noivos. | Olá, Rafael! Somos {nome} e vamos nos casar em {data}, com cerca de {convidados} convidados em {cidade}. {local} Temos interesse {servico}. Podemos conversar? |
-| Aniversário | Nome do aniversariante · Ex.: Marcos · Informe o nome do aniversariante. | Olá, Rafael! Estou planejando o aniversário de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} Tenho interesse {servico}. Podemos conversar? |
-| Formatura | Formando ou turma · Ex.: Medicina 2026 · Informe o formando ou a turma. | Olá, Rafael! Estou planejando a formatura de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} Tenho interesse {servico}. Podemos conversar? |
-| Infantil | Nome da criança · Ex.: Cecília · Informe o nome da criança. | Olá, Rafael! Estou planejando a festa infantil de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} Tenho interesse {servico}. Podemos conversar? |
-| Corporativo | Nome da empresa · Ex.: Rafael Fachini Decorações · Informe o nome da empresa. | Olá, Rafael! Sou da {nome} e estamos planejando um evento corporativo para {data}, com cerca de {convidados} pessoas em {cidade}. {local} Temos interesse {servico}. Podemos conversar? |
+| Casamento | Nome dos noivos · Ex.: Ana e Pedro · Informe o nome dos noivos. | Olá, Rafael! Somos {nome} e vamos nos casar em {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Temos interesse {servico}. Podemos conversar? |
+| Aniversário | Nome do aniversariante · Ex.: Marcos · Informe o nome do aniversariante. | Olá, Rafael! Estou planejando o aniversário de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
+| Formatura | Formando ou turma · Ex.: Medicina 2026 · Informe o formando ou a turma. | Olá, Rafael! Estou planejando a formatura de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
+| Infantil | Nome da criança · Ex.: Cecília · Informe o nome da criança. | Olá, Rafael! Estou planejando a festa infantil de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
+| Corporativo | Nome da empresa · Ex.: Rafael Fachini Decorações · Informe o nome da empresa. | Olá, Rafael! Sou da {nome} e estamos planejando um evento corporativo para {data}, com cerca de {convidados} pessoas em {cidade}. {local} {gastronomia} Temos interesse {servico}. Podemos conversar? |
 
-`data-mensagem` do `<form>` (reserva, se a opção não tiver frase): "Olá, Rafael! Sou {nome} e estou planejando um evento para {data}, com cerca de {convidados} pessoas em {cidade}. {local} Tenho interesse {servico}. Podemos conversar?" O "na" vem da `data-frase` do serviço ("Tenho interesse na decoração."); {data} vira "sábado, 05/12/2026".
+`data-mensagem` do `<form>` (reserva, se a opção não tiver frase): "Olá, Rafael! Sou {nome} e estou planejando um evento para {data}, com cerca de {convidados} pessoas em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar?" O "na" vem da `data-frase` do serviço ("Tenho interesse na decoração."); {data} vira "sábado, 05/12/2026".
 
 ### Depoimentos
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.

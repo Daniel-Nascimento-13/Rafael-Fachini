@@ -24,7 +24,7 @@
    FORMULÁRIO
    ======================= */
 
-/* === GRADE DOS CAMPOS (TIPO + SERVIÇO | NOME | DATA + CONVIDADOS | CIDADE | LOCAL) === */
+/* === GRADE DOS CAMPOS (TIPO + SERVIÇO | NOME | DATA + CONVIDADOS | CIDADE | LOCAL | GASTRONOMIA) === */
 .contato-campos {
   display: grid;
   gap: 24px;
@@ -124,6 +124,9 @@
 /* OPÇÃO VAZIA (DISABLED) = PLACEHOLDER: SELECT INVÁLIDO ENQUANTO NADA FOI ESCOLHIDO */
 .contato-select select:invalid { color: var(--color-texto-3); }
 
+/* OPCIONAL: "AINDA NÃO DEFINIDO" É ESCOLHÍVEL (NÃO DISABLED), ENTÃO NÃO HÁ :INVALID; MESMO TOM DE PLACEHOLDER */
+.contato-select select:not([required]):has(option[value=""]:checked) { color: var(--color-texto-3); }
+
 .contato-select option {
   color: var(--color-texto);
   background: var(--color-fundo);
@@ -197,7 +200,8 @@
 
   .contato-campo-nome,
   .contato-campo-cidade,
-  .contato-campo-local { grid-column: 1 / -1; }
+  .contato-campo-local,
+  .contato-campo-gastronomia { grid-column: 1 / -1; }
 
   .contato-enviar { width: auto; }
 }

@@ -64,18 +64,23 @@ function ajustarNome(tipo, nome) {
 
 /* === MENSAGEM === */
 /* FRASE DO TIPO ESCOLHIDO (O DATA-MENSAGEM DO FORM É A RESERVA); CADA CAMPO TROCA O SEU {MARCADOR} */
+/* OPCIONAL SEM FRASE VIRA "": COLAPSA O ESPAÇO DUPLO QUE SOBRA */
 function montarMensagem(modelo, campos) {
-  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), modelo);
+  return campos
+    .reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), modelo)
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
 /* DATA → "SÁBADO, 05/12/2026" EM MINÚSCULAS (FUSO LOCAL); SELECT → DATA-FRASE DA OPÇÃO */
-/* CAMPO OPCIONAL → DATA-FRASE COM O {VALOR} OU, VAZIO, A DATA-FRASE-VAZIA */
+/* CAMPO OPCIONAL → DATA-FRASE DO CAMPO COM O {VALOR} (NO SELECT, A DATA-FRASE DA OPÇÃO) OU, VAZIO, A DATA-FRASE-VAZIA (SEM ELA, "") */
 const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
 
 function formatar(campo) {
   const valor = campo.value.trim();
-  if (campo.tagName === 'SELECT') return campo.selectedOptions[0].dataset.frase ?? valor;
-  if (campo.dataset.frase) return valor ? campo.dataset.frase.replace('{valor}', valor) : campo.dataset.fraseVazia;
+  const texto = campo.tagName === 'SELECT' ? campo.selectedOptions[0].dataset.frase ?? valor : valor;
+  if (campo.dataset.frase) return valor ? campo.dataset.frase.replace('{valor}', texto) : campo.dataset.fraseVazia ?? '';
+  if (campo.tagName === 'SELECT') return texto;
   if (campo.type !== 'date') return valor;
 
   const [ano, mes, dia] = valor.split('-').map(Number);
