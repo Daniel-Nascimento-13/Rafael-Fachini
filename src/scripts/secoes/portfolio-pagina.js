@@ -67,27 +67,28 @@ function iniciarFiltro(filtro, pagina) {
   });
 
   /* === ESCOLHER === */
-  /* INICIAL: VEIO DE /PORTFÓLIO/#TIPO (SEM ANÚNCIO, SEM ANIMAR; SÓ CORRIGE A ROLAGEM DO NAVEGADOR) */
-  const aplicar = (tipo, inicial = false) => {
+  /* SEM "TODOS": O 1º TIPO (CASAMENTO) É O PADRÃO E FICA SEM HASH; OS OUTROS VÃO PARA #TIPO */
+  /* INICIAL: SEM ANÚNCIO E SEM ANIMAR; SÓ ROLA SE O NAVEGADOR JÁ TINHA SALTADO PARA UM #TIPO VÁLIDO */
+  const aplicar = (tipo, { inicial = false, rolar = true } = {}) => {
     const item = itens.find((opcao) => opcao.dataset.filtro === tipo) ?? itens[0];
-    const todos = item.dataset.filtro === 'todos';
+    const padrao = item === itens[0];
 
     itens.forEach((opcao) => opcao.setAttribute('aria-pressed', String(opcao === item)));
     atual.textContent = item.querySelector('.portfolio-filtro-nome').textContent;
     contagem.textContent = item.querySelector('.portfolio-filtro-contagem').textContent;
 
-    const visiveis = grupos.filter((grupo) => todos || grupo.id === item.dataset.filtro);
+    const visiveis = grupos.filter((grupo) => grupo.id === item.dataset.filtro);
     grupos.forEach((grupo) => { grupo.hidden = !visiveis.includes(grupo); });
     alternarFundos(visiveis);
 
-    history.replaceState(null, '', todos ? location.pathname + location.search : `#${item.dataset.filtro}`);
+    history.replaceState(null, '', padrao ? location.pathname + location.search : `#${item.dataset.filtro}`);
     if (!inicial) {
       anuncio.textContent = item.dataset.anuncio;
       if (!reduzirMovimento) reanimar(visiveis);
     }
 
     ScrollTrigger.refresh();
-    rolarPara(pagina, { imediato: inicial });
+    if (rolar) rolarPara(pagina, { imediato: inicial });
   };
 
   itens.forEach((item) => item.addEventListener('click', () => {
@@ -96,7 +97,8 @@ function iniciarFiltro(filtro, pagina) {
   }));
 
   const tipoDaUrl = decodeURIComponent(location.hash.slice(1));
-  if (itens.some((item) => item.dataset.filtro === tipoDaUrl && tipoDaUrl !== 'todos')) aplicar(tipoDaUrl, true);
+  const hashValido = itens.some((item) => item.dataset.filtro === tipoDaUrl);
+  aplicar(tipoDaUrl, { inicial: true, rolar: hashValido });
 }
 
 /* === FUNDOS PELA ORDEM VISÍVEL (O 1º EVENTO É BASE: A FAIXA DO FILTRO JÁ SEPARA DA ABERTURA) === */

@@ -140,14 +140,14 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
    ======================= */
 
 /* FOTOS = MESMO DESTAQUE + DUPLA DA HOME (.PORTFOLIO-GRADE DO PORTFOLIO.CSS); AQUI SÓ O EVENTO EM VOLTA */
-/* CADA EVENTO É UMA FAIXA DE LARGURA TOTAL; O FUNDO ALTERNA PELA ORDEM VISÍVEL (HTML NO "TODOS", JS NOS FILTROS) */
+/* CADA EVENTO É UMA FAIXA DE LARGURA TOTAL; O FUNDO ALTERNA PELA ORDEM VISÍVEL (HTML NA ORDEM COMPLETA, JS NOS FILTROS) */
 .portfolio-evento { padding-block: 96px; }
 
-/* EMPILHADO (TIPO + H3, FOTOS, TEXTO) → FOTOS | TEXTO A PARTIR DE 900PX */
+/* ORDEM: TIPO + TÍTULO → CONTEXTO → FOTOS → FICHA (EMPILHADO; NO 900+ TOPO EM 2 COLUNAS, O RESTO EM LARGURA TOTAL) */
+/* ESPAÇOS POR MARGEM: CADA PASSAGEM TEM O SEU (TÍTULO → FOTOS ≠ FOTOS → FICHA) */
 .portfolio-evento-conteudo {
   display: grid;
-  grid-template-areas: "topo" "fotos" "texto";
-  gap: 24px;
+  grid-template-areas: "topo" "contexto" "fotos" "ficha";
 }
 
 .portfolio-evento-topo { grid-area: topo; }
@@ -162,18 +162,24 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
   font-size: 28px;
 }
 
-.portfolio-evento-fotos { grid-area: fotos; }
-
-.portfolio-evento-texto { grid-area: texto; }
-
 .portfolio-evento-descricao {
+  grid-area: contexto;
   max-width: 52ch;
+  margin-top: 16px;
   color: var(--color-texto-2);
   text-wrap: pretty;
 }
 
-/* === FICHA TÉCNICA (DT À ESQUERDA, DD À DIREITA, HAIRLINE EM CIMA DE CADA LINHA) === */
-.portfolio-evento-ficha { margin-top: 24px; }
+.portfolio-evento-fotos {
+  grid-area: fotos;
+  margin-top: 40px;
+}
+
+/* === FICHA TÉCNICA (LINHAS COM DT À ESQUERDA E DD À DIREITA → 4 COLUNAS NO 900+) === */
+.portfolio-evento-ficha {
+  grid-area: ficha;
+  margin-top: 32px;
+}
 
 .portfolio-evento-ficha div {
   display: flex;
@@ -204,13 +210,41 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
 
   .portfolio-evento-topo h3 { font-size: 40px; }
 
+  /* TOPO: TIPO + TÍTULO À ESQUERDA, CONTEXTO À DIREITA, ALINHADOS PELA BASE */
   .portfolio-evento-conteudo {
-    grid-template-columns: 1.6fr 1fr;
-    grid-template-areas: "fotos topo" "fotos texto";
-    grid-template-rows: auto 1fr;
-    gap: 24px 48px;
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "topo contexto" "fotos fotos" "ficha ficha";
+    column-gap: 48px;
+    align-items: end;
   }
+
+  .portfolio-evento-descricao {
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  .portfolio-evento-fotos { margin-top: 56px; }
+
+  /* FICHA EM UMA LINHA DE 4 COLUNAS: DT EM CIMA, DD EMBAIXO, HAIRLINE SÓ EM CIMA DA LINHA */
+  .portfolio-evento-ficha {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-linha);
+  }
+
+  .portfolio-evento-ficha div {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-block: 0;
+    border-top: 0;
+  }
+
+  .portfolio-evento-ficha dd { text-align: left; }
 
   .portfolio-pagina-cta-conteudo {
     flex-direction: row;
