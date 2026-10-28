@@ -104,22 +104,24 @@
     <!-- === FILTRO POR TIPO (SEM JS, TUDO APARECE E O BOTÃO NÃO FAZ NADA) === -->
     <div class="portfolio-pagina-filtro">
       <div class="envoltorio">
-        <button class="portfolio-filtro-botao" type="button" aria-expanded="false" aria-controls="portfolio-filtro-lista">
-          <span class="portfolio-filtro-icone" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span class="visualmente-oculto">Filtrar por tipo de evento:</span>
-          <span data-filtro-atual>Todos</span>
-          <span class="metadado" data-filtro-contagem>30</span>
-        </button>
-      </div>
-      <div class="portfolio-filtro-lista" id="portfolio-filtro-lista" hidden>
-        <ul class="envoltorio">
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="todos" aria-pressed="true" data-anuncio="Mostrando todos os tipos, 30 eventos"><span class="portfolio-filtro-nome">Todos</span><span class="metadado portfolio-filtro-contagem">30</span></button></li>
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="casamento" aria-pressed="false" data-anuncio="Mostrando casamento, 6 eventos"><span class="portfolio-filtro-nome">Casamento</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="aniversario" aria-pressed="false" data-anuncio="Mostrando aniversário, 6 eventos"><span class="portfolio-filtro-nome">Aniversário</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="formatura" aria-pressed="false" data-anuncio="Mostrando formatura, 6 eventos"><span class="portfolio-filtro-nome">Formatura</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="infantil" aria-pressed="false" data-anuncio="Mostrando infantil, 6 eventos"><span class="portfolio-filtro-nome">Infantil</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
-          <li><button class="portfolio-filtro-item" type="button" data-filtro="corporativo" aria-pressed="false" data-anuncio="Mostrando corporativo, 6 eventos"><span class="portfolio-filtro-nome">Corporativo</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
-        </ul>
+        <div class="portfolio-filtro">
+          <button class="portfolio-filtro-botao" type="button" aria-expanded="false" aria-controls="portfolio-filtro-lista">
+            <span class="portfolio-filtro-icone" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="visualmente-oculto">Filtrar por tipo de evento:</span>
+            <span data-filtro-atual>Todos</span>
+            <span class="metadado" data-filtro-contagem>30</span>
+          </button>
+          <div class="portfolio-filtro-lista" id="portfolio-filtro-lista" hidden>
+            <ul>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="todos" aria-pressed="true" data-anuncio="Mostrando todos os tipos, 30 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Todos</span><span class="metadado portfolio-filtro-contagem">30</span></button></li>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="casamento" aria-pressed="false" data-anuncio="Mostrando casamento, 6 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Casamento</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="aniversario" aria-pressed="false" data-anuncio="Mostrando aniversário, 6 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Aniversário</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="formatura" aria-pressed="false" data-anuncio="Mostrando formatura, 6 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Formatura</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="infantil" aria-pressed="false" data-anuncio="Mostrando infantil, 6 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Infantil</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
+              <li><button class="portfolio-filtro-item" type="button" data-filtro="corporativo" aria-pressed="false" data-anuncio="Mostrando corporativo, 6 eventos"><svg class="portfolio-filtro-check" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8.5l3.25 3.25L13 5"/></svg><span class="portfolio-filtro-nome">Corporativo</span><span class="metadado portfolio-filtro-contagem">6</span></button></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <p class="visualmente-oculto" aria-live="polite" data-filtro-anuncio></p>
     </div>
