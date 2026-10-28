@@ -1,0 +1,103 @@
+/* =======================
+   COMPONENTES
+   ======================= */
+
+/* === BOTÕES === */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 100%;
+  min-height: 52px;
+  /* 14PX VERTICAIS: COM 1 LINHA DÁ OS 52PX; SE QUEBRAR NO MOBILE, O BOTÃO CRESCE SEM VAZAR */
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  text-align: center;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* CLARO SOBRE O FUNDO ESCURO: TEXTO NO TOM DO FUNDO */
+.botao-primario {
+  background: var(--color-acento);
+  color: var(--color-fundo);
+}
+
+.botao-secundario {
+  border: 1px solid var(--color-linha-forte);
+  color: var(--color-texto);
+}
+
+.botao-primario:active   { background: var(--color-acento-claro); transition-duration: 0s; }
+.botao-secundario:active { border-color: var(--color-texto); transition-duration: 0s; }
+
+/* === LINK DE SEÇÃO ("VER TODOS →") === */
+.link-secao {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-texto);
+  text-decoration: underline;
+  text-decoration-color: var(--color-linha);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.4s ease;
+}
+
+/* === TOPO DE SEÇÃO (RÓTULO + H2 | TEXTO OU LINK) === */
+.secao-topo {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.secao-topo-texto { max-width: 520px; }
+
+/* =======================
+   ABERTURA DAS PÁGINAS INTERNAS
+   ======================= */
+
+.pagina-topo { padding-block: 140px 64px; }
+
+.pagina-titulo { max-width: 14ch; }
+
+.pagina-intro {
+  max-width: 560px;
+  margin-top: 24px;
+}
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .botao { white-space: nowrap; }
+}
+
+@media (min-width: 900px) {
+  .secao-topo {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+
+  .pagina-topo { padding-block: 200px 96px; }
+
+  .pagina-intro { margin-top: 32px; }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .botao-primario:hover   { background: var(--color-acento-claro); }
+  .botao-secundario:hover { border-color: var(--color-texto); }
+  .link-secao:hover       { text-decoration-color: var(--color-texto); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .botao, .link-secao { transition: none; }
+}

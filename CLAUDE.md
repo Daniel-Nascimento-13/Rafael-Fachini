@@ -83,6 +83,8 @@ Só preto, branco e cinzas: nenhuma cor de matiz.
 | `--color-acento` | #F5F5F5 | botão primário (texto do botão #0A0A0A) |
 | `--color-acento-claro` | #FFFFFF | foco e destaques |
 | `--color-linha` | rgba(245, 245, 245, 0.1) | hairlines |
+| `--color-linha-forte` | rgba(245, 245, 245, 0.28) | borda do `.botao-secundario` |
+| `--color-branco` | #fff | ainda sem uso: **sai na ETAPA 13** se continuar assim |
 | `--font-titulo` | Instrument Serif 400 normal + itálico | títulos |
 | `--font-texto` | Manrope 400/500/600 | texto corrido e botões |
 | `--font-mono` | JetBrains Mono 400 | metadados e campos |
