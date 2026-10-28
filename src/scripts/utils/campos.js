@@ -32,7 +32,9 @@ export function validarCampos(campos) {
 function valido(campo) {
   if (campo.type === 'checkbox') return campo.checked;
 
+  /* OPCIONAL (SEM REQUIRED) E VAZIO: VÁLIDO; PREENCHIDO SEGUE AS REGRAS ABAIXO */
   const valor = campo.value.trim();
+  if (!campo.required && valor === '') return true;
   if (campo.type === 'number') return !campo.validity.badInput && /^\d+$/.test(valor) && Number(valor) >= Number(campo.min);
   if (campo.type === 'date') return valor !== '' && valor >= campo.min;
 

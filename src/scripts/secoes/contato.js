@@ -69,11 +69,13 @@ function montarMensagem(modelo, campos) {
 }
 
 /* DATA → "SÁBADO, 05/12/2026" EM MINÚSCULAS (FUSO LOCAL); SELECT → DATA-FRASE DA OPÇÃO */
+/* CAMPO OPCIONAL → DATA-FRASE COM O {VALOR} OU, VAZIO, A DATA-FRASE-VAZIA */
 const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
 
 function formatar(campo) {
   const valor = campo.value.trim();
   if (campo.tagName === 'SELECT') return campo.selectedOptions[0].dataset.frase ?? valor;
+  if (campo.dataset.frase) return valor ? campo.dataset.frase.replace('{valor}', valor) : campo.dataset.fraseVazia;
   if (campo.type !== 'date') return valor;
 
   const [ano, mes, dia] = valor.split('-').map(Number);

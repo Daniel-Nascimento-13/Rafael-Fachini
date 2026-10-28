@@ -24,7 +24,7 @@
    FORMULÁRIO
    ======================= */
 
-/* === GRADE DOS CAMPOS (TIPO + SERVIÇO | NOME | DATA + CONVIDADOS | CIDADE) === */
+/* === GRADE DOS CAMPOS (TIPO + SERVIÇO | NOME | DATA + CONVIDADOS | CIDADE | LOCAL) === */
 .contato-campos {
   display: grid;
   gap: 24px;
@@ -196,7 +196,8 @@
   }
 
   .contato-campo-nome,
-  .contato-campo-cidade { grid-column: 1 / -1; }
+  .contato-campo-cidade,
+  .contato-campo-local { grid-column: 1 / -1; }
 
   .contato-enviar { width: auto; }
 }
