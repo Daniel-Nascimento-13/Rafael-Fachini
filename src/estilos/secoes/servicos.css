@@ -2,13 +2,14 @@
    SERVIÇOS
    ======================= */
 
-/* === LISTA (1 COLUNA → 2 A PARTIR DE 600PX) === */
+/* === LISTA (2 COLUNAS EM TODAS AS LARGURAS) === */
 .servicos-lista {
   display: grid;
-  gap: 64px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
-/* === CARD === */
+/* === CARD (COMPACTO ATÉ 599PX) === */
 .servico {
   display: flex;
   flex-direction: column;
@@ -16,11 +17,11 @@
   height: 100%;
 }
 
-/* MOLDURA FIXA 4:3; SUPERFÍCIE SEGURA O LAYOUT ATÉ A FOTO CHEGAR */
+/* MOLDURA FIXA 4:5 → 4:3; SUPERFÍCIE SEGURA O LAYOUT ATÉ A FOTO CHEGAR */
 .servico-foto {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--color-superficie);
 }
@@ -32,25 +33,42 @@
   object-position: var(--foco, 50% 50%);
 }
 
-.servico-numero { margin-top: 24px; }
+.servico-numero { margin-top: 12px; }
 
-.servico h3 { margin-top: 8px; }
+.servico h3 {
+  margin-top: 8px;
+  font-size: 19px;
+}
 
 .servico-texto {
   max-width: 44ch;
   margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
   text-wrap: pretty;
 }
 
 /* EMPURRA O LINK PARA A BASE: OS DOIS CARDS TERMINAM NA MESMA LINHA */
-.servico-link { margin-top: auto; padding-top: 20px; }
+.servico-link {
+  margin-top: auto;
+  padding-top: 20px;
+  font-size: 14px;
+}
 
 /* === RESPONSIVIDADE === */
+/* 600PX+: REVERT-LAYER DEVOLVE OS TAMANHOS DO BASE.CSS/COMPONENTES.CSS (COM AS MEDIA QUERIES DELES) */
 @media (min-width: 600px) {
-  .servicos-lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
-  }
+  .servicos-lista { gap: 32px; }
+
+  .servico-foto { aspect-ratio: 4 / 3; }
+
+  .servico-numero { margin-top: 24px; }
+
+  .servico h3,
+  .servico-texto,
+  .servico-link { font-size: revert-layer; }
+
+  .servico-texto { line-height: revert-layer; }
 }
 
 @media (min-width: 900px) {

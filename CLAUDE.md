@@ -90,7 +90,7 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 ## Imagens (substitui o -500/-1000 da spec)
 - Cada foto em 4 arquivos: `<nome>-800.webp`, `<nome>-1600.webp`, `<nome>-800.jpg`, `<nome>-1600.jpg`, em `/imagens/<secao>/`.
 - `<picture>` com `<source type="image/webp" srcset="...-800.webp 800w, ...-1600.webp 1600w">` + `<img>` JPG com o mesmo srcset; `width`/`height` reais do arquivo -1600.
-- `sizes` = largura real desenhada da foto em cada faixa do layout (até 599 / 600 / 900 / 1440+), considerando o respiro do `.envoltorio` (20 / 32 / 48px) e o gap do grid. Ex. (Serviços, 2 colunas a partir de 600): `(min-width: 1440px) 648px, (min-width: 900px) calc(50vw - 72px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)`.
+- `sizes` = largura real desenhada da foto em cada faixa do layout (até 599 / 600 / 900 / 1440+), considerando o respiro do `.envoltorio` (20 / 32 / 48px) e o gap do grid. Ex. (Serviços, 2 colunas em todas as larguras): `(min-width: 1440px) 648px, (min-width: 900px) calc(50vw - 72px), (min-width: 600px) calc(50vw - 48px), calc(83.34vw - 47px)` (até 599 a moldura é 4:5, de `50vw - 28px`, e a foto 4:3 em `cover` é desenhada 5/3 mais larga).
 - Abaixo da dobra: `loading="lazy" decoding="async"`. Moldura fixa (`aspect-ratio`) + `object-fit: cover` + `object-position: var(--foco, 50% 50%)`.
 - Placeholder: fundo do `<picture>`. Foto ausente ou quebrada: o `::after` do `img` (base.css) cobre o ícone e o alt com esse fundo.
 
