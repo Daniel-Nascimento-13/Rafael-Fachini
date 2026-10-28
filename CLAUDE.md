@@ -39,7 +39,8 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 ### Estrutura
 - **Home (ordem):** cabecalho, hero, manifesto, servicos, portfolio, processo, depoimentos, contato, rodape.
 - **Páginas internas:** `/portfolio/`, `/depoimentos/`, `404.html` (input `erro` no `vite.config.js`, `noindex`).
-- **Menu:** Nossa atuação (âncora `#servicos`) · Portfólio · Como funciona · Depoimentos · Contato (+ botão WhatsApp).
+- **Menu:** Nossa atuação (âncora `#servicos`) · Portfólio (página `/portfolio/`) · Como funciona · Depoimentos · Contato (+ botão WhatsApp).
+- **Links do menu e do rodapé** (iguais nas 4 páginas): "Portfólio" sempre vai para `/portfolio/` (navegação normal, sem Lenis; o menu mobile fecha no clique). Os demais são âncoras absolutas da home (`/#servicos`, `/#processo`, `/#depoimentos`, `/#contato`). A seção `#portfolio` da home continua (alvo do "Ver portfólio" do hero).
 - **Barra do cabeçalho** (fixa, 64px / 80px a partir de 900): sobre o hero, `color-mix` 60% de `--color-fundo` + `backdrop-filter: blur(14px)` (com `-webkit-`) + hairline `--color-linha`. Depois de 80px (`.cabecalho-rolado`, JS): fundo sólido, sem blur. Sem suporte a `backdrop-filter`: 85% desde o início (o `@supports` fica antes do `.cabecalho-rolado` para não sobrescrevê-lo). Menu aberto: sólida, sem hairline. Transição 0.6s; nenhuma com movimento reduzido. Medido sobre o vídeo (pior instante): marca #F5F5F5 6.55:1 (375) e 16.7:1 (1440); links #A3A3A3 do desktop só 2.46:1 (1440), pendente de decisão.
 - **Hambúrguer:** 3 `<span>` (nas 4 páginas), riscos 22×1.5px a 7px de centro a centro, o do meio no centro do botão de 44×44. Aberto (X): meio `opacity: 0` + `scaleX(0)`; de cima `translateY(7px) rotate(45deg)`; de baixo `translateY(-7px) rotate(-45deg)`; 0.5s `cubic-bezier(0.65, 0, 0.35, 1)`; sem transição com movimento reduzido.
 - **Wordmark:** `data-topo` SÓ na home (sobe a página sem recarregar). Nas páginas internas o wordmark é um link normal para `/`.
@@ -105,7 +106,7 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 ### Páginas internas (/portfolio/, /depoimentos/, 404.html)
 - Cabeçalho, menu mobile e rodapé são **cópias** dos da home: ao mudar um, mude nas 4 páginas.
 - Diferenças nas internas: wordmark sem `data-topo` (link normal para `/`); sem o preload do poster.
-- Página atual no menu: o item aponta para a própria página com `aria-current="page"` (`/portfolio/` e `/depoimentos/`, em vez de `/#portfolio` e `/#depoimentos`); os demais seguem absolutos (`/#servicos` etc.). Estilo: sublinhado no desktop, itálico no menu mobile.
+- Página atual no menu: o item recebe `aria-current="page"` (em `/portfolio/`, o "Portfólio"; em `/depoimentos/`, o "Depoimentos" passa a apontar para `/depoimentos/` em vez de `/#depoimentos`). Só no menu (desktop e mobile), não no rodapé. Estilo: sublinhado no desktop, itálico no menu mobile.
 - O "Voltar ao topo ↑" do rodapé tem `href="#"` + `data-topo` em todas as páginas (com `#conteudo`, o handler de âncoras rolaria junto).
 - Fundos: `.pagina-topo` em `fundo-base`, alternando até o rodapé (`fundo-superficie`).
 - `/portfolio/`: sem filtro em JS; pílulas com âncoras (`#casamento`, `#aniversario`, `#formatura`, `#infantil`, `#corporativo`, trilho horizontal até 599px) e uma seção por tipo com grade 3:4 (1 → 2 → 3). Figura, moldura, foto e hover vêm do `portfolio.css`; o `portfolio-pagina.css` só muda proporção, placeholder e grade.
