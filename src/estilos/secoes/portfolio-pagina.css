@@ -136,44 +136,31 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
 .portfolio-filtro-item[aria-pressed="true"] .portfolio-filtro-check { visibility: visible; }
 
 /* =======================
-   GRUPOS POR TIPO
-   ======================= */
-
-/* === TOPO (H2 + CONTAGEM NA MESMA LINHA) === */
-.portfolio-pagina-grupo-topo {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-/* =======================
    EVENTO
    ======================= */
 
 /* FOTOS = MESMO DESTAQUE + DUPLA DA HOME (.PORTFOLIO-GRADE DO PORTFOLIO.CSS); AQUI SÓ O EVENTO EM VOLTA */
-/* EMPILHADO (META + H3, FOTOS, TEXTO) → FOTOS | TEXTO A PARTIR DE 900PX */
-.portfolio-evento {
+/* CADA EVENTO É UMA FAIXA DE LARGURA TOTAL; O FUNDO ALTERNA PELA ORDEM VISÍVEL (HTML NO "TODOS", JS NOS FILTROS) */
+.portfolio-evento { padding-block: 96px; }
+
+/* EMPILHADO (TIPO + H3, FOTOS, TEXTO) → FOTOS | TEXTO A PARTIR DE 900PX */
+.portfolio-evento-conteudo {
   display: grid;
   grid-template-areas: "topo" "fotos" "texto";
   gap: 24px;
 }
 
-/* HAIRLINE NO MEIO DO ESPAÇO ENTRE EVENTOS */
-.portfolio-evento + .portfolio-evento {
-  margin-top: 36px;
-  padding-top: 36px;
-  border-top: 1px solid var(--color-linha);
-}
-
 .portfolio-evento-topo { grid-area: topo; }
 
-.portfolio-evento-numero {
+.portfolio-evento-tipo {
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 
-.portfolio-evento-topo h3 { margin-top: 8px; }
+.portfolio-evento-topo h3 {
+  margin-top: 8px;
+  font-size: 28px;
+}
 
 .portfolio-evento-fotos { grid-area: fotos; }
 
@@ -203,11 +190,6 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
   text-align: right;
 }
 
-/* UM GRUPO SÓ NA TELA: SEMPRE SUPERFÍCIE, PARA NÃO SUMIR ENTRE A ABERTURA E A CHAMADA (AMBAS BASE) */
-.portfolio-pagina[data-filtro]:not([data-filtro="todos"]) .portfolio-pagina-grupo { background: var(--color-superficie); }
-
-.portfolio-pagina[data-filtro]:not([data-filtro="todos"]) .portfolio-foto { background: var(--color-fundo); }
-
 /* === CHAMADA FINAL === */
 .portfolio-pagina-cta-conteudo {
   display: flex;
@@ -218,19 +200,16 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 900px) {
-  .portfolio-pagina-grupo-topo { margin-bottom: 56px; }
+  .portfolio-evento { padding-block: 140px; }
 
-  .portfolio-evento {
+  .portfolio-evento-topo h3 { font-size: 40px; }
+
+  .portfolio-evento-conteudo {
     grid-template-columns: 1.6fr 1fr;
     grid-template-areas: "fotos topo" "fotos texto";
     grid-template-rows: auto 1fr;
     gap: 24px 48px;
     align-items: start;
-  }
-
-  .portfolio-evento + .portfolio-evento {
-    margin-top: 60px;
-    padding-top: 60px;
   }
 
   .portfolio-pagina-cta-conteudo {

@@ -4,7 +4,7 @@
 
 import { gsap, ScrollTrigger, rolarPara } from '../core/rolagem.js';
 import { reduzirMovimento } from '../utils/movimento.js';
-import { revelar, revelarEmSequencia } from '../utils/revelar.js';
+import { revelarEmSequencia } from '../utils/revelar.js';
 
 /* SEM JS, TODOS OS GRUPOS APARECEM (O FILTRO SÓ ESCONDE); CADA GRUPO TEM ID = TIPO (#CASAMENTO...) */
 export function iniciarPortfolioPagina(pagina) {
@@ -13,7 +13,6 @@ export function iniciarPortfolioPagina(pagina) {
 
   if (reduzirMovimento) return;
 
-  revelar(pagina.querySelectorAll('.portfolio-pagina-grupo-topo'));
   pagina.querySelectorAll('.portfolio-evento').forEach(revelarEvento);
 }
 
@@ -76,10 +75,10 @@ function iniciarFiltro(filtro, pagina) {
     itens.forEach((opcao) => opcao.setAttribute('aria-pressed', String(opcao === item)));
     atual.textContent = item.querySelector('.portfolio-filtro-nome').textContent;
     contagem.textContent = item.querySelector('.portfolio-filtro-contagem').textContent;
-    pagina.dataset.filtro = item.dataset.filtro;
 
     const visiveis = grupos.filter((grupo) => todos || grupo.id === item.dataset.filtro);
     grupos.forEach((grupo) => { grupo.hidden = !visiveis.includes(grupo); });
+    alternarFundos(visiveis);
 
     history.replaceState(null, '', todos ? location.pathname + location.search : `#${item.dataset.filtro}`);
     if (!inicial) {
@@ -98,6 +97,22 @@ function iniciarFiltro(filtro, pagina) {
 
   const tipoDaUrl = decodeURIComponent(location.hash.slice(1));
   if (itens.some((item) => item.dataset.filtro === tipoDaUrl && tipoDaUrl !== 'todos')) aplicar(tipoDaUrl, true);
+}
+
+/* === FUNDOS PELA ORDEM VISÍVEL (O 1º EVENTO É BASE: A FAIXA DO FILTRO JÁ SEPARA DA ABERTURA) === */
+/* A CHAMADA FINAL FICA COM O TOM CONTRÁRIO AO DO ÚLTIMO EVENTO (COM CONTAGEM PAR, CONTINUA BASE) */
+function alternarFundos(grupos) {
+  const eventos = grupos.flatMap((grupo) => [...grupo.querySelectorAll('.portfolio-evento')]);
+  eventos.forEach((evento, indice) => {
+    evento.classList.toggle('fundo-base', indice % 2 === 0);
+    evento.classList.toggle('fundo-superficie', indice % 2 === 1);
+  });
+
+  const chamada = document.querySelector('.portfolio-pagina-cta');
+  if (!chamada || !eventos.length) return;
+  const ultimoBase = eventos.length % 2 === 1;
+  chamada.classList.toggle('fundo-superficie', ultimoBase);
+  chamada.classList.toggle('fundo-base', !ultimoBase);
 }
 
 /* === REVELAR DE NOVO OS EVENTOS QUE APARECERAM === */
