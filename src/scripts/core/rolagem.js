@@ -11,12 +11,14 @@ import { reduzirMovimento } from '../utils/movimento.js';
 gsap.registerPlugin(ScrollTrigger);
 
 /* === LENIS + SCROLLTRIGGER === */
+/* NO MÓDULO: AS SEÇÕES ROLAM PELO ROLARPARA (SEM RECEBER O LENIS) */
+let lenis = null;
+
 export function iniciarRolagem() {
   /* RECALCULA OS GATILHOS DEPOIS DO SWAP DAS FONTES */
   document.fonts.ready.then(() => ScrollTrigger.refresh());
 
   /* [DATA-TOPO]: SOBE SEM RECARREGAR; SEM LENIS (MOVIMENTO REDUZIDO), DIRETO */
-  let lenis = null;
   document.addEventListener('click', (evento) => {
     if (!evento.target.closest('a[data-topo]')) return;
     evento.preventDefault();
@@ -54,6 +56,13 @@ export function iniciarRolagem() {
   });
 
   return lenis;
+}
+
+/* === ROLAR ATÉ UM ELEMENTO (AMBOS DESCONTAM O SCROLL-PADDING-TOP) === */
+/* IMEDIATO VAI PELO NATIVO: LOGO DEPOIS DE UM SALTO DO NAVEGADOR (#ÂNCORA), O LENIS AINDA TEM A POSIÇÃO ANTIGA E NÃO ROLA */
+export function rolarPara(alvo, { imediato = false } = {}) {
+  if (lenis && !imediato) lenis.scrollTo(alvo, { duration: 1.4 });
+  else alvo.scrollIntoView({ block: 'start' });
 }
 
 /* === FOCO NO DESTINO (LEITOR DE TELA E TAB CONTINUAM DALI) === */

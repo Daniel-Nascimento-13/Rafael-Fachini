@@ -4,45 +4,140 @@
 
 /* FIGURA, MOLDURA, FOTO E HOVER VÊM DO PORTFOLIO.CSS; AQUI SÓ O QUE MUDA NA PÁGINA */
 
-/* === TIPOS (PÍLULAS; TRILHO HORIZONTAL NO MOBILE) === */
-.portfolio-pagina-tipos { margin-top: 40px; }
+/* ÂNCORAS E ROLAGEM DO FILTRO PARAM ABAIXO DO CABEÇALHO + FAIXA */
+:root { --altura-filtro: 68px; }
 
-.portfolio-pagina-tipos-lista {
-  display: flex;
-  gap: 8px;
-  margin-inline: calc(var(--respiro) * -1);
-  padding-inline: var(--respiro);
-  overflow-x: auto;
-  scrollbar-width: none;
+html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabecalho) + var(--altura-filtro)); }
+
+/* =======================
+   FILTRO POR TIPO
+   ======================= */
+
+/* === FAIXA (GRUDA LOGO ABAIXO DO CABEÇALHO; ABAIXO DELE E DO MENU MOBILE NO Z-INDEX) === */
+.portfolio-pagina-filtro {
+  position: sticky;
+  top: var(--altura-cabecalho);
+  z-index: 10;
+  border-bottom: 1px solid var(--color-linha);
+  background: color-mix(in srgb, var(--color-fundo) 85%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
-.portfolio-pagina-tipos-lista::-webkit-scrollbar { display: none; }
+.portfolio-pagina-filtro > .envoltorio {
+  display: flex;
+  align-items: center;
+  height: calc(var(--altura-filtro) - 1px);
+}
 
-.pilula {
+/* === BOTÃO (PÍLULA; ABERTO = BORDA CHEIA E O ÍCONE VIRA X) === */
+.portfolio-filtro-botao {
   display: inline-flex;
   align-items: center;
+  gap: 12px;
   min-height: 44px;
   padding: 0 20px;
   border: 1px solid var(--color-linha-forte);
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
-  white-space: nowrap;
   color: var(--color-texto);
   transition: border-color 0.4s ease;
 }
 
-.pilula:active { border-color: var(--color-texto); transition-duration: 0s; }
+.portfolio-filtro-botao[aria-expanded="true"] { border-color: var(--color-texto); }
 
-/* === GRUPOS POR TIPO (GRADE 3:4 SEM DESTAQUE: 1 → 2 EM 600 → 3 EM 900) === */
-.portfolio-pagina-titulo { margin-bottom: 40px; }
+.portfolio-filtro-botao .metadado { color: var(--color-texto-3); }
 
+/* MESMO DESENHO DO HAMBÚRGUER DO CABEÇALHO EM 16PX: RISCOS A 5PX DE CENTRO A CENTRO */
+.portfolio-filtro-icone {
+  position: relative;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.portfolio-filtro-icone span {
+  position: absolute;
+  top: 7.25px;
+  left: 0;
+  width: 16px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.portfolio-filtro-icone span:first-child { top: 2.25px; }
+.portfolio-filtro-icone span:last-child  { top: 12.25px; }
+
+[aria-expanded="true"] .portfolio-filtro-icone span:first-child  { transform: translateY(5px) rotate(45deg); }
+[aria-expanded="true"] .portfolio-filtro-icone span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+[aria-expanded="true"] .portfolio-filtro-icone span:last-child   { transform: translateY(-5px) rotate(-45deg); }
+
+/* === LISTA (ABRE LOGO ABAIXO DA FAIXA, LARGURA TOTAL; ROLA SE A TELA FOR BAIXA) === */
+.portfolio-filtro-lista {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100dvh - var(--altura-cabecalho) - var(--altura-filtro));
+  overflow-y: auto;
+  border-bottom: 1px solid var(--color-linha);
+  background: var(--color-fundo);
+  animation: portfolio-filtro-entrar 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes portfolio-filtro-entrar {
+  from { opacity: 0; transform: translateY(-8px); }
+}
+
+.portfolio-filtro-lista li + li { border-top: 1px solid var(--color-linha); }
+
+.portfolio-filtro-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding-block: 16px;
+  font-family: var(--font-titulo);
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--color-texto);
+  text-align: left;
+}
+
+.portfolio-filtro-contagem { color: var(--color-texto-3); }
+
+.portfolio-filtro-item[aria-pressed="true"] .portfolio-filtro-nome { font-style: italic; }
+
+.portfolio-filtro-item[aria-pressed="true"] .portfolio-filtro-contagem { color: var(--color-texto); }
+
+/* =======================
+   GRUPOS POR TIPO
+   ======================= */
+
+/* === TOPO (H2 + CONTAGEM NA MESMA LINHA) === */
+.portfolio-pagina-grupo-topo {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* === GRADE 3:4 SEM DESTAQUE (2 COLUNAS DESDE O MOBILE → 3 EM 900) === */
 .portfolio-pagina-grade {
   display: grid;
-  gap: 40px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .portfolio-pagina-grade .portfolio-foto { aspect-ratio: 3 / 4; }
+
+/* UM GRUPO SÓ NA TELA: SEMPRE SUPERFÍCIE, PARA NÃO SUMIR ENTRE A ABERTURA E A CHAMADA (AMBAS BASE) */
+.portfolio-pagina[data-filtro]:not([data-filtro="todos"]) .portfolio-pagina-grupo { background: var(--color-superficie); }
+
+.portfolio-pagina[data-filtro]:not([data-filtro="todos"]) .portfolio-foto { background: var(--color-fundo); }
 
 /* === CHAMADA FINAL === */
 .portfolio-pagina-cta-conteudo {
@@ -54,23 +149,13 @@
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
-  .portfolio-pagina-tipos-lista {
-    flex-wrap: wrap;
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
-  }
-
-  .portfolio-pagina-grade {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px 24px;
-  }
+  .portfolio-pagina-grade { gap: 40px 24px; }
 }
 
 @media (min-width: 900px) {
-  .portfolio-pagina-tipos { margin-top: 48px; }
+  .portfolio-filtro-item { font-size: 28px; }
 
-  .portfolio-pagina-titulo { margin-bottom: 56px; }
+  .portfolio-pagina-grupo-topo { margin-bottom: 56px; }
 
   .portfolio-pagina-grade {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -86,10 +171,15 @@
 
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
-  .pilula:hover { border-color: var(--color-texto); }
+  .portfolio-filtro-botao:hover { border-color: var(--color-texto); }
+
+  .portfolio-filtro-item:hover .portfolio-filtro-contagem { color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .pilula { transition: none; }
+  .portfolio-filtro-botao,
+  .portfolio-filtro-icone span { transition: none; }
+
+  .portfolio-filtro-lista { animation: none; }
 }
