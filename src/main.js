@@ -14,23 +14,21 @@ import './estilos/main.css';
 import { iniciarRolagem } from './scripts/core/rolagem.js';
 import { carregarAoAproximar } from './scripts/core/carregador.js';
 import { detectarTeclado } from './scripts/utils/teclado.js';
-/* ETAPA 4: import { iniciarCabecalho } from './scripts/secoes/cabecalho.js'; */
-/* ETAPA 4: import { iniciarHero } from './scripts/secoes/hero.js'; */
+import { iniciarCabecalho } from './scripts/secoes/cabecalho.js';
+import { iniciarHero } from './scripts/secoes/hero.js';
 
-/* === ROLAGEM SUAVE (O LENIS VAI PARA O CABEÇALHO NA ETAPA 4) === */
+/* === ROLAGEM SUAVE === */
 const lenis = iniciarRolagem();
 
 /* === TECLADO × PONTEIRO === */
 detectarTeclado();
 
 /* === ACIMA DA DOBRA === */
-/* ETAPA 4:
 const cabecalho = document.querySelector('.cabecalho');
 if (cabecalho) iniciarCabecalho(cabecalho, lenis);
 
 const hero = document.querySelector('.hero');
 if (hero) iniciarHero(hero);
-*/
 
 /* === ABAIXO DA DOBRA (CARREGADAS SOB DEMANDA) === */
 /* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR, NA ORDEM DA HOME */

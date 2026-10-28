@@ -2,6 +2,26 @@
    COMPONENTES
    ======================= */
 
+/* === PULAR PARA O CONTEÚDO (APARECE SÓ NO FOCO POR TECLADO) === */
+.pular-conteudo:focus-visible {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 30;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 12px 20px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  border-radius: 999px;
+  background: var(--color-texto);
+  color: var(--color-fundo);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* === BOTÕES === */
 .botao {
   display: inline-flex;
@@ -10,8 +30,10 @@
   gap: 10px;
   max-width: 100%;
   min-height: 52px;
-  /* 14PX VERTICAIS: COM 1 LINHA DÁ OS 52PX; SE QUEBRAR NO MOBILE, O BOTÃO CRESCE SEM VAZAR */
-  padding: 14px 28px;
+  /* BORDA TRANSPARENTE EM TODOS: PRIMÁRIO E SECUNDÁRIO COM A MESMA ALTURA */
+  /* 1 + 13 + 24 + 13 + 1 = 52PX COM 1 LINHA; SE QUEBRAR NO MOBILE, O BOTÃO CRESCE SEM VAZAR */
+  padding: 13px 28px;
+  border: 1px solid transparent;
   border-radius: 999px;
   font-size: 15px;
   font-weight: 600;
@@ -28,7 +50,7 @@
 }
 
 .botao-secundario {
-  border: 1px solid var(--color-linha-forte);
+  border-color: var(--color-linha-forte);
   color: var(--color-texto);
 }
 

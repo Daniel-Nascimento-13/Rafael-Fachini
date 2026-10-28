@@ -1,0 +1,168 @@
+/* =======================
+   CABEÇALHO
+   ======================= */
+
+/* === ALTURA (REFERÊNCIA DO SCROLL-PADDING E DO MENU MOBILE) === */
+:root { --altura-cabecalho: 64px; }
+
+/* === BARRA FIXA === */
+/* TRANSPARENTE SOBRE O HERO; A HAIRLINE JÁ EXISTE (TRANSPARENTE) PARA A ALTURA NÃO MUDAR */
+.cabecalho {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  height: var(--altura-cabecalho);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+
+.cabecalho-rolado {
+  background: var(--color-fundo);
+  border-bottom-color: var(--color-linha);
+}
+
+/* MENU ABERTO: A BARRA SE FUNDE AO PAINEL */
+.menu-aberto .cabecalho {
+  background: var(--color-fundo);
+  border-bottom-color: transparent;
+}
+
+.cabecalho-grade {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 100%;
+}
+
+/* === MARCA (WORDMARK ATÉ O LOGO CHEGAR) === */
+.cabecalho-marca {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-titulo);
+  font-size: 24px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-texto);
+}
+
+/* === NAV DO DESKTOP === */
+.cabecalho-nav,
+.cabecalho-whatsapp { display: none; }
+
+.cabecalho-lista {
+  display: flex;
+  gap: 32px;
+}
+
+.cabecalho-lista a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-texto-2);
+  transition: color 0.4s ease;
+}
+
+.cabecalho-whatsapp {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+/* === BOTÃO DO MENU (2 RISCOS → X) === */
+.cabecalho-menu {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+}
+
+.cabecalho-menu span {
+  position: absolute;
+  left: 11px;
+  width: 22px;
+  height: 1.5px;
+  background: var(--color-texto);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cabecalho-menu span:first-child { top: 17.25px; }
+.cabecalho-menu span:last-child  { top: 25.25px; }
+
+.cabecalho-menu[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.cabecalho-menu[aria-expanded="true"] span:last-child  { transform: translateY(-4px) rotate(-45deg); }
+
+/* =======================
+   MENU MOBILE
+   ======================= */
+
+/* SEM ROLAGEM NATIVA COM O MENU ABERTO (O LENIS PARA PELO JS) */
+.menu-aberto { overflow: hidden; }
+
+/* DISPLAY FLEX SOBRESCREVERIA O [HIDDEN] */
+.menu-mobile[hidden] { display: none; }
+
+.menu-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  display: flex;
+  padding-block: calc(var(--altura-cabecalho) + 32px) 32px;
+  overflow-y: auto;
+  background: var(--color-fundo);
+}
+
+.menu-conteudo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.menu-lista a {
+  display: inline-block;
+  padding-block: 6px;
+  font-family: var(--font-titulo);
+  font-size: clamp(40px, 11vw, 56px);
+  line-height: 1.1;
+  color: var(--color-texto);
+  transition: transform 0.5s ease, color 0.4s ease;
+}
+
+.menu-lista a:active { transform: translateX(6px); transition-duration: 0s; }
+
+.menu-whatsapp { width: 100%; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 900px) {
+  :root { --altura-cabecalho: 80px; }
+
+  .cabecalho-marca { font-size: 28px; }
+
+  .cabecalho-nav {
+    display: block;
+    margin-left: auto;
+  }
+
+  .cabecalho-whatsapp { display: inline-flex; }
+
+  .cabecalho-menu,
+  .menu-mobile { display: none; }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .cabecalho-lista a:hover { color: var(--color-texto); }
+  .menu-lista a:hover      { transform: translateX(6px); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .cabecalho,
+  .cabecalho-lista a,
+  .cabecalho-menu span,
+  .menu-lista a { transition: none; }
+}

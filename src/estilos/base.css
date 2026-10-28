@@ -6,9 +6,11 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* COLOR-SCHEME: DATE PICKER E SELECT NATIVOS NO TEMA ESCURO */
+/* SCROLL-PADDING: ÂNCORAS PARAM NA BASE DO CABEÇALHO FIXO */
 html {
   -webkit-text-size-adjust: 100%;
   color-scheme: dark;
+  scroll-padding-top: var(--altura-cabecalho);
   background: var(--color-fundo);
 }
 
@@ -111,6 +113,8 @@ h1 em, h2 em, h3 em { font-style: italic; }
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-texto-3);
+  /* SE QUEBRAR NO MOBILE, SEM PALAVRA ÓRFÃ NA 2ª LINHA */
+  text-wrap: balance;
 }
 
 /* === METADADOS === */

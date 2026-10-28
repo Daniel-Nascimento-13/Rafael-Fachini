@@ -40,6 +40,8 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 - **Home (ordem):** cabecalho, hero, manifesto, servicos, portfolio, processo, depoimentos, contato, rodape.
 - **Páginas internas:** `/portfolio/`, `/depoimentos/`, `404.html` (input `erro` no `vite.config.js`, `noindex`).
 - **Menu:** Serviços · Portfólio · Como funciona · Depoimentos · Contato (+ botão WhatsApp).
+- **Wordmark:** `data-topo` SÓ na home (sobe a página sem recarregar). Nas páginas internas o wordmark é um link normal para `/`.
+- **Hero:** entrada do texto em CSS (`@keyframes hero-entrar` em `hero.css`, delays 0 / 0.12 / 0.24 / 0.36s, dentro de `prefers-reduced-motion: no-preference`), não em GSAP: o módulo carrega com defer e o texto piscaria. O `hero.js` só controla o play/pause do vídeo. h1 em 2 linhas no desktop (`max-width: 920px` no `.hero-texto`), de propósito.
 - **Hero:** vídeo de eventos (`/videos/hero.mp4`) + poster (`/imagens/hero/hero-poster.jpg`, preload como LCP). Enquanto os arquivos não existem, placeholders com `aspect-ratio` fixo.
 
 ### Formulário → WhatsApp (seção contato)

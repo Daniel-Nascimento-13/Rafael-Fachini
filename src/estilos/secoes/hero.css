@@ -1,0 +1,108 @@
+/* =======================
+   HERO
+   ======================= */
+
+/* === ÁREA (TELA CHEIA, MÍNIMO 560PX; 100VH ANTES DO SVH) === */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: max(560px, 100vh);
+  min-height: max(560px, 100svh);
+  padding-block: calc(var(--altura-cabecalho) + 48px) 48px;
+  overflow: hidden;
+}
+
+/* === MÍDIA (FULL-BLEED; SUPERFÍCIE SEGURA O LAYOUT SEM O VÍDEO) === */
+.hero-midia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-superficie);
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* VÉU: TOPO ESCURO PARA O CABEÇALHO, MEIO LIVRE, BASE ATÉ O FUNDO SÓLIDO SOB O TEXTO */
+.hero-midia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-fundo-veu) 0%,
+    var(--color-fundo-transparente) 22%,
+    var(--color-fundo-transparente) 35%,
+    var(--color-fundo-veu) 65%,
+    var(--color-fundo) 100%
+  );
+}
+
+/* === CONTEÚDO (EMBAIXO À ESQUERDA) === */
+.hero-conteudo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.hero-texto { max-width: 920px; }
+
+.hero-titulo { margin-bottom: 32px; }
+
+.hero-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* MOBILE: CADA BOTÃO OCUPA A LINHA QUE SOBRA; EM 320 EMPILHAM E O TEXTO QUEBRA */
+.hero-botoes .botao { flex: 1 1 auto; }
+
+.hero-rolar { display: none; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .hero { padding-bottom: 64px; }
+
+  .hero-botoes .botao { flex: 0 0 auto; }
+}
+
+@media (min-width: 900px) {
+  .hero { padding-bottom: 80px; }
+
+  .hero-titulo { margin-bottom: 40px; }
+
+  .hero-rolar {
+    display: block;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+/* === ENTRADA (CSS, SEM ESPERAR O JS; VÍDEO E POSTER NUNCA ANIMAM) === */
+/* CUBIC-BEZIER(0.22, 1, 0.36, 1) ≈ POWER3.OUT DO GSAP */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hero-entrar {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  }
+
+  .hero .rotulo,
+  .hero-titulo,
+  .hero-botoes,
+  .hero-rolar {
+    animation: hero-entrar 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-titulo  { animation-delay: 0.12s; }
+  .hero-botoes  { animation-delay: 0.24s; }
+  .hero-rolar   { animation-delay: 0.36s; }
+}
