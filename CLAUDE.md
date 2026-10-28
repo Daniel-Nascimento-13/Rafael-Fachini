@@ -42,6 +42,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 - **Menu:** Serviços · Portfólio · Como funciona · Depoimentos · Contato (+ botão WhatsApp).
 - **Wordmark:** `data-topo` SÓ na home (sobe a página sem recarregar). Nas páginas internas o wordmark é um link normal para `/`.
 - **Hero:** entrada do texto em CSS (`@keyframes hero-entrar` em `hero.css`, delays 0 / 0.12 / 0.24 / 0.36s, dentro de `prefers-reduced-motion: no-preference`), não em GSAP: o módulo carrega com defer e o texto piscaria. O `hero.js` só controla o play/pause do vídeo. h1 em 2 linhas no desktop (`max-width: 920px` no `.hero-texto`), de propósito.
+- **Véu do hero** (`.hero-midia::after`, só `color-mix` sobre `--color-fundo`): topo 45% → 0 em 16%; base `to top` 100 / 92 (14%) / 90 (30%) / 85 (46%) / 65 (52%) / 40 (58%) / 18 (66%) / 0 (78%); a partir de 900px, lateral `to right` 55 / 20 (35%) / 0 (60%). As paradas de 30%/46% foram subidas para o rótulo #A3A3A3 passar de 4.5:1 sobre o vídeo (medido em 375/768/1440, pior instante). Se o vídeo ou a posição do texto mudar, meça de novo.
 - **Hero:** vídeo de eventos (`/videos/hero.mp4`) + poster (`/imagens/hero/hero-poster.jpg`, preload como LCP). Enquanto os arquivos não existem, placeholders com `aspect-ratio` fixo.
 
 ### Formulário → WhatsApp (seção contato)
