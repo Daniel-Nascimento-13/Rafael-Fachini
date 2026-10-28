@@ -14,11 +14,22 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
    ======================= */
 
 /* === FAIXA (GRUDA LOGO ABAIXO DO CABEÇALHO; ABAIXO DELE E DO MENU MOBILE NO Z-INDEX) === */
+/* PARADA: TRANSPARENTE, INTEGRADA À ABERTURA. PRESA (JS): VIDRO + HAIRLINE, COMO O CABEÇALHO */
+.portfolio-filtro-sentinela {
+  height: 1px;
+  margin-bottom: -1px;
+}
+
 .portfolio-pagina-filtro {
   position: sticky;
   top: var(--altura-cabecalho);
   z-index: 10;
-  border-bottom: 1px solid var(--color-linha);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.6s ease, border-color 0.6s ease, -webkit-backdrop-filter 0.6s ease, backdrop-filter 0.6s ease;
+}
+
+.portfolio-filtro-preso {
+  border-bottom-color: var(--color-linha);
   background: color-mix(in srgb, var(--color-fundo) 85%, transparent);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -49,6 +60,16 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
 }
 
 .portfolio-filtro-botao[aria-expanded="true"] { border-color: var(--color-texto); }
+
+/* ANEL SÓ NO TECLADO (O JS DEVOLVE O FOCO AO BOTÃO E LEVA AO ITEM ATIVO; COM MOUSE, SEM ANEL) */
+.portfolio-filtro-botao:focus-visible,
+.portfolio-filtro-item:focus-visible { outline: none; }
+
+.usando-teclado .portfolio-filtro-botao:focus-visible,
+.usando-teclado .portfolio-filtro-item:focus-visible {
+  outline: 2px solid var(--color-acento-claro);
+  outline-offset: 4px;
+}
 
 .portfolio-filtro-botao .metadado { color: var(--color-texto-3); }
 
@@ -140,7 +161,7 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
    ======================= */
 
 /* FOTOS = MESMO DESTAQUE + DUPLA DA HOME (.PORTFOLIO-GRADE DO PORTFOLIO.CSS); AQUI SÓ O EVENTO EM VOLTA */
-/* CADA EVENTO É UMA FAIXA DE LARGURA TOTAL; O FUNDO ALTERNA PELA ORDEM VISÍVEL (HTML NA ORDEM COMPLETA, JS NOS FILTROS) */
+/* CADA EVENTO É UMA FAIXA DE LARGURA TOTAL; O FUNDO ALTERNA PELA ORDEM VISÍVEL, A PARTIR DE SUPERFÍCIE (HTML NA ORDEM COMPLETA, JS NOS FILTROS) */
 .portfolio-evento { padding-block: 96px; }
 
 /* ORDEM: TIPO + TÍTULO → CONTEXTO → FOTOS → FICHA (EMPILHADO; NO 900+ TOPO EM 2 COLUNAS, O RESTO EM LARGURA TOTAL) */
@@ -262,6 +283,7 @@ html:has(.portfolio-pagina-filtro) { scroll-padding-top: calc(var(--altura-cabec
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
+  .portfolio-pagina-filtro,
   .portfolio-filtro-botao,
   .portfolio-filtro-icone span,
   .portfolio-filtro-item { transition: none; }

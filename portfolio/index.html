@@ -102,6 +102,8 @@
     </section>
 
     <!-- === FILTRO POR TIPO (SEM JS, TUDO APARECE E O BOTÃO NÃO FAZ NADA) === -->
+    <!-- SENTINELA: SAI DA TELA QUANDO A FAIXA ENCOSTA NO CABEÇALHO (PORTFOLIO-FILTRO-PRESO) -->
+    <div class="portfolio-filtro-sentinela" aria-hidden="true"></div>
     <div class="portfolio-pagina-filtro">
       <div class="envoltorio">
         <div class="portfolio-filtro">
@@ -132,7 +134,7 @@
         <!-- O TIPO ATUAL JÁ APARECE NO BOTÃO DO FILTRO; O H2 FICA SÓ PARA A HIERARQUIA (H1 → H2 → H3) -->
         <h2 class="visualmente-oculto" id="casamento-titulo">Casamento</h2>
         <!-- DEMO: EVENTOS FICTÍCIOS, TROCAR PELOS REAIS COM AUTORIZAÇÃO DOS CLIENTES -->
-        <article class="portfolio-evento fundo-base" aria-labelledby="evento-casamento-01">
+        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-casamento-01">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Casamento</p>
@@ -179,7 +181,7 @@
             </dl>
           </div>
         </article>
-        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-casamento-02">
+        <article class="portfolio-evento fundo-base" aria-labelledby="evento-casamento-02">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Casamento</p>
@@ -232,7 +234,7 @@
         <!-- O TIPO ATUAL JÁ APARECE NO BOTÃO DO FILTRO; O H2 FICA SÓ PARA A HIERARQUIA (H1 → H2 → H3) -->
         <h2 class="visualmente-oculto" id="aniversario-titulo">Aniversário</h2>
         <!-- DEMO: EVENTOS FICTÍCIOS, TROCAR PELOS REAIS COM AUTORIZAÇÃO DOS CLIENTES -->
-        <article class="portfolio-evento fundo-base" aria-labelledby="evento-aniversario-01">
+        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-aniversario-01">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Aniversário</p>
@@ -279,7 +281,7 @@
             </dl>
           </div>
         </article>
-        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-aniversario-02">
+        <article class="portfolio-evento fundo-base" aria-labelledby="evento-aniversario-02">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Aniversário</p>
@@ -332,7 +334,7 @@
         <!-- O TIPO ATUAL JÁ APARECE NO BOTÃO DO FILTRO; O H2 FICA SÓ PARA A HIERARQUIA (H1 → H2 → H3) -->
         <h2 class="visualmente-oculto" id="formatura-titulo">Formatura</h2>
         <!-- DEMO: EVENTOS FICTÍCIOS, TROCAR PELOS REAIS COM AUTORIZAÇÃO DOS CLIENTES -->
-        <article class="portfolio-evento fundo-base" aria-labelledby="evento-formatura-01">
+        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-formatura-01">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Formatura</p>
@@ -379,7 +381,7 @@
             </dl>
           </div>
         </article>
-        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-formatura-02">
+        <article class="portfolio-evento fundo-base" aria-labelledby="evento-formatura-02">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Formatura</p>
@@ -432,7 +434,7 @@
         <!-- O TIPO ATUAL JÁ APARECE NO BOTÃO DO FILTRO; O H2 FICA SÓ PARA A HIERARQUIA (H1 → H2 → H3) -->
         <h2 class="visualmente-oculto" id="infantil-titulo">Infantil</h2>
         <!-- DEMO: EVENTOS FICTÍCIOS, TROCAR PELOS REAIS COM AUTORIZAÇÃO DOS CLIENTES -->
-        <article class="portfolio-evento fundo-base" aria-labelledby="evento-infantil-01">
+        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-infantil-01">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Infantil</p>
@@ -479,7 +481,7 @@
             </dl>
           </div>
         </article>
-        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-infantil-02">
+        <article class="portfolio-evento fundo-base" aria-labelledby="evento-infantil-02">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Infantil</p>
@@ -532,7 +534,7 @@
         <!-- O TIPO ATUAL JÁ APARECE NO BOTÃO DO FILTRO; O H2 FICA SÓ PARA A HIERARQUIA (H1 → H2 → H3) -->
         <h2 class="visualmente-oculto" id="corporativo-titulo">Corporativo</h2>
         <!-- DEMO: EVENTOS FICTÍCIOS, TROCAR PELOS REAIS COM AUTORIZAÇÃO DOS CLIENTES -->
-        <article class="portfolio-evento fundo-base" aria-labelledby="evento-corporativo-01">
+        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-corporativo-01">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Corporativo</p>
@@ -579,7 +581,7 @@
             </dl>
           </div>
         </article>
-        <article class="portfolio-evento fundo-superficie" aria-labelledby="evento-corporativo-02">
+        <article class="portfolio-evento fundo-base" aria-labelledby="evento-corporativo-02">
           <div class="envoltorio portfolio-evento-conteudo">
             <header class="portfolio-evento-topo">
               <p class="metadado portfolio-evento-tipo">Corporativo</p>
@@ -630,7 +632,7 @@
     </div>
 
     <!-- === CHAMADA FINAL === -->
-    <section class="portfolio-pagina-cta secao fundo-base" aria-labelledby="cta-titulo">
+    <section class="portfolio-pagina-cta secao fundo-superficie" aria-labelledby="cta-titulo">
       <div class="envoltorio portfolio-pagina-cta-conteudo">
         <h2 id="cta-titulo">Gostou do que <em>viu?</em></h2>
         <a class="botao botao-primario" href="/#contato">Conversar sobre o seu evento</a>

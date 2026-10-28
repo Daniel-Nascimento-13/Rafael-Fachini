@@ -2,8 +2,8 @@
    TECLADO
    ======================= */
 
-/* HTML.USANDO-TECLADO ENQUANTO A NAVEGAÇÃO FOR POR TECLADO */
-const TECLAS_DE_NAVEGACAO = new Set(['Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
+/* HTML.USANDO-TECLADO ENQUANTO A NAVEGAÇÃO FOR POR TECLADO (ESC TAMBÉM: FECHAR UM MENU DEVOLVE O FOCO COM ANEL) */
+const TECLAS_DE_NAVEGACAO = new Set(['Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Escape']);
 
 export function detectarTeclado() {
   const raiz = document.documentElement;

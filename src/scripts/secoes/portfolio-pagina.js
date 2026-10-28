@@ -9,7 +9,10 @@ import { revelarEmSequencia } from '../utils/revelar.js';
 /* SEM JS, TODOS OS GRUPOS APARECEM (O FILTRO SÓ ESCONDE); CADA GRUPO TEM ID = TIPO (#CASAMENTO...) */
 export function iniciarPortfolioPagina(pagina) {
   const filtro = document.querySelector('.portfolio-pagina-filtro');
-  if (filtro) iniciarFiltro(filtro, pagina);
+  if (filtro) {
+    iniciarFiltro(filtro, pagina);
+    marcarPreso(filtro);
+  }
 
   if (reduzirMovimento) return;
 
@@ -101,20 +104,41 @@ function iniciarFiltro(filtro, pagina) {
   aplicar(tipoDaUrl, { inicial: true, rolar: hashValido });
 }
 
-/* === FUNDOS PELA ORDEM VISÍVEL (O 1º EVENTO É BASE: A FAIXA DO FILTRO JÁ SEPARA DA ABERTURA) === */
-/* A CHAMADA FINAL FICA COM O TOM CONTRÁRIO AO DO ÚLTIMO EVENTO (COM CONTAGEM PAR, CONTINUA BASE) */
+/* === FAIXA PRESA (SENTINELA DE 1PX ACIMA DELA SAI PELO TOPO, ABAIXO DO CABEÇALHO) === */
+/* O ROOTMARGIN DEPENDE DA ALTURA DO CABEÇALHO (64 → 80PX EM 900): REFAZ O OBSERVER QUANDO ELA MUDA */
+function marcarPreso(filtro) {
+  const sentinela = filtro.previousElementSibling;
+  if (!sentinela?.classList.contains('portfolio-filtro-sentinela')) return;
+
+  let observador = null;
+  const observar = () => {
+    observador?.disconnect();
+    const altura = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--altura-cabecalho'));
+    observador = new IntersectionObserver(([entrada]) => {
+      const passou = !entrada.isIntersecting && entrada.boundingClientRect.top < entrada.rootBounds.top;
+      filtro.classList.toggle('portfolio-filtro-preso', passou);
+    }, { rootMargin: `-${altura}px 0px 0px 0px` });
+    observador.observe(sentinela);
+  };
+
+  window.matchMedia('(min-width: 900px)').addEventListener('change', observar);
+  observar();
+}
+
+/* === FUNDOS PELA ORDEM VISÍVEL (O 1º EVENTO É SUPERFÍCIE: A ABERTURA É BASE) === */
+/* A CHAMADA FINAL FICA COM O TOM CONTRÁRIO AO DO ÚLTIMO EVENTO */
 function alternarFundos(grupos) {
   const eventos = grupos.flatMap((grupo) => [...grupo.querySelectorAll('.portfolio-evento')]);
   eventos.forEach((evento, indice) => {
-    evento.classList.toggle('fundo-base', indice % 2 === 0);
-    evento.classList.toggle('fundo-superficie', indice % 2 === 1);
+    evento.classList.toggle('fundo-superficie', indice % 2 === 0);
+    evento.classList.toggle('fundo-base', indice % 2 === 1);
   });
 
   const chamada = document.querySelector('.portfolio-pagina-cta');
   if (!chamada || !eventos.length) return;
-  const ultimoBase = eventos.length % 2 === 1;
-  chamada.classList.toggle('fundo-superficie', ultimoBase);
-  chamada.classList.toggle('fundo-base', !ultimoBase);
+  const ultimoSuperficie = eventos.length % 2 === 1;
+  chamada.classList.toggle('fundo-base', ultimoSuperficie);
+  chamada.classList.toggle('fundo-superficie', !ultimoSuperficie);
 }
 
 /* === REVELAR DE NOVO OS EVENTOS QUE APARECERAM === */
