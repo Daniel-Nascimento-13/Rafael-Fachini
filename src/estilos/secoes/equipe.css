@@ -65,14 +65,13 @@
   background: var(--color-superficie);
 }
 
-/* P&B PELO CSS (A COR VOLTA NO HOVER); CURVA = POWER3.OUT */
+/* HOVER IGUAL AO DO PORTFÓLIO (ZOOM LEVE DENTRO DA MOLDURA) */
 .equipe-foto img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: var(--foco, 50% 50%);
-  filter: grayscale(1);
-  transition: filter 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .equipe-nome {
@@ -147,7 +146,7 @@
 
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
-  .equipe-membro:hover .equipe-foto img { filter: grayscale(0); }
+  .equipe-membro:hover .equipe-foto img { transform: scale(1.03); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
