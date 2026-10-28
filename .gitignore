@@ -1,0 +1,20 @@
+# Arquivos do macOS
+.DS_Store
+
+# Configurações locais do VS Code
+.vscode/
+
+# Build
+dist/
+build/
+
+# Dependências
+node_modules/
+
+# Variáveis de ambiente (segredos): só o exemplo vai para o Git
+.env
+.env.*
+!.env.example
+
+# Configuração local da Vercel CLI
+.vercel/
