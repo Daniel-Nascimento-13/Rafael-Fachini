@@ -60,9 +60,10 @@
 .cabecalho-nav,
 .cabecalho-whatsapp { display: none; }
 
+/* 24PX ATÉ 1199: OS 5 ITENS + WHATSAPP CABEM EM UMA LINHA DESDE 900PX */
 .cabecalho-lista {
   display: flex;
-  gap: 32px;
+  gap: 24px;
 }
 
 .cabecalho-lista a {
@@ -174,6 +175,10 @@
 
   .cabecalho-menu,
   .menu-mobile { display: none; }
+}
+
+@media (min-width: 1200px) {
+  .cabecalho-lista { gap: 32px; }
 }
 
 /* === HOVER (SÓ MOUSE) === */
