@@ -59,10 +59,15 @@ export function iniciarRolagem() {
 }
 
 /* === ROLAR ATÉ UM ELEMENTO (AMBOS DESCONTAM O SCROLL-PADDING-TOP) === */
-/* IMEDIATO VAI PELO NATIVO: LOGO DEPOIS DE UM SALTO DO NAVEGADOR (#ÂNCORA), O LENIS AINDA TEM A POSIÇÃO ANTIGA E NÃO ROLA */
+/* SE O NAVEGADOR MUDOU O SCROLL POR CONTA PRÓPRIA (SALTO DE #ÂNCORA, SCROLL ANCHORING AO ESCONDER CONTEÚDO), */
+/* O LENIS AINDA TEM A POSIÇÃO ANTIGA: SINCRONIZA ANTES DE CALCULAR O DESTINO. IMEDIATO VAI PELO NATIVO */
 export function rolarPara(alvo, { imediato = false } = {}) {
-  if (lenis && !imediato) lenis.scrollTo(alvo, { duration: 1.4 });
-  else alvo.scrollIntoView({ block: 'start' });
+  if (!lenis || imediato) {
+    alvo.scrollIntoView({ block: 'start' });
+    return;
+  }
+  lenis.scrollTo(window.scrollY, { immediate: true });
+  lenis.scrollTo(alvo, { duration: 1.4 });
 }
 
 /* === FOCO NO DESTINO (LEITOR DE TELA E TAB CONTINUAM DALI) === */

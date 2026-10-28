@@ -14,9 +14,14 @@ export function iniciarPortfolioPagina(pagina) {
   if (reduzirMovimento) return;
 
   revelar(pagina.querySelectorAll('.portfolio-pagina-grupo-topo'));
-  pagina.querySelectorAll('.portfolio-pagina-grade').forEach((grade) => {
-    revelarEmSequencia(grade.querySelectorAll('.portfolio-pagina-item'), grade);
-  });
+  pagina.querySelectorAll('.portfolio-evento').forEach(revelarEvento);
+}
+
+/* CADA EVENTO EM SEQUÊNCIA: META + H3, AS 3 FOTOS, O TEXTO */
+const PARTES_DO_EVENTO = '.portfolio-evento-topo, .portfolio-item, .portfolio-evento-texto';
+
+function revelarEvento(evento) {
+  revelarEmSequencia(evento.querySelectorAll(PARTES_DO_EVENTO), evento);
 }
 
 /* =======================
@@ -95,13 +100,13 @@ function iniciarFiltro(filtro, pagina) {
   if (itens.some((item) => item.dataset.filtro === tipoDaUrl && tipoDaUrl !== 'todos')) aplicar(tipoDaUrl, true);
 }
 
-/* === REVELAR DE NOVO OS ITENS QUE APARECERAM === */
-/* MATA A ENTRADA ANTIGA (PODE ESTAR PENDENTE, COM O ITEM INVISÍVEL) E RECOMEÇA DO ESTADO NATURAL */
+/* === REVELAR DE NOVO OS EVENTOS QUE APARECERAM === */
+/* MATA A ENTRADA ANTIGA (PODE ESTAR PENDENTE, COM A PARTE INVISÍVEL) E RECOMEÇA DO ESTADO NATURAL */
 function reanimar(grupos) {
-  grupos.forEach((grupo) => {
-    const itens = grupo.querySelectorAll('.portfolio-pagina-item');
-    gsap.killTweensOf(itens);
-    gsap.set(itens, { clearProps: 'transform,opacity,visibility' });
-    revelarEmSequencia(itens, grupo.querySelector('.portfolio-pagina-grade'));
-  });
+  grupos.forEach((grupo) => grupo.querySelectorAll('.portfolio-evento').forEach((evento) => {
+    const partes = evento.querySelectorAll(PARTES_DO_EVENTO);
+    gsap.killTweensOf(partes);
+    gsap.set(partes, { clearProps: 'transform,opacity,visibility' });
+    revelarEvento(evento);
+  }));
 }
