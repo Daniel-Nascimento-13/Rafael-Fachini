@@ -4,22 +4,56 @@
 
 /* TRILHO, ITENS E CONTROLES VÊM DO CARROSSEL (COMPONENTES.CSS); AQUI SÓ O CARD */
 
-/* === CARD === */
+/* === CARD (NOME → DEPOIMENTO → ESTRELAS → TIPO · CIDADE) === */
+/* CAIXA NO TOM DO FUNDO (A FAIXA É SUPERFÍCIE); HEIGHT 100%: OS CARDS DO TRILHO TÊM A MESMA ALTURA */
 .depoimento {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   height: 100%;
-  padding-top: 32px;
-  border-top: 1px solid var(--color-linha);
+  padding: 28px;
+  border: 1px solid var(--color-linha);
+  border-radius: 16px;
+  background: var(--color-fundo);
 }
 
+.depoimento-nome {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+/* ASPAS PELO CSS: O PLUGIN DA ETAPA 10 INJETA SÓ O TEXTO */
 .depoimento blockquote {
   font-family: var(--font-titulo);
   font-size: 20px;
   line-height: 1.35;
   color: var(--color-texto);
   text-wrap: pretty;
+}
+
+.depoimento blockquote::before { content: "\201C"; }
+.depoimento blockquote::after  { content: "\201D"; }
+
+/* ESTRELAS E RODAPÉ ALINHADOS EMBAIXO EM TODOS OS CARDS */
+.depoimento-nota {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: auto;
+}
+
+.depoimento-estrela { fill: var(--color-texto); }
+
+.depoimento-estrela-vazia {
+  fill: none;
+  stroke: var(--color-linha-forte);
+  stroke-width: 1;
+}
+
+.depoimento figcaption {
+  padding-top: 16px;
+  border-top: 1px solid var(--color-linha);
 }
 
 /* =======================
@@ -56,6 +90,55 @@
   display: block;
   min-height: 144px;
   resize: vertical;
+}
+
+/* === NOTA (5 RADIOS COMO ESTRELAS; ORDEM 1 → 5 NO DOM, AS SETAS DO TECLADO MUDAM A NOTA) === */
+/* CHEIA = A ESTRELA OU ALGUMA DEPOIS DELA ESTÁ MARCADA (:HAS); NO HOVER, ATÉ A ESTRELA SOB O MOUSE */
+.depoimentos-nota {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.depoimentos-estrelas {
+  display: flex;
+  margin-top: 4px;
+  margin-left: -10px;
+}
+
+.depoimentos-nota .depoimentos-estrela {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  color: var(--color-texto);
+  cursor: pointer;
+}
+
+.depoimentos-estrela svg {
+  fill: none;
+  stroke: var(--color-linha-forte);
+  stroke-width: 1;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.depoimentos-estrela:has(input:checked) svg,
+.depoimentos-estrela:has(~ .depoimentos-estrela input:checked) svg {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* ERRO SEM COR: CONTORNO DAS ESTRELAS MAIS FORTE */
+.depoimentos-estrela:has(input[aria-invalid="true"]) svg { stroke: var(--color-acento-claro); }
+
+/* ANEL SÓ NO TECLADO (O INPUT É OCULTO: O ANEL VAI NA ESTRELA) */
+.usando-teclado .depoimentos-estrela:has(input:focus-visible) {
+  outline: 2px solid var(--color-acento-claro);
+  outline-offset: -2px;
 }
 
 /* === AUTORIZAÇÃO (CHECKBOX PRÓPRIO: MARCADO = QUADRADO CHEIO) === */
@@ -138,6 +221,8 @@
 }
 
 @media (min-width: 900px) {
+  .depoimento { padding: 32px; }
+
   .depoimento blockquote { font-size: 24px; }
 
   .depoimentos-envio-grade {
@@ -152,9 +237,21 @@
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .depoimentos-autorizacao input:hover:not(:checked) { border-color: var(--color-texto-2); }
+
+  .depoimentos-estrelas:hover .depoimentos-estrela svg {
+    fill: none;
+    stroke: var(--color-linha-forte);
+  }
+
+  .depoimentos-estrelas:hover .depoimentos-estrela:hover svg,
+  .depoimentos-estrelas:hover .depoimentos-estrela:has(~ .depoimentos-estrela:hover) svg {
+    fill: currentColor;
+    stroke: currentColor;
+  }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .depoimentos-autorizacao input { transition: none; }
+  .depoimentos-autorizacao input,
+  .depoimentos-estrela svg { transition: none; }
 }

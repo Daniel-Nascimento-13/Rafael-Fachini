@@ -8,12 +8,12 @@ export function prepararCampos(campos) {
     const texto = textoDaAjuda(campo);
     if (texto) texto.dataset.normal = texto.textContent;
 
-    /* SÓ VALIDA NO BLUR SE ALGO FOI PREENCHIDO (O CHECKBOX SÓ NO ENVIO: O VALUE DELE NUNCA FICA VAZIO) */
+    /* SÓ VALIDA NO BLUR SE ALGO FOI PREENCHIDO (CHECKBOX E RADIO SÓ NO ENVIO: O VALUE DELES NUNCA FICA VAZIO) */
     campo.addEventListener('blur', () => {
-      if (campo.type !== 'checkbox' && (campo.value || campo.validity.badInput)) validar(campo);
+      if (!marcavel(campo) && (campo.value || campo.validity.badInput)) validar(campo);
     });
 
-    /* SAI DO ERRO ASSIM QUE FICA VÁLIDO (SELECT E CHECKBOX DISPARAM CHANGE) */
+    /* SAI DO ERRO ASSIM QUE FICA VÁLIDO (SELECT, CHECKBOX E RADIO DISPARAM CHANGE) */
     ['input', 'change'].forEach((evento) => campo.addEventListener(evento, () => {
       if (campo.getAttribute('aria-invalid') === 'true' && valido(campo)) marcar(campo, true);
     }));
@@ -28,9 +28,16 @@ export function validarCampos(campos) {
 }
 
 /* === REGRAS === */
-/* NUMBER: INTEIRO ≥ MIN; DATE: ≥ MIN; CHECKBOX: MARCADO; DEMAIS: MINLENGTH/MAXLENGTH EM CODE POINTS (IGUAL AO SERVIDOR) */
+/* NUMBER: INTEIRO ≥ MIN; DATE: ≥ MIN; CHECKBOX: MARCADO; RADIO: ALGUM DO GRUPO MARCADO; */
+/* DEMAIS: MINLENGTH/MAXLENGTH EM CODE POINTS (IGUAL AO SERVIDOR) */
+const marcavel = (campo) => campo.type === 'checkbox' || campo.type === 'radio';
+
+/* O GRUPO DE RADIOS É UM CAMPO SÓ: ERRO E VALIDADE VALEM PARA TODOS DO MESMO NAME */
+const grupoDe = (campo) => (campo.type === 'radio' ? [...campo.form.querySelectorAll(`input[type="radio"][name="${campo.name}"]`)] : [campo]);
+
 function valido(campo) {
   if (campo.type === 'checkbox') return campo.checked;
+  if (campo.type === 'radio') return grupoDe(campo).some((opcao) => opcao.checked);
 
   /* OPCIONAL (SEM REQUIRED) E VAZIO: VÁLIDO; PREENCHIDO SEGUE AS REGRAS ABAIXO */
   const valor = campo.value.trim();
@@ -54,8 +61,10 @@ function validar(campo) {
 /* === ESTADO DE ERRO === */
 /* ARIA-INVALID COM SETATTRIBUTE (TOGGLEATTRIBUTE GRAVA "" = VÁLIDO) + DICA TROCADA PELO DATA-ERRO */
 function marcar(campo, ok) {
-  if (ok) campo.removeAttribute('aria-invalid');
-  else campo.setAttribute('aria-invalid', 'true');
+  grupoDe(campo).forEach((opcao) => {
+    if (ok) opcao.removeAttribute('aria-invalid');
+    else opcao.setAttribute('aria-invalid', 'true');
+  });
 
   const ajuda = document.getElementById(campo.getAttribute('aria-describedby'));
   const texto = textoDaAjuda(campo);

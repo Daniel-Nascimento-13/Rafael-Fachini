@@ -54,7 +54,10 @@
   min-width: 0;
 }
 
-.contato-campo label {
+/* LEGEND: CAMPO EM GRUPO (A NOTA DOS DEPOIMENTOS) COM O MESMO RÓTULO */
+.contato-campo label,
+.contato-campo > legend {
+  padding: 0;
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.5;

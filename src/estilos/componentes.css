@@ -159,6 +159,16 @@
   cursor: default;
 }
 
+/* MODIFICADOR: CENTRALIZADOS, NA ORDEM ← 1 / 3 → (AS SETAS SAEM DO GRUPO SÓ NO LAYOUT; A ORDEM DO TAB NÃO MUDA) */
+.carrossel-controles-centro {
+  justify-content: center;
+  gap: 16px;
+}
+
+.carrossel-controles-centro .carrossel-setas { display: contents; }
+
+.carrossel-controles-centro .carrossel-seta:first-child { order: -1; }
+
 /* CONTROLES SOMEM PELO CSS (NÃO PELO JS), PARA A ALTURA SAIR CERTA NO PRIMEIRO PAINT */
 .carrossel:not(:has(.carrossel-item:nth-child(2))) .carrossel-controles { display: none; }
 
