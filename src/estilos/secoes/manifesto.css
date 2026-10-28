@@ -1,0 +1,29 @@
+/* =======================
+   MANIFESTO
+   ======================= */
+
+/* PARÁGRAFO EM DESTAQUE, NÃO TÍTULO: O H2 DA SEÇÃO É VISUALMENTE OCULTO */
+.manifesto-texto {
+  margin-top: 24px;
+  font-family: var(--font-titulo);
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-texto);
+  text-wrap: pretty;
+}
+
+.manifesto-texto em { font-style: italic; }
+
+/* === RESPONSIVIDADE === */
+/* 900PX+: RÓTULO NA COLUNA 1, TEXTO NOS 2/3 (O H2 OCULTO É ABSOLUTO E FICA FORA DO GRID) */
+@media (min-width: 900px) {
+  .manifesto-conteudo {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .manifesto-texto { margin-top: 0; }
+}

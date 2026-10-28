@@ -33,7 +33,7 @@ if (hero) iniciarHero(hero);
 /* === ABAIXO DA DOBRA (CARREGADAS SOB DEMANDA) === */
 /* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR, NA ORDEM DA HOME */
 const secoesSobDemanda = [
-  /* ETAPA 5: { seletor: '.manifesto', carregar: () => import('./scripts/secoes/manifesto.js').then((m) => m.iniciarManifesto) }, */
+  { seletor: '.manifesto', carregar: () => import('./scripts/secoes/manifesto.js').then((m) => m.iniciarManifesto) },
   /* ETAPA 5: { seletor: '.servicos', carregar: () => import('./scripts/secoes/servicos.js').then((m) => m.iniciarServicos) }, */
   /* ETAPA 5: { seletor: '.portfolio', carregar: () => import('./scripts/secoes/portfolio.js').then((m) => m.iniciarPortfolio) }, */
   /* ETAPA 5: { seletor: '.processo', carregar: () => import('./scripts/secoes/processo.js').then((m) => m.iniciarProcesso) }, */

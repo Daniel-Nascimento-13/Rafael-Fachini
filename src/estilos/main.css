@@ -13,6 +13,7 @@
 @import "./componentes.css" layer(base);
 @import "./secoes/cabecalho.css" layer(components);
 @import "./secoes/hero.css" layer(components);
+@import "./secoes/manifesto.css" layer(components);
 
 /* === TOKENS === */
 /* SÓ PRETO, BRANCO E CINZAS: NENHUMA COR DE MATIZ */
