@@ -98,7 +98,7 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 - Brutos em `_brutos/` (no `.gitignore`, fora do deploy). `artur.png`, `camila.png` e `rafa.png` ainda sem uso.
 - Hero: `/videos/hero.mp4` (450×754, H.264, CRF 26, sem áudio, faststart, ~3 MB) + poster `/imagens/hero/hero-poster.jpg` (frame de 1s).
 - Fotos menores que 800px: só o arquivo `-800`, na largura real (srcset com o descritor real, ex. `380w`; `width`/`height` reais). Nunca ampliar.
-- Recorte cover por moldura: Serviços 4:3 (676×507); portfólio 3:4 (380×507) e destaque 4:5 (406×507). Um arquivo por recorte único: em `/portfolio/` cada tipo repete as fotos disponíveis apontando para os mesmos arquivos de `/imagens/portfolio/` (`casamento-1-34` = recorte 3:4 de `casamento1`).
+- Recorte cover por moldura: Serviços 4:3 (676×507); portfólio 3:4 (380×507), destaque 4:5 (406×507) e, na home a partir de 600px, 4:3 (676×507, `<nome>-43`). Um arquivo por recorte único: em `/portfolio/` cada tipo repete as fotos disponíveis apontando para os mesmos arquivos de `/imagens/portfolio/` (`casamento-1-34` = recorte 3:4 de `casamento1`).
 - Ao trocar pelas mídias finais: gere -800/-1600 reais, volte o srcset de 2 entradas e use nome novo de arquivo (regra 11).
 
 ### Revisar quando as mídias chegarem
@@ -106,8 +106,7 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - [ ] Hero: `/videos/hero.mp4` e `/imagens/hero/hero-poster.jpg`.
 - [ ] Serviços 01 (`/imagens/servicos/producao-*`): alt genérico "Produção de um evento realizado por Rafael Fachini".
 - [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
-- [ ] Portfólio (home), 6 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `aniversario-1`, `infantil-1`, `corporativo-1`, `casamento-2`): alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini") e `[CIDADE]` nas legendas. O destaque (`casamento-1`) é 4:5 (1600×2000); os outros 3:4 (1600×2133). Se a proporção real mudar, recalcule o `sizes`.
-
+- [ ] Portfólio (home), 3 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `infantil-1`), cada uma em 2 recortes: retrato até 599 (destaque 4:5, dupla 3:4) e `-43` (4:3) a partir de 600. Alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini"). Se as proporções mudarem, recalcule o `sizes`.
 - [ ] og-image (`/imagens/compartilhamento/og-image.jpg`, 1200×630): recorte de `casamento1` (750×507, ampliado 1,24× para 630 de altura) + véu + wordmark + "Onde os sonhos ganham forma". Refazer com a foto final (nome novo de arquivo, regra 11).
 - [ ] Favicon provisório (`/favicon-32.png`, `/apple-touch-icon.png` 180×180): monograma "RF" em Instrument Serif, branco sobre #0A0A0A. Trocar pelo logo real.
 - [ ] Página `/portfolio/`, 30 fotos em `/imagens/portfolio/<tipo>/<NN>-*` (tipos: `casamento`, `aniversario`, `formatura`, `infantil`, `corporativo`; NN de 01 a 06): alts genéricos ("Decoração de <tipo> realizada por Rafael Fachini") e legendas `[LOCAL] · [CIDADE]`. Todas 3:4 (1600×2133).
@@ -123,8 +122,10 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - 404: no `vite preview`, caminho inexistente devolve a home (fallback do Vite); teste a 404 em `/404.html`. Na Vercel, a `404.html` é servida com status 404.
 
 ### Portfólio (home)
-- Mobile (até 599px): trilho horizontal com scroll-snap, só CSS (`flex: 0 0 82%`, sangra até a borda com margem negativa do respiro, `tabindex="0"` + `aria-label` no `<ul>`), todos os itens 4:5. A partir de 600px: grade de 2 → 3 colunas. Em 600–899 todos 3:4 (linha alinhada) e a partir de 900 ocupa **2 colunas × 2 linhas** (os 6 itens fecham a grade 3×3 sem buraco). Nessa faixa a moldura não tem `aspect-ratio`: a altura vem dos vizinhos e a foto é absoluta (`cover`).
-- `sizes` do destaque (moldura medida no Chrome; a foto 4:5 é desenhada mais larga que a moldura de ~0,73): `(min-width: 1440px) 974px, (min-width: 900px) calc(71.1vw - 50px), (min-width: 600px) calc(53.34vw - 46px), calc(82vw - 32px)`. Demais: `(min-width: 1440px) 427px, (min-width: 900px) calc(33.34vw - 53px), (min-width: 600px) calc(50vw - 44px), calc(82vw - 32px)`.
+- 3 itens, "destaque + dupla": casamento-1 (destaque), formatura-1, infantil-1. Legenda só com o tipo. Abaixo da grade, `.portfolio-mais` com "Ver todos os eventos →" (`/portfolio/`; largura total até 599). O `.secao-topo` não tem link.
+- Grade de 2 colunas desde a base. Até 599 (gap 12): destaque em `1 / -1`, 4:5; dupla 3:4. 600–899 (gap 24): destaque 3:2, dupla 4:3. 900+ (`2fr 1fr`, gap 32): destaque na coluna 1 com `grid-row: span 2`, sem `aspect-ratio` (a altura vem da dupla, a foto é absoluta em `cover`), dupla empilhada em 4:3. Topo e base do destaque alinham com a 1ª e a 2ª foto da dupla.
+- `<picture>` com direção de arte: `<source media="(min-width: 600px)">` (webp + jpg) com o recorte `-43`; abaixo disso o retrato. As molduras a partir de 600 são paisagem: com o retrato, a foto seria ampliada 2× e cortada.
+- `sizes` (medidos no Chrome de 320 a 1920; no 900+ a moldura do destaque é ~1,22 e a foto 4:3 é desenhada mais larga). Destaque: retrato `calc(100vw - 40px)`; `-43` `(min-width: 1440px) 959px, (min-width: 900px) calc(66.67vw - 1px), calc(100vw - 64px)`. Dupla: retrato `calc(50vw - 26px)`; `-43` `(min-width: 1440px) 437px, (min-width: 900px) calc(33.34vw - 43px), calc(50vw - 44px)`.
 - Hover só mouse: `scale(1.03)` na foto, 1.2s `cubic-bezier(0.22, 1, 0.36, 1)`.
 
 ## Tokens (`@layer theme` em main.css)
