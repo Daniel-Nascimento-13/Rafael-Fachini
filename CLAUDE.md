@@ -5,6 +5,7 @@
 Landing page cinematográfica de um promoter de eventos e decorador que atende todo o Rio Grande do Sul. O portfólio visual (fotos e vídeos de eventos reais) é o principal argumento; o objetivo único é gerar lead qualificado pelo WhatsApp.
 
 ## Fluxo de trabalho
+- **FASE ATUAL: ajustes de design + DEMO. ETAPAS 8–13 depois da aprovação. Não avance de etapa sozinho.**
 - Implementar uma etapa do BASE-PROJETO.md (seção 11) por vez e parar esperando o "ok".
 - Ao fim de cada tarefa: `npm run build` e corrigir erros.
 - Não fazer commit nem push sem pedido explícito.
@@ -83,6 +84,7 @@ Todos os campos obrigatórios, nesta ordem: nome (texto), servico (select), tipo
 
 ### SEO
 - Title da home: "Rafael Fachini Decorações · Decoração e produção de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
+- **SEO da demo** (nas 4 páginas, até a ETAPA 8): `description` (140–160 caracteres) + `robots` `noindex, nofollow` (comentário `DEMO: REMOVER NA ETAPA 8`; na 404 volta a só `noindex`). OG + Twitter nas 3 indexáveis (a 404 não tem), com URL absoluta `https://[URL_DEMO]/...`: trocar pela `.vercel.app` depois do 1º deploy e por `[DOMINIO]` na ETAPA 8. Canonical, JSON-LD, robots.txt e sitemap.xml só na ETAPA 8.
 - JSON-LD `LocalBusiness`, `areaServed` = `{ "@type": "State", "name": "Rio Grande do Sul" }`, endereço com a cidade-base (pendente), `sameAs` com o Instagram (pendente).
 
 ## Imagens (substitui o -500/-1000 da spec)
@@ -106,6 +108,8 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - [ ] Serviços 02 (`/imagens/servicos/decoracao-*`): alt genérico "Decoração de um evento realizado por Rafael Fachini".
 - [ ] Portfólio (home), 6 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `aniversario-1`, `infantil-1`, `corporativo-1`, `casamento-2`): alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini") e `[CIDADE]` nas legendas. O destaque (`casamento-1`) é 4:5 (1600×2000); os outros 3:4 (1600×2133). Se a proporção real mudar, recalcule o `sizes`.
 
+- [ ] og-image (`/imagens/compartilhamento/og-image.jpg`, 1200×630): recorte de `casamento1` (750×507, ampliado 1,24× para 630 de altura) + véu + wordmark + "Onde os sonhos ganham forma". Refazer com a foto final (nome novo de arquivo, regra 11).
+- [ ] Favicon provisório (`/favicon-32.png`, `/apple-touch-icon.png` 180×180): monograma "RF" em Instrument Serif, branco sobre #0A0A0A. Trocar pelo logo real.
 - [ ] Página `/portfolio/`, 30 fotos em `/imagens/portfolio/<tipo>/<NN>-*` (tipos: `casamento`, `aniversario`, `formatura`, `infantil`, `corporativo`; NN de 01 a 06): alts genéricos ("Decoração de <tipo> realizada por Rafael Fachini") e legendas `[LOCAL] · [CIDADE]`. Todas 3:4 (1600×2133).
 
 ### Páginas internas (/portfolio/, /depoimentos/, 404.html)
