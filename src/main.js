@@ -11,3 +11,37 @@ import '@fontsource/manrope/latin-600.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 
 import './estilos/main.css';
+import { iniciarRolagem } from './scripts/core/rolagem.js';
+import { carregarAoAproximar } from './scripts/core/carregador.js';
+import { detectarTeclado } from './scripts/utils/teclado.js';
+/* ETAPA 4: import { iniciarCabecalho } from './scripts/secoes/cabecalho.js'; */
+/* ETAPA 4: import { iniciarHero } from './scripts/secoes/hero.js'; */
+
+/* === ROLAGEM SUAVE (O LENIS VAI PARA O CABEÇALHO NA ETAPA 4) === */
+const lenis = iniciarRolagem();
+
+/* === TECLADO × PONTEIRO === */
+detectarTeclado();
+
+/* === ACIMA DA DOBRA === */
+/* ETAPA 4:
+const cabecalho = document.querySelector('.cabecalho');
+if (cabecalho) iniciarCabecalho(cabecalho, lenis);
+
+const hero = document.querySelector('.hero');
+if (hero) iniciarHero(hero);
+*/
+
+/* === ABAIXO DA DOBRA (CARREGADAS SOB DEMANDA) === */
+/* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR, NA ORDEM DA HOME */
+const secoesSobDemanda = [
+  /* ETAPA 5: { seletor: '.manifesto', carregar: () => import('./scripts/secoes/manifesto.js').then((m) => m.iniciarManifesto) }, */
+  /* ETAPA 5: { seletor: '.servicos', carregar: () => import('./scripts/secoes/servicos.js').then((m) => m.iniciarServicos) }, */
+  /* ETAPA 5: { seletor: '.portfolio', carregar: () => import('./scripts/secoes/portfolio.js').then((m) => m.iniciarPortfolio) }, */
+  /* ETAPA 5: { seletor: '.processo', carregar: () => import('./scripts/secoes/processo.js').then((m) => m.iniciarProcesso) }, */
+  /* ETAPA 9: { seletor: '.depoimentos', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) }, */
+  /* ETAPA 6: { seletor: '.contato', carregar: () => import('./scripts/secoes/contato.js').then((m) => m.iniciarContato) }, */
+  /* ETAPA 6: { seletor: '.rodape', carregar: () => import('./scripts/secoes/rodape.js').then((m) => m.iniciarRodape) }, */
+];
+
+secoesSobDemanda.forEach(({ seletor, carregar }) => carregarAoAproximar(seletor, carregar));

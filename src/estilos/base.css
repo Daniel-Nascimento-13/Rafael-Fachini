@@ -39,6 +39,9 @@ button { background: none; border: 0; cursor: pointer; }
   outline-offset: 4px;
 }
 
+/* DESTINO DE ÂNCORA FOCADO PELO JS (TABINDEX -1): SEM CONTORNO EM VOLTA DA SEÇÃO INTEIRA */
+[tabindex="-1"]:focus { outline: none; }
+
 /* === VISUALMENTE OCULTO === */
 .visualmente-oculto {
   position: absolute;
