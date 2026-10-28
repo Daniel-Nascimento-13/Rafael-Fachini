@@ -126,8 +126,73 @@
       </div>
     </section>
 
+    <!-- === EQUIPE === -->
+    <section class="equipe secao fundo-base" id="equipe" aria-labelledby="equipe-titulo">
+      <div class="envoltorio">
+        <div class="secao-topo">
+          <div>
+            <p class="rotulo">Equipe</p>
+            <h2 id="equipe-titulo">Quem faz <em>acontecer.</em></h2>
+          </div>
+          <p class="secao-topo-texto texto-intro">Pessoas que cuidam de cada detalhe como se fosse o próprio evento.</p>
+        </div>
+
+        <div class="carrossel equipe-carrossel">
+          <ul class="carrossel-trilho" tabindex="0" aria-label="Equipe">
+            <!-- DEMO: CARGOS E FRASES A CONFIRMAR COM O CLIENTE -->
+            <li class="carrossel-item equipe-item">
+              <figure class="equipe-membro">
+                <picture class="equipe-foto">
+                  <source type="image/webp" srcset="/imagens/equipe/rafael-800.webp 623w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)">
+                  <img src="/imagens/equipe/rafael-800.jpg" srcset="/imagens/equipe/rafael-800.jpg 623w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)" alt="Retrato de Rafael Fachini" width="623" height="779" loading="lazy" decoding="async">
+                </picture>
+                <figcaption class="equipe-legenda">
+                  <h3 class="equipe-nome">Rafael Fachini</h3>
+                  <p class="metadado equipe-cargo">Fundador · Decorador</p>
+                  <p class="equipe-frase">Transforma ideias em atmosferas desde [ANO].</p>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="carrossel-item equipe-item">
+              <figure class="equipe-membro">
+                <picture class="equipe-foto">
+                  <source type="image/webp" srcset="/imagens/equipe/camila-800.webp 283w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)">
+                  <img src="/imagens/equipe/camila-800.jpg" srcset="/imagens/equipe/camila-800.jpg 283w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)" alt="Retrato de Camila" width="283" height="354" loading="lazy" decoding="async">
+                </picture>
+                <figcaption class="equipe-legenda">
+                  <h3 class="equipe-nome">Camila</h3>
+                  <p class="metadado equipe-cargo">Organização</p>
+                  <p class="equipe-frase">Cuida do cronograma e de cada fornecedor.</p>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="carrossel-item equipe-item">
+              <figure class="equipe-membro">
+                <picture class="equipe-foto">
+                  <source type="image/webp" srcset="/imagens/equipe/artur-800.webp 610w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)">
+                  <img src="/imagens/equipe/artur-800.jpg" srcset="/imagens/equipe/artur-800.jpg 610w" sizes="(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)" alt="Retrato de Artur" width="610" height="763" loading="lazy" decoding="async">
+                </picture>
+                <figcaption class="equipe-legenda">
+                  <h3 class="equipe-nome">Artur</h3>
+                  <p class="metadado equipe-cargo">Cenografia · Montagem</p>
+                  <p class="equipe-frase">Dá forma ao projeto no dia do evento.</p>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+          <div class="carrossel-controles">
+            <p class="carrossel-indicador metadado" aria-hidden="true"><span data-atual>1</span> / <span data-total></span></p>
+            <div class="carrossel-setas">
+              <button class="carrossel-seta" type="button" aria-label="Anterior" data-direcao="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg></button>
+              <button class="carrossel-seta" type="button" aria-label="Próximo" data-direcao="1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- === SERVIÇOS === -->
-    <section class="servicos secao fundo-base" id="servicos" aria-labelledby="servicos-titulo">
+    <section class="servicos secao fundo-superficie" id="servicos" aria-labelledby="servicos-titulo">
       <div class="envoltorio">
         <div class="secao-topo">
           <div>
@@ -167,7 +232,7 @@
     </section>
 
     <!-- === PORTFÓLIO === -->
-    <section class="portfolio secao fundo-superficie" id="portfolio" aria-labelledby="portfolio-titulo">
+    <section class="portfolio secao fundo-base" id="portfolio" aria-labelledby="portfolio-titulo">
       <div class="envoltorio">
         <div class="secao-topo">
           <div>
@@ -221,7 +286,7 @@
     </section>
 
     <!-- === PROCESSO === -->
-    <section class="processo secao fundo-base" id="processo" aria-labelledby="processo-titulo">
+    <section class="processo secao fundo-superficie" id="processo" aria-labelledby="processo-titulo">
       <div class="envoltorio">
         <div class="secao-topo">
           <div>

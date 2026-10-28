@@ -1,0 +1,158 @@
+/* =======================
+   EQUIPE
+   ======================= */
+
+/* TRILHO, ITENS E CONTROLES VÊM DO CARROSSEL (COMPONENTES.CSS); AQUI SÓ O QUE MUDA */
+/* ATÉ 599: 1 CARD POR VEZ, SETAS SOBRE A FOTO; A PARTIR DE 600, REVERT-LAYER DEVOLVE O PADRÃO DO COMPONENTE */
+.equipe {
+  --equipe-respiro-legenda: 20px;
+  --equipe-linha-nome: 28px;
+}
+
+/* === CARROSSEL (1 POR VEZ, SEM ESPIAR O PRÓXIMO: GAP = RESPIRO, O PRÓXIMO COMEÇA FORA DA TELA) === */
+.equipe-carrossel { position: relative; }
+
+.equipe .carrossel-trilho { gap: var(--respiro); }
+
+.equipe .carrossel-item { flex-basis: 100%; }
+
+/* CAMADA DAS SETAS COM A ALTURA DA FOTO (4:5 DA LARGURA); SÓ AS SETAS RECEBEM CLIQUE */
+.equipe .carrossel-controles {
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 4 / 5;
+  margin-top: 0;
+  pointer-events: none;
+}
+
+.equipe .carrossel-setas {
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding-inline: 12px;
+}
+
+.equipe .carrossel-seta {
+  width: 44px;
+  height: 44px;
+  background: color-mix(in srgb, var(--color-fundo) 60%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+
+/* "1 / 3" NA LINHA DO NOME, À DIREITA (O NOME RESERVA O ESPAÇO COM O PADDING) */
+.equipe .carrossel-indicador {
+  position: absolute;
+  top: calc(100% + var(--equipe-respiro-legenda));
+  right: 0;
+  line-height: var(--equipe-linha-nome);
+}
+
+/* === CARD === */
+.equipe-membro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--equipe-respiro-legenda);
+}
+
+/* MOLDURA 4:5; PLACEHOLDER NA SUPERFÍCIE (A SEÇÃO É FUNDO BASE) */
+.equipe-foto {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-superficie);
+}
+
+/* P&B PELO CSS (A COR VOLTA NO HOVER); CURVA = POWER3.OUT */
+.equipe-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--foco, 50% 50%);
+  filter: grayscale(1);
+  transition: filter 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.equipe-nome {
+  padding-right: 64px;
+  line-height: var(--equipe-linha-nome);
+}
+
+.equipe-cargo { margin-top: 8px; }
+
+.equipe-frase {
+  max-width: 34ch;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-texto-2);
+  text-wrap: pretty;
+}
+
+/* === EMPURRÃOZINHO NA SETA DA DIREITA (SÓ ATÉ 599; CLASSE DO EQUIPE.JS, 2 VEZES) === */
+.equipe-empurrar .carrossel-seta[data-direcao="1"] { animation: equipe-empurrar 1.6s cubic-bezier(0.65, 0, 0.35, 1) 2; }
+
+@keyframes equipe-empurrar {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(8px); }
+}
+
+/* === RESPONSIVIDADE === */
+/* 600PX+: 2 POR VEZ E CONTROLES EMBAIXO (PADRÃO DO COMPONENTE) */
+@media (min-width: 600px) {
+  .equipe .carrossel-trilho,
+  .equipe .carrossel-item { gap: revert-layer; flex-basis: revert-layer; }
+
+  .equipe .carrossel-controles {
+    position: revert-layer;
+    inset: revert-layer;
+    aspect-ratio: revert-layer;
+    margin-top: revert-layer;
+    pointer-events: revert-layer;
+  }
+
+  .equipe .carrossel-setas {
+    flex: revert-layer;
+    justify-content: revert-layer;
+    align-items: revert-layer;
+    height: revert-layer;
+    padding-inline: revert-layer;
+  }
+
+  .equipe .carrossel-seta {
+    width: revert-layer;
+    height: revert-layer;
+    background: revert-layer;
+    -webkit-backdrop-filter: revert-layer;
+    backdrop-filter: revert-layer;
+    pointer-events: revert-layer;
+  }
+
+  .equipe-empurrar .carrossel-seta[data-direcao="1"] { animation: none; }
+
+  .equipe .carrossel-indicador {
+    position: revert-layer;
+    top: revert-layer;
+    right: revert-layer;
+    line-height: revert-layer;
+  }
+
+  .equipe-nome {
+    padding-right: 0;
+    line-height: revert-layer;
+  }
+}
+
+/* === HOVER (SÓ MOUSE) === */
+@media (hover: hover) and (pointer: fine) {
+  .equipe-membro:hover .equipe-foto img { filter: grayscale(0); }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .equipe-foto img { transition: none; }
+
+  .equipe-empurrar .carrossel-seta[data-direcao="1"] { animation: none; }
+}

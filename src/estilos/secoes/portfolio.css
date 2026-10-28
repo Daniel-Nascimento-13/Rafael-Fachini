@@ -19,13 +19,15 @@
   height: 100%;
 }
 
-/* MOLDURA FIXA; PLACEHOLDER NO TOM DO FUNDO (A SEÇÃO É SUPERFÍCIE) */
+/* MOLDURA FIXA; PLACEHOLDER CONTRASTA COM O FUNDO DA SEÇÃO (HOME E GRUPOS DA /PORTFÓLIO/ ALTERNAM) */
 .portfolio-foto {
   display: block;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--color-fundo);
+  background: var(--color-superficie);
 }
+
+.fundo-superficie .portfolio-foto { background: var(--color-fundo); }
 
 .portfolio-item-destaque .portfolio-foto { aspect-ratio: 4 / 5; }
 

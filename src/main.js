@@ -34,6 +34,7 @@ if (hero) iniciarHero(hero);
 /* CADA SEÇÃO ENTRA AQUI QUANDO O SEU MÓDULO EXISTIR (HOME NA ORDEM, DEPOIS AS PÁGINAS INTERNAS) */
 const secoesSobDemanda = [
   { seletor: '.manifesto', carregar: () => import('./scripts/secoes/manifesto.js').then((m) => m.iniciarManifesto) },
+  { seletor: '.equipe', carregar: () => import('./scripts/secoes/equipe.js').then((m) => m.iniciarEquipe) },
   { seletor: '.servicos', carregar: () => import('./scripts/secoes/servicos.js').then((m) => m.iniciarServicos) },
   { seletor: '.portfolio', carregar: () => import('./scripts/secoes/portfolio.js').then((m) => m.iniciarPortfolio) },
   { seletor: '.processo', carregar: () => import('./scripts/secoes/processo.js').then((m) => m.iniciarProcesso) },

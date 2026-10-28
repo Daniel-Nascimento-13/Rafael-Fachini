@@ -17,13 +17,13 @@
   height: 100%;
 }
 
-/* MOLDURA FIXA 4:5 → 4:3; SUPERFÍCIE SEGURA O LAYOUT ATÉ A FOTO CHEGAR */
+/* MOLDURA FIXA 4:5 → 4:3; PLACEHOLDER NO TOM DO FUNDO (A SEÇÃO É SUPERFÍCIE) */
 .servico-foto {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: var(--color-superficie);
+  background: var(--color-fundo);
 }
 
 .servico-foto img {

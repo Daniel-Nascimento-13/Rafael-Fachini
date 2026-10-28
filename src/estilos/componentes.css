@@ -98,12 +98,86 @@
   text-wrap: pretty;
 }
 
+/* =======================
+   CARROSSEL (DEPOIMENTOS, EQUIPE)
+   ======================= */
+
+/* === TRILHO (SCROLL-SNAP NATIVO; SETAS E INDICADOR PELO UTILS/CARROSSEL.JS) === */
+/* SANGRA ATÉ A BORDA: MARGEM NEGATIVA DO RESPIRO + PADDING DE VOLTA (O SCROLL FICA DENTRO DO TRILHO) */
+.carrossel-trilho {
+  display: flex;
+  gap: 16px;
+  margin-inline: calc(var(--respiro) * -1);
+  padding-inline: var(--respiro);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--respiro);
+  scrollbar-width: none;
+}
+
+.carrossel-trilho::-webkit-scrollbar { display: none; }
+
+/* FOCO DO TRILHO PARA DENTRO: POR FORA, O CONTORNO SAIRIA DA TELA */
+.carrossel-trilho:focus-visible { outline-offset: -2px; }
+
+/* 85% → 2 POR VEZ (600) → 3 POR VEZ (900); CADA SEÇÃO MUDA SÓ O QUE PRECISA */
+.carrossel-item {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+
+/* === CONTROLES (INDICADOR À ESQUERDA, SETAS À DIREITA) === */
+.carrossel-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.carrossel-setas {
+  display: flex;
+  gap: 8px;
+}
+
+.carrossel-seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-linha-forte);
+  border-radius: 50%;
+  color: var(--color-texto);
+  transition: border-color 0.4s ease, opacity 0.4s ease;
+}
+
+.carrossel-seta:active { border-color: var(--color-texto); transition-duration: 0s; }
+
+.carrossel-seta:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* CONTROLES SOMEM PELO CSS (NÃO PELO JS), PARA A ALTURA SAIR CERTA NO PRIMEIRO PAINT */
+.carrossel:not(:has(.carrossel-item:nth-child(2))) .carrossel-controles { display: none; }
+
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .botao { white-space: nowrap; }
+
+  .carrossel-item { flex-basis: calc((100% - 16px) / 2); }
+
+  .carrossel:not(:has(.carrossel-item:nth-child(3))) .carrossel-controles { display: none; }
 }
 
 @media (min-width: 900px) {
+  .carrossel-trilho { gap: 24px; }
+
+  .carrossel-item { flex-basis: calc((100% - 48px) / 3); }
+
+  .carrossel:not(:has(.carrossel-item:nth-child(4))) .carrossel-controles { display: none; }
+
   .secao-topo {
     grid-template-columns: 1fr auto;
     align-items: end;
@@ -121,9 +195,11 @@
   .botao-primario:hover   { background: var(--color-acento-claro); }
   .botao-secundario:hover { border-color: var(--color-texto); }
   .link-secao:hover       { text-decoration-color: var(--color-texto); }
+
+  .carrossel-seta:not(:disabled):hover { border-color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .botao, .link-secao { transition: none; }
+  .botao, .link-secao, .carrossel-seta { transition: none; }
 }

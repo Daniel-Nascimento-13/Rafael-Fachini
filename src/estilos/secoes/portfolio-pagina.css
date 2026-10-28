@@ -44,9 +44,6 @@
 
 .portfolio-pagina-grade .portfolio-foto { aspect-ratio: 3 / 4; }
 
-/* PLACEHOLDER: NOS GRUPOS DE FUNDO BASE, O TOM DO FUNDO SUMIRIA; USA A SUPERFÍCIE */
-.fundo-base .portfolio-pagina-grade .portfolio-foto { background: var(--color-superficie); }
-
 /* === CHAMADA FINAL === */
 .portfolio-pagina-cta-conteudo {
   display: flex;

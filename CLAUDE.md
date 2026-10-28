@@ -38,7 +38,8 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 - A palavra "orçamento" está pendente (liberada ou vetada). Até a decisão, use "conversar sobre o seu evento".
 
 ### Estrutura
-- **Home (ordem):** cabecalho, hero, manifesto, servicos, portfolio, processo, depoimentos, contato, rodape.
+- **Home (ordem):** cabecalho, hero, manifesto, equipe, servicos, portfolio, processo, depoimentos (ETAPA 9), contato, rodape.
+- **Fundos da home:** hero base → manifesto superfície → equipe base → nossa atuação superfície → portfólio base → processo superfície → contato base → rodapé superfície. Placeholders de foto contrastam com o fundo da seção (serviços: `--color-fundo`; equipe: `--color-superficie`; `.portfolio-foto`: superfície, e `--color-fundo` dentro de `.fundo-superficie`, o que também cobre os grupos da `/portfolio/`).
 - **Páginas internas:** `/portfolio/`, `/depoimentos/`, `404.html` (input `erro` no `vite.config.js`, `noindex`).
 - **Menu:** Nossa atuação (âncora `#servicos`) · Portfólio (página `/portfolio/`) · Como funciona · Depoimentos (página `/depoimentos/`) · Contato (+ botão WhatsApp).
 - **Links do menu e do rodapé** (iguais nas 4 páginas): "Portfólio" sempre vai para `/portfolio/` e "Depoimentos" para `/depoimentos/` (navegação normal, sem Lenis; o menu mobile fecha no clique). Os demais são âncoras absolutas da home (`/#servicos`, `/#processo`, `/#contato`). O rodapé tem Nossa atuação · Portfólio · Como funciona · Depoimentos. A seção `#portfolio` da home continua (alvo do "Ver portfólio" do hero).
@@ -84,11 +85,23 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.
 - Limites: nome 2–60 · cidade 2–60 · texto 10–400.
 - Supabase Free (com cron de keep-alive). Contas Supabase/Resend pendentes (perguntar na ETAPA 10).
-- **Carrossel** (spec 5.6): trilho com scroll-snap, sangra até a borda (margem negativa do respiro); itens 85% → 2 por vez (600) → 3 por vez (900, gap 24px). Controles somem pelo CSS (`:has`) quando os cards cabem: 1 card / ≤2 em 600 / ≤3 em 900. Card: `li.depoimentos-item > figure.depoimento > blockquote + figcaption.metadado` ("nome · categoria · cidade"); hairline em cima; texto em `--font-titulo` 20 → 24px. **No plugin da ETAPA 10, gerar o `figcaption` com `class="metadado"`.**
+- **Carrossel:** usa o componente (ver "Carrossel" abaixo), com o padrão dele. Card: `li.carrossel-item > figure.depoimento > blockquote + figcaption.metadado` ("nome · categoria · cidade"); hairline em cima; texto em `--font-titulo` 20 → 24px. **No plugin da ETAPA 10, gerar o `li` com `class="carrossel-item"` e o `figcaption` com `class="metadado"`.**
 - **Formulário de envio** (front da 6.2): campos, dicas e erros usam as classes do `contato.css` (`.contato-campos`, `.contato-campo`, `.contato-ajuda`, `.contato-select`), como o `/portfolio/` usa o `portfolio.css`; o `depoimentos.css` só tem o textarea, o contador, o checkbox, a isca e os estados. A validação é a mesma do contato, em `utils/campos.js` (minlength/maxlength contados em code points, igual ao servidor; checkbox = marcado).
 - **Demo — remover:**
   - [ ] ETAPA 9/10: os 3 cards de demo (comentário `DEMO: REMOVER NA ETAPA 9`) em `depoimentos/index.html`; o build injeta os aprovados no marcador `<!-- DEPOIMENTOS -->`.
   - [ ] ETAPA 11: o atributo `data-demo` do `.depoimentos-form` (comentário `DEMO: REMOVER data-demo NA ETAPA 11`). Com ele, o envio mostra o `.depoimentos-recebido` sem chamar `/api/depoimentos/`.
+
+### Carrossel (componente: `.carrossel` em `componentes.css`, `iniciarCarrossel` em `utils/carrossel.js`)
+- Usado em `/depoimentos/` e na Equipe. Estrutura: `.carrossel > ul.carrossel-trilho[tabindex=0][aria-label] > li.carrossel-item` + `.carrossel-controles > p.carrossel-indicador.metadado[aria-hidden] (<span data-atual> / <span data-total>) + .carrossel-setas > button.carrossel-seta[data-direcao="-1"|"1"]`.
+- Padrão: trilho com scroll-snap que sangra até a borda (margem negativa do respiro); itens 85% → 2 por vez (600) → 3 por vez (900, gap 24px); controles embaixo (indicador à esquerda, setas 48×48 à direita). Os controles somem pelo CSS (`:has`) quando os cards cabem: 1 card / ≤2 em 600 / ≤3 em 900. O JS só liga as setas e o indicador (o arraste e o teclado são do scroll nativo).
+- Cada seção muda só o que precisa no próprio CSS (camada `components`); para voltar ao padrão numa faixa maior, `revert-layer` (o componente está na camada `base`).
+
+### Equipe (home, depois do manifesto)
+- `.secao-topo` (rótulo "Equipe", h2 "Quem faz *acontecer.*", texto) + carrossel com 3 cards: `figure.equipe-membro > picture.equipe-foto (4:5) + figcaption (h3.equipe-nome + p.metadado.equipe-cargo + p.equipe-frase)`. Alts "Retrato de <nome>". Comentário `DEMO: CARGOS E FRASES A CONFIRMAR COM O CLIENTE`.
+- Até 599: 1 card por vez (item 100%, gap = respiro, para o próximo não espiar). As setas (44×44, fundo 60% + blur, borda `--color-linha-forte`) ficam SOBRE a foto, numa camada absoluta 4:5 com `pointer-events: none` (o toque na foto chega ao trilho). O "1 / 3" fica na linha do nome, à direita (o nome tem `padding-right` para não encostar). 600–899: padrão do componente (2 por vez, controles embaixo). 900+: 3 lado a lado, controles somem.
+- Foto em P&B pelo CSS (`grayscale(1)`); hover (só mouse) devolve a cor em 1.2s `cubic-bezier(0.33, 1, 0.68, 1)` (= power3.out).
+- Empurrãozinho na seta da direita (só até 599): `@keyframes equipe-empurrar` (0 → 8px → 0, 1.6s, 2 vezes). O `equipe.js` põe a classe `.equipe-empurrar` uma vez, quando o carrossel entra na tela (ScrollTrigger, `top 70%`, `once`); `pointerdown`, `keydown`, `wheel` ou scroll do trilho cancelam e impedem que comece depois. Desligado com movimento reduzido (o JS nem chega lá).
+- `sizes` (moldura medida no Chrome; foto ~4:5, desenhada na largura da moldura): `(min-width: 1440px) 432px, (min-width: 900px) calc(33.34vw - 48px), (min-width: 600px) calc(50vw - 40px), calc(100vw - 40px)`.
 
 ### SEO
 - Title da home: "Rafael Fachini Decorações · Decoração e organização de eventos no RS". Internas: "<Página> · Rafael Fachini Decorações".
@@ -103,10 +116,10 @@ Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm 
 - Placeholder: fundo do `<picture>`. Foto ausente ou quebrada: o `::after` do `img` (base.css) cobre o ícone e o alt com esse fundo.
 
 ### Mídias da demo (capturas de tela)
-- Brutos em `_brutos/` (no `.gitignore`, fora do deploy). `artur.png`, `camila.png` e `rafa.png` ainda sem uso.
+- Brutos em `_brutos/` (no `.gitignore`, fora do deploy). `rafa.png`, `camila.png` e `artur.png` viraram os retratos da Equipe.
 - Hero: `/videos/hero.mp4` (450×754, H.264, CRF 26, sem áudio, faststart, ~3 MB) + poster `/imagens/hero/hero-poster.jpg` (frame de 1s).
 - Fotos menores que 800px: só o arquivo `-800`, na largura real (srcset com o descritor real, ex. `380w`; `width`/`height` reais). Nunca ampliar.
-- Recorte cover por moldura: Serviços 4:3 (676×507); portfólio 3:4 (380×507), destaque 4:5 (406×507) e, na home a partir de 600px, 4:3 (676×507, `<nome>-43`). Um arquivo por recorte único: em `/portfolio/` cada tipo repete as fotos disponíveis apontando para os mesmos arquivos de `/imagens/portfolio/` (`casamento-1-34` = recorte 3:4 de `casamento1`).
+- Recorte cover por moldura: Equipe 4:5 (rafael 623×779, camila 283×354, artur 610×763; rosto no terço superior); Serviços 4:3 (676×507); portfólio 3:4 (380×507), destaque 4:5 (406×507) e, na home a partir de 600px, 4:3 (676×507, `<nome>-43`). Um arquivo por recorte único: em `/portfolio/` cada tipo repete as fotos disponíveis apontando para os mesmos arquivos de `/imagens/portfolio/` (`casamento-1-34` = recorte 3:4 de `casamento1`).
 - Ao trocar pelas mídias finais: gere -800/-1600 reais, volte o srcset de 2 entradas e use nome novo de arquivo (regra 11).
 
 ### Revisar quando as mídias chegarem
@@ -117,6 +130,7 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - [ ] Portfólio (home), 3 fotos em `/imagens/portfolio/` (`casamento-1`, `formatura-1`, `infantil-1`), cada uma em 2 recortes: retrato até 599 (destaque 4:5, dupla 3:4) e `-43` (4:3) a partir de 600. Alts genéricos por tipo ("Decoração de <tipo> realizada por Rafael Fachini"). Se as proporções mudarem, recalcule o `sizes`.
 - [ ] og-image (`/imagens/compartilhamento/og-image.jpg`, 1200×630): recorte de `casamento1` (750×507, ampliado 1,24× para 630 de altura) + véu + wordmark + "Onde os sonhos ganham forma". Refazer com a foto final (nome novo de arquivo, regra 11).
 - [ ] Favicon provisório (`/favicon-32.png`, `/apple-touch-icon.png` 180×180): monograma "RF" em Instrument Serif, branco sobre #0A0A0A. Trocar pelo logo real.
+- [ ] Equipe, 3 retratos em `/imagens/equipe/` (`rafael`, `camila`, `artur`, só `-800` na largura real). O da Camila tem só 283px de largura (é desenhado a 335px em 375 e a 432px no desktop): trocar por foto maior. Confirmar com o cliente cargos, frases e o `[ANO]` ("Transforma ideias em atmosferas desde [ANO].").
 - [ ] Página `/portfolio/`, 30 fotos em `/imagens/portfolio/<tipo>/<NN>-*` (tipos: `casamento`, `aniversario`, `formatura`, `infantil`, `corporativo`; NN de 01 a 06): alts genéricos ("Decoração de <tipo> realizada por Rafael Fachini") e legendas `[LOCAL] · [CIDADE]`. Todas 3:4 (1600×2133).
 
 ### Páginas internas (/portfolio/, /depoimentos/, 404.html)
@@ -125,7 +139,7 @@ Toda seção nova com foto entra nesta lista (alt genérico ou arquivo ainda ine
 - Página atual no menu: o item recebe `aria-current="page"` (em `/portfolio/`, o "Portfólio"; em `/depoimentos/`, o "Depoimentos"). Só no menu (desktop e mobile), não no rodapé. Estilo: sublinhado no desktop, itálico no menu mobile.
 - O "Voltar ao topo ↑" do rodapé tem `href="#"` + `data-topo` em todas as páginas (com `#conteudo`, o handler de âncoras rolaria junto).
 - Fundos: `.pagina-topo` em `fundo-base`, alternando até o rodapé (`fundo-superficie`).
-- `/portfolio/`: sem filtro em JS; pílulas com âncoras (`#casamento`, `#aniversario`, `#formatura`, `#infantil`, `#corporativo`, trilho horizontal até 599px) e uma seção por tipo com grade 3:4 (1 → 2 → 3). Figura, moldura, foto e hover vêm do `portfolio.css`; o `portfolio-pagina.css` só muda proporção, placeholder e grade.
+- `/portfolio/`: sem filtro em JS; pílulas com âncoras (`#casamento`, `#aniversario`, `#formatura`, `#infantil`, `#corporativo`, trilho horizontal até 599px) e uma seção por tipo com grade 3:4 (1 → 2 → 3). Figura, moldura, foto e hover vêm do `portfolio.css`; o `portfolio-pagina.css` só muda proporção e grade (o placeholder segue o fundo do grupo pela regra do `portfolio.css`).
 - `/depoimentos/`: abertura (`fundo-base`) → `.depoimentos-pagina` (carrossel, `fundo-superficie`, entre `DEPOIMENTOS:INICIO`/`FIM`) → `.depoimentos-envio` (formulário, `fundo-base`) → rodapé. **Fora do sitemap até a ETAPA 9.** Ver "Depoimentos" acima.
 - 404: no `vite preview`, caminho inexistente devolve a home (fallback do Vite); teste a 404 em `/404.html`. Na Vercel, a `404.html` é servida com status 404.
 
