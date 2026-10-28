@@ -6,19 +6,28 @@
 :root { --altura-cabecalho: 64px; }
 
 /* === BARRA FIXA === */
-/* TRANSPARENTE SOBRE O HERO; A HAIRLINE JÁ EXISTE (TRANSPARENTE) PARA A ALTURA NÃO MUDAR */
+/* TRANSLÚCIDA DESDE O TOPO (LEGÍVEL SOBRE O VÍDEO); SÓLIDA DEPOIS DE 80PX */
 .cabecalho {
   position: fixed;
   inset: 0 0 auto;
   z-index: 20;
   height: var(--altura-cabecalho);
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.6s ease, border-color 0.6s ease;
+  background: color-mix(in srgb, var(--color-fundo) 60%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-linha);
+  transition: background-color 0.6s ease, border-color 0.6s ease, -webkit-backdrop-filter 0.6s ease, backdrop-filter 0.6s ease;
+}
+
+/* SEM BLUR, O VÍDEO APARECERIA NÍTIDO: COMPENSA COM MAIS OPACIDADE. ANTES DO ROLADO PARA NÃO SOBRESCREVÊ-LO */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cabecalho { background: color-mix(in srgb, var(--color-fundo) 85%, transparent); }
 }
 
 .cabecalho-rolado {
   background: var(--color-fundo);
-  border-bottom-color: var(--color-linha);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* MENU ABERTO: A BARRA SE FUNDE AO PAINEL */
@@ -80,7 +89,7 @@
   font-size: 14px;
 }
 
-/* === BOTÃO DO MENU (2 RISCOS → X) === */
+/* === BOTÃO DO MENU (3 RISCOS → X) === */
 .cabecalho-menu {
   position: relative;
   width: 44px;
@@ -88,20 +97,23 @@
   margin-right: -10px;
 }
 
+/* RISCOS A 7PX DE CENTRO A CENTRO; O DO MEIO NO CENTRO EXATO DO BOTÃO (22PX) */
 .cabecalho-menu span {
   position: absolute;
+  top: 21.25px;
   left: 11px;
   width: 22px;
   height: 1.5px;
   background: var(--color-texto);
-  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.cabecalho-menu span:first-child { top: 17.25px; }
-.cabecalho-menu span:last-child  { top: 25.25px; }
+.cabecalho-menu span:first-child { top: 14.25px; }
+.cabecalho-menu span:last-child  { top: 28.25px; }
 
-.cabecalho-menu[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
-.cabecalho-menu[aria-expanded="true"] span:last-child  { transform: translateY(-4px) rotate(-45deg); }
+.cabecalho-menu[aria-expanded="true"] span:first-child  { transform: translateY(7px) rotate(45deg); }
+.cabecalho-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.cabecalho-menu[aria-expanded="true"] span:last-child   { transform: translateY(-7px) rotate(-45deg); }
 
 /* =======================
    MENU MOBILE

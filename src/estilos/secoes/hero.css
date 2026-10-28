@@ -28,17 +28,12 @@
   object-fit: cover;
 }
 
-/* VÉU EM CAMADAS: TOPO (LEITURA DO CABEÇALHO) + BASE (TEXTO), PARADAS INTERMEDIÁRIAS PARA NÃO FORMAR DEGRAU */
+/* VÉU DA BASE (TEXTO; O CABEÇALHO TEM FUNDO PRÓPRIO), PARADAS INTERMEDIÁRIAS PARA NÃO FORMAR DEGRAU */
 .hero-midia::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-fundo) 45%, transparent) 0%,
-      transparent 16%
-    ),
     linear-gradient(
       to top,
       var(--color-fundo) 0%,
@@ -93,11 +88,6 @@
   /* LATERAL VIRA A CAMADA PRINCIPAL (TEXTO À ESQUERDA, METADE DIREITA LIVRE); BASE SÓ FAZ A TRANSIÇÃO PARA A SEÇÃO SEGUINTE */
   .hero-midia::after {
     background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color-fundo) 45%, transparent) 0%,
-        transparent 16%
-      ),
       linear-gradient(
         to top,
         var(--color-fundo) 0%,
