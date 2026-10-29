@@ -57,30 +57,45 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 ### Formulário → WhatsApp (seção contato)
 Descritivo: "Conte o que você imagina. Sua mensagem chega pronta direto ao Rafael, no WhatsApp." Botão: "Enviar para o WhatsApp".
 
-Ordem: tipo (select) | servico (select) → nome (texto, linha inteira, rótulo dinâmico, `autocomplete="off"`: não é o nome de quem preenche) → data (date, mínimo = hoje no fuso local) | convidados (number, inteiro, mínimo 10) → cidade (texto, linha inteira) → local (texto, linha inteira, **opcional**) → gastronomia (select, linha inteira, **opcional**). Os opcionais ficam agrupados no fim, antes do botão, num `fieldset.contato-opcionais` (linha inteira, sem borda, sem margem própria, grade com o mesmo gap dos campos: 32 → 24px em 600) com `legend.metadado` "Opcional · se já estiver definido" (em `--color-texto-2`, sem hairline, 16px até o rótulo "Local"). Os dois têm a `.contato-ajuda` vazia (com `aria-describedby`) só para reservar a linha como os outros: ritmo uniforme, medido da linha de cada campo ao próximo rótulo (57px no mobile, 49px no desktop, legend incluído). Os pares ficam lado a lado a partir de 600 (auto-placement; nome e cidade têm `grid-column: 1 / -1`). Gap entre campos: 32px no mobile → 24px 32px a partir de 600 (vale também para o formulário de depoimentos, que usa a `.contato-campos`). Botão com margin-top 48px. **Cores** (contato e depoimentos): rótulos dos campos em `--color-texto` (18:1); vazio (placeholder, "Escolha", "Escolha a data", "Ainda não definido") e dicas em `--color-texto-3` (5.9:1); valor preenchido em `--color-texto`; o legend dos opcionais e o texto do checkbox de autorização em `--color-texto-2` (7.9:1), porque são observação/frase, não rótulo.
+Ordem: tipo (select) | servico (select) → nome (texto, linha inteira, rótulo dinâmico, `autocomplete="off"`: em geral é o homenageado, não quem preenche) → empresa (texto, linha inteira, **opcional**, só no corporativo) → data (date, mínimo = hoje no fuso local) | convidados (number, inteiro, mínimo 10) → cidade (texto, linha inteira) → local (texto, linha inteira, **opcional**) → gastronomia (select, linha inteira, **opcional**). Os opcionais ficam agrupados no fim, antes do botão, num `fieldset.contato-opcionais` (linha inteira, sem borda, sem margem própria, grade com o mesmo gap dos campos: 32 → 24px em 600) com `legend.metadado` "Opcional · se já estiver definido" (em `--color-texto-2`, sem hairline, 16px até o rótulo "Local"). Os dois têm a `.contato-ajuda` vazia (com `aria-describedby`) só para reservar a linha como os outros: ritmo uniforme, medido da linha de cada campo ao próximo rótulo (57px no mobile, 49px no desktop, legend incluído). Os pares ficam lado a lado a partir de 600 (auto-placement; nome, empresa e cidade têm `grid-column: 1 / -1`). Gap entre campos: 32px no mobile → 24px 32px a partir de 600 (vale também para o formulário de depoimentos, que usa a `.contato-campos`). Botão com margin-top 48px. **Cores** (contato e depoimentos): rótulos dos campos em `--color-texto` (18:1); vazio (placeholder, "Escolha", "Escolha a data", "Ainda não definido") e dicas em `--color-texto-3` (5.9:1); valor preenchido em `--color-texto`; o legend dos opcionais e o texto do checkbox de autorização em `--color-texto-2` (7.9:1), porque são observação/frase, não rótulo.
 
-Todos obrigatórios, menos o local (sem `required`, placeholder "Ex.: Clube Comercial Encantado") e a gastronomia. Placeholders: cidade "Ex.: Encantado", convidados "Número aproximado" (a dica de baixo fica vazia, só para o erro). No `utils/campos.js`, campo sem `required` e vazio é válido; preenchido segue as regras normais. O {local} vem dos atributos do input: preenchido, `data-frase` ("Local: {valor}."); vazio, `data-frase-vazia` ("O local ainda não está definido.").
-- **Formato da gastronomia** (`select name="gastronomia"`, sem `required`): 1ª opção `value=""` "Ainda não definido", `selected` e **não** `disabled` (dá para voltar a ela); Buffet · Volantes · Ilhas gastronômicas · Outro, com `data-frase` "buffet" / "volantes" / "ilhas gastronômicas" / "outro formato". O select tem `data-frase="Gastronomia: {valor}."` (o {valor} vem da `data-frase` da opção) e não tem `data-frase-vazia`: "Ainda não definido" vira "" e a frase some. O `montarMensagem` colapsa os espaços duplos que sobram. Vazio, fica em `--color-texto-3` como placeholder (`select:not([required]):has(option[value=""]:checked)`; os obrigatórios continuam com `:invalid`).
+Todos obrigatórios, menos o local (sem `required`, placeholder "Ex.: Clube Comercial Encantado"), a gastronomia e a empresa. Placeholders: cidade "Ex.: Encantado", convidados "Número aproximado" (a dica de baixo fica vazia, só para o erro). No `utils/campos.js`, campo sem `required` e vazio é válido; preenchido segue as regras normais. O JS valida todos os `input, select` do form.
+- **Formato da gastronomia** (`select name="gastronomia"`, sem `required`): 1ª opção `value=""` "Ainda não definido", `selected` e **não** `disabled` (dá para voltar a ela); Buffet · Volantes · Ilhas gastronômicas · Outro. Vazio, fica em `--color-texto-3` como placeholder (`select:not([required]):has(option[value=""]:checked)`; os obrigatórios continuam com `:invalid`).
+- **Empresa** (`.contato-campo-empresa`, `input name="empresa"`, `autocomplete="organization"`, placeholder "Ex.: Rafael Fachini Decorações", dica "Opcional"): logo depois do nome, com `hidden` no HTML. O JS mostra só quando a opção do tipo tem `data-empresa` (o Corporativo); `.contato-campo[hidden] { display: none; }` porque o `display: flex` anularia o `hidden`. Escondida, não entra na mensagem mesmo se foi preenchida antes.
 
-Cada campo tem `data-mensagem="{marcador}"`. As `<option>` do tipo também têm `data-mensagem` (a frase do tipo), por isso o JS pega os campos com `[data-mensagem]:not(option)`.
+**Nome por tipo** (atributos da `<option>`; o JS só lê): `data-rotulo-nome`, `data-exemplo-nome` (placeholder) e `data-erro-nome`. A opção "Escolha" traz o padrão (rótulo "Nome", sem placeholder, erro "Informe o nome."). No `change` do tipo (e na carga), o JS troca o `<label>`, o placeholder, o `data-erro` da dica e mostra/esconde a empresa; se o nome já está em erro, troca o texto na hora.
 
-| servico | data-frase |
-|---|---|
-| Organização do evento | na organização do evento |
-| Decoração | na decoração |
-| Organização e decoração | na organização e na decoração |
+**Mensagem do WhatsApp** (`lerDados` + `montarMensagem` em `contato.js`; textos no HTML, estrutura no JS):
 
-**Nome e mensagem por tipo** (tudo nos atributos da `<option>`; o JS só lê): `data-rotulo-nome`, `data-exemplo-nome` (placeholder), `data-erro-nome` e `data-mensagem`. A opção "Escolha" traz o padrão (rótulo "Nome", sem placeholder, erro "Informe o nome."). No `change` do tipo (e na carga), o JS troca o `<label>`, o placeholder e o `data-erro` da dica; se o nome já está em erro, troca o texto na hora.
+```
+Olá, Rafael! {abertura}
+{apresentação}
 
-| tipo | rótulo · exemplo · erro | data-mensagem |
-|---|---|---|
-| Casamento | Nome dos noivos · Ex.: Ana e Pedro · Informe o nome dos noivos. | Olá, Rafael! Somos {nome} e vamos nos casar em {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Temos interesse {servico}. Podemos conversar? |
-| Aniversário | Nome do aniversariante · Ex.: Marcos · Informe o nome do aniversariante. | Olá, Rafael! Estou planejando o aniversário de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
-| Formatura | Formando ou turma · Ex.: Medicina 2026 · Informe o formando ou a turma. | Olá, Rafael! Estou planejando a formatura de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
-| Infantil | Nome da criança · Ex.: Cecília · Informe o nome da criança. | Olá, Rafael! Estou planejando a festa infantil de {nome} para {data}, com cerca de {convidados} convidados em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar? |
-| Corporativo | Nome da empresa · Ex.: Rafael Fachini Decorações · Informe o nome da empresa. | Olá, Rafael! Sou da {nome} e estamos planejando um evento corporativo para {data}, com cerca de {convidados} pessoas em {cidade}. {local} {gastronomia} Temos interesse {servico}. Podemos conversar? |
+• *Data:* Sexta-feira, 30/10/2026
+• *Convidados:* Cerca de 100
+• *Cidade:* Lajeado
+• *Local:* CTC
+• *Gastronomia:* Volantes
+• *Interesse:* Organização e decoração
 
-`data-mensagem` do `<form>` (reserva, se a opção não tiver frase): "Olá, Rafael! Sou {nome} e estou planejando um evento para {data}, com cerca de {convidados} pessoas em {cidade}. {local} {gastronomia} Tenho interesse {servico}. Podemos conversar?" O "na" vem da `data-frase` do serviço ("Tenho interesse na decoração."); {data} vira "sábado, 05/12/2026".
+{despedida}
+{agradecimento}
+```
+
+- `<form>`: `data-saudacao` ("Olá, Rafael!"), `data-apresentacao` / `data-apresentacao-plural` ("Deixo aqui algumas informações sobre o meu evento:" / "Deixamos aqui algumas informações sobre o nosso evento:"), `data-despedida` / `data-despedida-plural` ("Fico no aguardo para conversarmos e alinharmos as ideias." / "Ficamos no aguardo para conversarmos e alinharmos as ideias."), `data-agradecimento` / `data-agradecimento-plural` ("Desde já, agradeço!" / "Desde já, agradecemos!", em linha própria) e `data-linhas` (os `name` na ordem das linhas: `data convidados cidade local gastronomia servico`).
+- Cada campo de linha tem `data-rotulo-mensagem` (Data, Convidados, Cidade, Local, Gastronomia, Interesse). Valor: o `value` (no select, o da opção); com `data-frase`, o {valor} entra nela (convidados "Cerca de {valor}"); a data vira "sexta-feira, 30/10/2026" (`` new Date(`${iso}T12:00:00`) ``: meio-dia, nenhum fuso muda o dia). Campo vazio não gera linha. Só a 1ª letra do valor vira maiúscula; o resto fica como foi digitado ("CTC").
+- Rótulos em `*negrito*` (formatação do WhatsApp), linhas com `\n`, link `https://wa.me/${data-whatsapp}?text=${encodeURIComponent(...)}`. Sem emojis.
+- Abertura (`data-abertura` da opção; `data-plural` escolhe as versões -plural da apresentação, da despedida e do agradecimento):
+
+| tipo | rótulo · exemplo · erro do nome | data-abertura | plural |
+|---|---|---|---|
+| Casamento | Nome dos noivos · Ex.: Ana e Pedro · Informe o nome dos noivos. | Somos {nome} e vamos nos casar! | sim |
+| Aniversário | Nome do aniversariante · Ex.: Marcos · Informe o nome do aniversariante. | Estou planejando o aniversário de {nome}. | não |
+| Formatura | Formando ou turma · Ex.: Medicina 2026 · Informe o formando ou a turma. | Estou planejando a formatura de {nome}. | não |
+| Infantil | Nome da criança · Ex.: Cecília · Informe o nome da criança. | Estou planejando a festa infantil de {nome}. | não |
+| Corporativo | Seu nome · Ex.: Marina · Informe o seu nome. | Sou {nome}{empresa} e estamos planejando um evento corporativo. | sim |
+
+  O {empresa} vem da `data-frase` do input (", da {valor},"): "Sou Marina, da Acme, e estamos…"; vazia ou escondida, "" ("Sou Marina e estamos…"). A empresa não vira linha (já está na abertura).
 
 ### Depoimentos
 - Categorias (select, `schema.sql` e `_comum.js` idênticos): Casamento, Aniversário, Formatura, Infantil, Corporativo, Outro.

@@ -54,6 +54,9 @@
   min-width: 0;
 }
 
+/* EMPRESA FORA DO CORPORATIVO: O DISPLAY FLEX ANULARIA O HIDDEN */
+.contato-campo[hidden] { display: none; }
+
 /* LEGEND: CAMPO EM GRUPO (A NOTA DOS DEPOIMENTOS) COM O MESMO RÓTULO */
 .contato-campo label,
 .contato-campo > legend {
@@ -222,6 +225,7 @@
   .contato-opcionais { gap: 24px; }
 
   .contato-campo-nome,
+  .contato-campo-empresa,
   .contato-campo-cidade { grid-column: 1 / -1; }
 
   .contato-enviar { width: auto; }

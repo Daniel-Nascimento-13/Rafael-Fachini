@@ -17,20 +17,20 @@ export function iniciarContato(secao) {
 
 /* === FORMULÁRIO === */
 function iniciarFormulario(formulario) {
-  /* AS OPÇÕES DO TIPO TAMBÉM TÊM DATA-MENSAGEM (A FRASE DE CADA TIPO); CAMPO É SÓ INPUT/SELECT */
-  const campos = [...formulario.querySelectorAll('[data-mensagem]:not(option)')];
-  const tipo = formulario.querySelector('select[name="tipo"]');
-  const nome = formulario.querySelector('input[name="nome"]');
+  const campos = [...formulario.querySelectorAll('input, select')];
+  const tipo = formulario.elements.tipo;
+  const nome = formulario.elements.nome;
+  const empresa = formulario.elements.empresa;
 
-  const data = formulario.querySelector('input[type="date"]');
+  const data = formulario.elements.data;
   if (data) data.min = hojeIso();
 
   prepararCampos(campos);
 
   /* SEM TIPO, A OPÇÃO "ESCOLHA" TRAZ O RÓTULO PADRÃO; NA CARGA, VALE O TIPO QUE O NAVEGADOR RESTAUROU */
   if (tipo && nome) {
-    tipo.addEventListener('change', () => ajustarNome(tipo, nome));
-    ajustarNome(tipo, nome);
+    tipo.addEventListener('change', () => ajustarTipo(tipo, nome, empresa));
+    ajustarTipo(tipo, nome, empresa);
   }
 
   formulario.addEventListener('submit', (evento) => {
@@ -38,7 +38,7 @@ function iniciarFormulario(formulario) {
 
     if (!validarCampos(campos)) return;
 
-    const mensagem = montarMensagem(tipo?.selectedOptions[0]?.dataset.mensagem ?? formulario.dataset.mensagem, campos);
+    const mensagem = montarMensagem(lerDados(formulario));
     window.open(`https://wa.me/${formulario.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   });
 }
@@ -49,8 +49,8 @@ function hojeIso() {
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()].map((n) => String(n).padStart(2, '0')).join('-');
 }
 
-/* === NOME POR TIPO DE EVENTO (RÓTULO, EXEMPLO E ERRO VÊM DA OPÇÃO ESCOLHIDA) === */
-function ajustarNome(tipo, nome) {
+/* === CAMPOS POR TIPO DE EVENTO (RÓTULO, EXEMPLO E ERRO DO NOME E A EMPRESA VÊM DA OPÇÃO ESCOLHIDA) === */
+function ajustarTipo(tipo, nome, empresa) {
   const opcao = tipo.selectedOptions[0];
   const ajuda = document.getElementById(nome.getAttribute('aria-describedby'));
 
@@ -60,30 +60,49 @@ function ajustarNome(tipo, nome) {
 
   /* JÁ EM ERRO: O TEXTO TROCA NA HORA (O ARIA-LIVE ANUNCIA) */
   if (nome.getAttribute('aria-invalid') === 'true') ajuda.querySelector('.contato-ajuda-texto').textContent = ajuda.dataset.erro;
+
+  if (empresa) empresa.closest('.contato-campo').hidden = !('empresa' in opcao.dataset);
 }
 
-/* === MENSAGEM === */
-/* FRASE DO TIPO ESCOLHIDO (O DATA-MENSAGEM DO FORM É A RESERVA); CADA CAMPO TROCA O SEU {MARCADOR} */
-/* OPCIONAL SEM FRASE VIRA "": COLAPSA O ESPAÇO DUPLO QUE SOBRA */
-function montarMensagem(modelo, campos) {
-  return campos
-    .reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), modelo)
-    .replace(/\s{2,}/g, ' ')
-    .trim();
+/* === MENSAGEM WHATSAPP === */
+/* TEXTOS NO HTML: ABERTURA NA OPÇÃO DO TIPO, O RESTO NO FORM (DATA-PLURAL NA OPÇÃO ESCOLHE AS VERSÕES -PLURAL) */
+function lerDados(formulario) {
+  const textos = formulario.dataset;
+  const opcao = formulario.elements.tipo.selectedOptions[0];
+  const plural = 'plural' in opcao.dataset;
+  const empresa = formulario.elements.empresa;
+
+  /* EMPRESA ESCONDIDA (OUTRO TIPO) NÃO ENTRA, MESMO SE FOI PREENCHIDA ANTES */
+  const fraseEmpresa = empresa && !empresa.closest('[hidden]') ? formatar(empresa) : '';
+
+  return {
+    saudacao: textos.saudacao,
+    abertura: opcao.dataset.abertura.replace('{nome}', formulario.elements.nome.value.trim()).replace('{empresa}', fraseEmpresa),
+    apresentacao: plural ? textos.apresentacaoPlural : textos.apresentacao,
+    linhas: textos.linhas.split(' ').map((nome) => {
+      const campo = formulario.elements[nome];
+      return { rotulo: campo.dataset.rotuloMensagem, valor: formatar(campo) };
+    }),
+    despedida: plural ? textos.despedidaPlural : textos.despedida,
+    agradecimento: plural ? textos.agradecimentoPlural : textos.agradecimento,
+  };
 }
 
-/* DATA → "SÁBADO, 05/12/2026" EM MINÚSCULAS (FUSO LOCAL); SELECT → DATA-FRASE DA OPÇÃO */
-/* CAMPO OPCIONAL → DATA-FRASE DO CAMPO COM O {VALOR} (NO SELECT, A DATA-FRASE DA OPÇÃO) OU, VAZIO, A DATA-FRASE-VAZIA (SEM ELA, "") */
+/* CAMPO VAZIO NÃO GERA LINHA; RÓTULO EM *NEGRITO* (WHATSAPP) */
+function montarMensagem({ saudacao, abertura, apresentacao, linhas, despedida, agradecimento }) {
+  const itens = linhas.filter(({ valor }) => valor).map(({ rotulo, valor }) => `• *${rotulo}:* ${maiuscula(valor)}`);
+  return [`${saudacao} ${abertura}`, apresentacao, '', ...itens, '', despedida, agradecimento].join('\n');
+}
+
+/* SÓ A PRIMEIRA LETRA: O RESTO FICA COMO FOI DIGITADO ("CTC") */
+const maiuscula = (texto) => texto.charAt(0).toLocaleUpperCase('pt-BR') + texto.slice(1);
+
+/* DATA → "SEXTA-FEIRA, 30/10/2026" (MEIO-DIA: NENHUM FUSO MUDA O DIA); COM DATA-FRASE, O {VALOR} ENTRA NELA; VAZIO → "" */
 const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
 
 function formatar(campo) {
   const valor = campo.value.trim();
-  const texto = campo.tagName === 'SELECT' ? campo.selectedOptions[0].dataset.frase ?? valor : valor;
-  if (campo.dataset.frase) return valor ? campo.dataset.frase.replace('{valor}', texto) : campo.dataset.fraseVazia ?? '';
-  if (campo.tagName === 'SELECT') return texto;
-  if (campo.type !== 'date') return valor;
-
-  const [ano, mes, dia] = valor.split('-').map(Number);
-  const semana = DIA_DA_SEMANA.format(new Date(ano, mes - 1, dia)).toLocaleLowerCase('pt-BR');
-  return `${semana}, ${valor.split('-').reverse().join('/')}`;
+  if (!valor) return '';
+  if (campo.type === 'date') return `${DIA_DA_SEMANA.format(new Date(`${valor}T12:00:00`))}, ${valor.split('-').reverse().join('/')}`;
+  return campo.dataset.frase ? campo.dataset.frase.replace('{valor}', valor) : valor;
 }
